@@ -1,10 +1,10 @@
 {
-  "name": "electron-quick-start",
+  "name": "wakatime-desktop",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
-  "main": "main.js",
+  "description": "WakaTime desktop program.",
+  "main": "src/js/main.js",
   "scripts": {
-    "start": "electron main.js"
+    "start": "electron src/js/main.js"
   },
   "repository": {
     "type": "git",

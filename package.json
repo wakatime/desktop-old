@@ -10,7 +10,7 @@
     "start": "electron out/app.js",
     "build": "npm run build:clean && npm run build:production",
     "build:clean": "rimraf dist",
-    "build:production": "NODE_ENV=production webpack --config config/webpack.config.js"
+    "build:production": "NODE_ENV=production webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",

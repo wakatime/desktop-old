@@ -8,4 +8,4 @@
     npm run build
     npm start
 
-#### License [BSD 3-Clause](LICENSE)
+#### License [BSD-3-Clause](LICENSE)

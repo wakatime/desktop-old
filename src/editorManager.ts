@@ -1,6 +1,6 @@
 import Atom from './editors/atom'
-import SublimeText2 from './editors/sublime-text2'
-import SublimeText3 from './editors/sublime-text3'
+import SublimeText2 from './editors/sublimeText2'
+import SublimeText3 from './editors/sublimeText3'
 import Vim from './editors/vim'
 
 

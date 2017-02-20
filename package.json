@@ -8,7 +8,9 @@
   "main": "out/app.js",
   "scripts": {
     "start": "electron out/app.js",
-    "build": "tsc"
+    "build": "npm run build:clean && npm run build:production",
+    "build:clean": "rimraf dist",
+    "build:production": "NODE_ENV=production webpack --config config/webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +31,9 @@
     "@types/node": "^7.0.5",
     "@types/react": "^15.0.9",
     "async-file": "^2.0.2",
-    "react": "^15.4.2"
+    "react": "^15.4.2",
+    "rimraf": "^2.6.0",
+    "ts-loader": "^2.0.0",
+    "webpack": "^2.2.1"
   }
 }

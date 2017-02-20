@@ -1,17 +1,19 @@
-const electron = require('electron');
+import * as electron from 'electron'
 // Module to control application life.
 const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 
-const {Menu, Tray} = require('electron');
+import {Menu, Tray} from 'electron'
+
+import EditorManager from './editorManager'
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 let appIcon;
 
-function createWindow () {
+function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 800, height: 600});
 

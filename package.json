@@ -1,28 +1,34 @@
 {
   "name": "wakatime-desktop",
   "version": "1.0.0",
-  "description": "WakaTime desktop program.",
-  "main": "src/js/main.js",
+  "description": "The WakaTime desktop app.",
+  "main": "out/app.js",
   "scripts": {
-    "start": "electron src/js/main.js"
+    "start": "electron out/app.js",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron/electron-quick-start.git"
+    "url": "git+https://github.com/wakatime/wakatime-desktop.git"
   },
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial"
+    "quantified self",
+    "time tracking"
   ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "author": "WakaTime",
+  "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/electron/electron-quick-start/issues"
+    "url": "https://github.com/wakatime/wakatime-desktop/issues"
   },
-  "homepage": "https://github.com/electron/electron-quick-start#readme",
+  "homepage": "https://github.com/wakatime/wakatime-desktop",
   "devDependencies": {
-    "electron-prebuilt": "^1.1.1"
+    "electron": "^1.4.15",
+    "typescript": "^2.1.6"
+  },
+  "dependencies": {
+    "@types/node": "^7.0.5",
+    "@types/react": "^15.0.9",
+    "async-file": "^2.0.2",
+    "react": "^15.4.2"
   }
 }

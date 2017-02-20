@@ -1,12 +1,11 @@
 # WakaTime Desktop Application
 
-## To Use
+## Installation
 
-Clone this repo and run:
-
-  npm install -g yarn
-  yarn install
-  npm run build
-  npm start
+    git clone https://github.com/wakatime/desktop.git
+    npm install -g yarn
+    yarn install
+    npm run build
+    npm start
 
 #### License [BSD 3-Clause](LICENSE)

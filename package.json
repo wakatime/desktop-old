@@ -1,6 +1,9 @@
 {
   "name": "wakatime-desktop",
   "version": "0.0.1",
+  "author": "WakaTime",
+  "license": "BSD-3-Clause",
+  "homepage": "https://github.com/wakatime/wakatime-desktop",
   "description": "The WakaTime desktop app.",
   "main": "out/app.js",
   "scripts": {
@@ -11,16 +14,13 @@
     "type": "git",
     "url": "git+https://github.com/wakatime/wakatime-desktop.git"
   },
+  "bugs": {
+    "url": "https://github.com/wakatime/wakatime-desktop/issues"
+  },
   "keywords": [
     "quantified self",
     "time tracking"
   ],
-  "author": "WakaTime",
-  "license": "BSD-3-Clause",
-  "bugs": {
-    "url": "https://github.com/wakatime/wakatime-desktop/issues"
-  },
-  "homepage": "https://github.com/wakatime/wakatime-desktop",
   "devDependencies": {
     "electron": "^1.4.15",
     "typescript": "^2.1.6"

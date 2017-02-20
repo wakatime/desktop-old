@@ -23,9 +23,9 @@ if(isProduction){
 
 }
 module.exports = {
-    entry: path.resolve(__dirname, '../src/containers/index.ts'),
+    entry: path.resolve(__dirname, './src/containers/index.ts'),
     output: {
-        path: path.resolve(__dirname, '../dist'),
+        path: path.resolve(__dirname, './dist'),
         filename: '[name].js'
     },
     resolve: {

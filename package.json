@@ -41,7 +41,6 @@
     "electron": "^5.0.0",
     "mocha": "^6.1.4",
     "sinon": "^7.3.2",
-    "ts-mock-imports": "^1.2.3",
     "ts-node": "^8.1.0",
     "typescript": "^3.4.5"
   },

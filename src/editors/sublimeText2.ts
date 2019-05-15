@@ -25,8 +25,7 @@ export default class SublimeText2 implements Editor {
     }
 
     public async isPluginInstalled(): Promise<boolean> {
-        let pluginDir = path.join(this.pluginsDirectory(), 'WakaTime');
-        let stats = await fs.stat(pluginDir);
+        let stats = await fs.stat(this.pluginsDirectory());
         return new Promise<boolean>(resolve => {
             resolve(stats.isDirectory());
         });
@@ -67,7 +66,7 @@ export default class SublimeText2 implements Editor {
                 else
                     return ''
             case 'darwin':
-                return path.join(os.homedir(), 'Library/Application Support/Sublime Text 2/Packages');
+                return path.join(os.homedir(), 'Library/Application Support/Sublime Text 2/Packages/WakaTime');
             case 'linux':
                 return ''
             default:

@@ -19,28 +19,20 @@ export default class SublimeText2 implements Editor {
 
     public async isEditorInstalled(): Promise<boolean> {
         let stats = await fs.stat(this.appDirectory());
-        return new Promise<boolean>((resolve) => {
-            resolve(stats.isDirectory());
-        });
+        return Promise.resolve(stats.isDirectory());
     }
 
     public async isPluginInstalled(): Promise<boolean> {
         let stats = await fs.stat(this.pluginsDirectory());
-        return new Promise<boolean>(resolve => {
-            resolve(stats.isDirectory());
-        });
+        return Promise.resolve(stats.isDirectory());
     }
 
     public async installPlugin(): Promise<void> {
-        return new Promise<void>(resolve => {
-            resolve();
-        });
+        return Promise.reject('method not implemented');
     }
 
     public async uninstallPlugin(): Promise<void> {
-        return new Promise<void>(resolve => {
-            resolve();
-        });
+        return Promise.reject('method not implemented');
     }
 
     private appDirectory(): string {

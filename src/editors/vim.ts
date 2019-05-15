@@ -28,21 +28,15 @@ export default class Vim implements Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return new Promise<boolean>(resolve => {
-      resolve(false);
-    });
+    return Promise.reject('method not implemented');
   }
 
   public async installPlugin(): Promise<void> {
-    return new Promise<void>(resolve => {
-      resolve();
-    });
+    return Promise.reject('method not implemented');
   }
 
   public async uninstallPlugin(): Promise<void> {
-    return new Promise<void>(resolve => {
-      resolve();
-    });
+    return Promise.reject('method not implemented');
   }
 
   private _editorFolder(): string {

@@ -15,9 +15,13 @@ describe('Sublime Text 3', () => {
     });
     afterEach(() => {
     });
-    it('should return the correct editor name', () => {
+    it('should return the correct binary name', () => {
         const result = sublimeText3.name;
         expect(result).to.equal('subl');
+    });
+    it('should return the correct editor name', () => {
+        const result = sublimeText3.displayName;
+        expect(result).to.equal('Sublime Text 3');
     });
     it('should return TRUE if editor is installed', async () => {
         sinon.stub(sublimeText3, 'isEditorInstalled').returns(Promise.resolve(true));

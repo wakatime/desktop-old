@@ -16,9 +16,13 @@ describe('Vim', () => {
     });
     afterEach(() => {
     });
-    it('should return the correct editor name', () => {
+    it('should return the correct binary name', () => {
         const result = vim.name;
         expect(result).to.equal('vim');
+    });
+    it('should return the correct editor name', () => {
+        const result = vim.displayName;
+        expect(result).to.equal('Vim');
     });
     it('should return TRUE if editor is installed', async () => {
         sinon.stub(vim, 'isEditorInstalled').returns(Promise.resolve(true));

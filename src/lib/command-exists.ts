@@ -2,7 +2,7 @@ import { exec } from 'child_process';
 var path = require('path');
 var fs = require('fs');
 
-class CommandExists {
+export class CommandExists {
     private isWindows = process.platform == 'win32';
     private access = fs.access;
     private constants = fs.constants || fs;
@@ -92,5 +92,3 @@ class CommandExists {
         }
     }
 }
-
-export default CommandExists;

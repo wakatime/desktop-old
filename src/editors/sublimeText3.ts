@@ -18,13 +18,11 @@ export default class SublimeText3 implements Editor {
     }
 
     public async isEditorInstalled(): Promise<boolean> {
-        let stats = await fs.stat(this.appDirectory());
-        return Promise.resolve(stats.isDirectory());
+        return await this.isDirectory(this.appDirectory());
     }
 
     public async isPluginInstalled(): Promise<boolean> {
-        let stats = await fs.stat(this.pluginsDirectory());
-        return Promise.resolve(stats.isDirectory());
+        return await this.isDirectory(this.pluginsDirectory());
     }
 
     public async installPlugin(): Promise<void> {
@@ -33,6 +31,11 @@ export default class SublimeText3 implements Editor {
 
     public async uninstallPlugin(): Promise<void> {
         return Promise.reject('method not implemented');
+    }
+
+    public async isDirectory(directory: string): Promise<boolean> {
+        let stats = await fs.stat(directory);
+        return stats.isDirectory();
     }
 
     private appDirectory(): string {

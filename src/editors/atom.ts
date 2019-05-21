@@ -33,7 +33,7 @@ export default class Atom implements Editor {
     }
 
     public async isPluginInstalled(): Promise<boolean> {
-        if (await this.isDirectory(this.pluginsDirectory()))
+        if (await this.isDirectory(path.join(this.pluginsDirectory(), 'wakatime')))
             return true;
 
         try {
@@ -66,7 +66,7 @@ export default class Atom implements Editor {
                 else
                     return ''
             case 'darwin':
-                return path.join(os.homedir(), '.atom/packages/wakatime');
+                return path.join(os.homedir(), '.atom/packages');
             case 'linux':
                 return ''
             default:

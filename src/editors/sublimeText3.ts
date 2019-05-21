@@ -22,7 +22,7 @@ export default class SublimeText3 implements Editor {
     }
 
     public async isPluginInstalled(): Promise<boolean> {
-        return await this.isDirectory(this.pluginsDirectory());
+        return await this.isDirectory(path.join(this.pluginsDirectory(), 'WakaTime'));
     }
 
     public async installPlugin(): Promise<void> {
@@ -42,14 +42,12 @@ export default class SublimeText3 implements Editor {
         var dir: string;
         switch (os.platform()) {
             case 'win32':
-                break;
+                return '';
             case 'darwin':
-                dir = '/Applications/Sublime Text.app/Contents'
-                break;
+                return '/Applications/Sublime Text.app/Contents';
             default:
-                dir = null;
+                return null;
         }
-        return dir;
     }
 
     private pluginsDirectory(): string {
@@ -61,7 +59,7 @@ export default class SublimeText3 implements Editor {
                 else
                     return ''
             case 'darwin':
-                return path.join(os.homedir(), 'Library/Application Support/Sublime Text 3/Packages/WakaTime');
+                return path.join(os.homedir(), 'Library/Application Support/Sublime Text 3/Packages');
             case 'linux':
                 return ''
             default:

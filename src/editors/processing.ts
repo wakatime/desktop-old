@@ -102,6 +102,7 @@ export default class Processing implements Editor {
                         });
                     }
                 }
+                break;
             default:
                 break;
         }

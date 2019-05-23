@@ -49,6 +49,7 @@
     "async-file": "^2.0.2",
     "electron": "^5.0.8",
     "foreman": "^3.0.1",
+    "plist": "^3.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",

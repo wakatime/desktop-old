@@ -12,18 +12,15 @@ describe('Visual Studio Code', () => {
     let vscode: VsCode;
     let listExtensionsStub: any;
     let isDirectoryStub: any;
-    // let apmStub: any;
 
     beforeEach(() => {
         vscode = new VsCode();
         listExtensionsStub = sinon.stub(vscode, 'listExtensions');
         isDirectoryStub = sinon.stub(vscode, 'isDirectory');
-        // apmStub = sinon.stub(atom, 'apm');
     });
     afterEach(() => {
         listExtensionsStub.restore();
         isDirectoryStub.restore();
-        // apmStub.restore();
     });
     it('should return the correct binary name', () => {
         const result = vscode.name;

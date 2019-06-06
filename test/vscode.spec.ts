@@ -16,7 +16,7 @@ describe('Visual Studio Code', () => {
     beforeEach(() => {
         vscode = new VsCode();
         listExtensionsStub = sinon.stub(vscode, 'listExtensions');
-        isDirectoryStub = sinon.stub(vscode, 'isDirectory');
+        isDirectoryStub = sinon.stub(vscode, 'isDirectory');        
     });
     afterEach(() => {
         listExtensionsStub.restore();

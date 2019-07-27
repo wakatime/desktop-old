@@ -1,14 +1,15 @@
-import Editor from './editor'
+import Editor from './editor';
 
+import * as fs from 'async-file';
+import * as os from 'os';
 
 export default class Vim implements Editor {
-
-  public get name():string {
-    return 'Vim'
+  public get name(): string {
+    return 'Vim';
   }
 
   public get icon(): string {
-    return ''
+    return '';
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -42,7 +43,7 @@ export default class Vim implements Editor {
       case 'win32':
         break;
       case 'darwin':
-        dir = '/Applications/Sublime Text 2.app/Contents'
+        dir = '/Applications/Sublime Text 2.app/Contents';
         break;
       default:
         dir = null;

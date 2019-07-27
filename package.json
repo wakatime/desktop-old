@@ -39,6 +39,7 @@
     "@types/node": "^12.6.8",
     "@types/react": "^16.8.23",
     "async-file": "^2.0.2",
+    "eslint": "^6.1.0",
     "foreman": "^3.0.1",
     "react": "^16.8.6",
     "rimraf": "^2.6.0",

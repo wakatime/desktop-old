@@ -8,8 +8,8 @@ A universal installer for all WakaTime [plugins][plugins].
     git clone https://github.com/wakatime/desktop.git
     npm install -g yarn
     yarn install
-    npm run build
-    npm start
+    yarn run build
+    yarn start
 
 
 #### License [BSD-3-Clause](LICENSE)

@@ -2,13 +2,16 @@
  * Created by v0n000p on 2/19/17.
  */
 
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
-const path = require('path');
-const webpack = require('webpack');
-const isProduction = process.env.NODE_ENV === 'production';
+const path = require("path");
+// eslint-disable-next-line no-unused-vars
+const webpack = require("webpack");
 
-console.log('isProduction', isProduction);
+const isProduction = process.env.NODE_ENV === "production";
+
+// eslint-disable-next-line no-console
+console.log("isProduction", isProduction);
 
 const plugins = [];
 const optimization = {};
@@ -18,14 +21,14 @@ if (isProduction) {
 }
 
 module.exports = {
-  entry: path.resolve(__dirname, './src/containers/index.ts'),
+  entry: path.resolve(__dirname, "./src/containers/index.ts"),
   output: {
-    path: path.resolve(__dirname, './dist'),
-    filename: '[name].js',
+    path: path.resolve(__dirname, "./dist"),
+    filename: "[name].js"
   },
   resolve: {
     // Add `.ts` and `.tsx` as a resolvable extension.
-    extensions: ['.ts', '.tsx', '.js'], // note if using webpack 1 you'd also need a '' in the array as well
+    extensions: [".ts", ".tsx", ".js"] // note if using webpack 1 you'd also need a '' in the array as well
   },
   module: {
     rules: [
@@ -34,12 +37,12 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'ts-loader',
-          },
-        ],
-      },
-    ],
+            loader: "ts-loader"
+          }
+        ]
+      }
+    ]
   },
-  optimization: optimization,
-  plugins: plugins,
+  optimization,
+  plugins
 };

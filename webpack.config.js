@@ -12,7 +12,6 @@ console.log('isProduction', isProduction);
 
 const plugins = [];
 const optimization = {};
-const rules = [{ test: /\.tsx?$/, loader: 'ts-loader' }];
 
 if (isProduction) {
   optimization.minimizer = [new UglifyJsPlugin()];
@@ -29,7 +28,17 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js'], // note if using webpack 1 you'd also need a '' in the array as well
   },
   module: {
-    rules: rules,
+    rules: [
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'ts-loader',
+          },
+        ],
+      },
+    ],
   },
   optimization: optimization,
   plugins: plugins,

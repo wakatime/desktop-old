@@ -1,14 +1,12 @@
-import Editor from './editor'
-
+import Editor from './editor';
 
 export default class Atom implements Editor {
-
-  public get name():string {
-    return 'Atom'
+  public get name(): string {
+    return 'Atom';
   }
 
   public get icon(): string {
-    return ''
+    return '';
   }
 
   public async isEditorInstalled(): Promise<boolean> {

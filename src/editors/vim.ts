@@ -12,8 +12,9 @@ export default class Vim implements Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
+    let stats = await fs.stat(this._editorFolder());
     return new Promise<boolean>(resolve => {
-      resolve(false);
+      resolve(stats.isDirectory());
     });
   }
 
@@ -33,5 +34,19 @@ export default class Vim implements Editor {
     return new Promise<void>(resolve => {
       resolve();
     });
+  }
+
+  private _editorFolder(): string {
+    let dir;
+    switch (os.platform()) {
+      case 'win32':
+        break;
+      case 'darwin':
+        dir = '/Applications/Sublime Text 2.app/Contents'
+        break;
+      default:
+        dir = null;
+    }
+    return dir;
   }
 }

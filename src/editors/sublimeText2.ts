@@ -16,14 +16,14 @@ export default class SublimeText2 implements Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    let stats = await fs.stat(this._appDirectory());
+    let stats = await fs.stat(this._editorFolder());
     return new Promise<boolean>(resolve => {
       resolve(stats.isDirectory());
     });
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    let pluginDir = path.join(this._pluginsDirectory(), 'WakaTime');
+    let pluginDir = path.join(this._pluginFolder(), 'WakaTime');
     let stats = await fs.stat(pluginDir);
     return new Promise<boolean>(resolve => {
       resolve(stats.isDirectory());
@@ -42,8 +42,8 @@ export default class SublimeText2 implements Editor {
     });
   }
 
-  private _appDirectory(): string {
-    var dir;
+  private _editorFolder(): string {
+    let dir;
     switch (os.platform()) {
       case 'win32':
         break;
@@ -56,10 +56,10 @@ export default class SublimeText2 implements Editor {
     return dir;
   }
 
-  private _pluginsDirectory(): string {
+  private _pluginFolder(): string {
     switch (os.platform()) {
       case 'win32':
-        var is64bit = process.arch === 'x64' || process.env.hasOwnProperty('PROCESSOR_ARCHITEW6432');
+        let is64bit = process.arch === 'x64' || process.env.hasOwnProperty('PROCESSOR_ARCHITEW6432');
         if (is64bit)
           return ''
         else

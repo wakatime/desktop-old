@@ -8,8 +8,9 @@
   "main": "out/app.js",
   "scripts": {
     "start": "electron out/app.js",
-    "build": "npm run build:clean && npm run build:production",
+    "build": "npm run build:clean && npm run build:production && npm run build:tsc",
     "build:clean": "rimraf dist",
+    "build:tsc": "tsc",
     "build:production": "NODE_ENV=production webpack --config webpack.config.js",
     "upgrade": "yarn upgrade --latest"
   },

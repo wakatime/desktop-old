@@ -2,7 +2,7 @@ const path = require("path");
 
 module.exports = {
   devtool: "inline-cheap-source-map",
-  entry: path.resolve(__dirname, "./src/containers/index.ts"),
+  entry: path.resolve(__dirname, "./src/containers/index.tsx"),
   output: {
     path: path.resolve(__dirname, "./dist"),
     filename: "[name].js"
@@ -18,7 +18,10 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: "ts-loader"
+            loader: "ts-loader",
+            options: {
+              esModuleInterop: true
+            }
           }
         ]
       }

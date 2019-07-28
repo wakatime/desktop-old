@@ -6,7 +6,7 @@ import { createStore } from "redux";
 const reducer = () => "TODO";
 const store = createStore(reducer);
 const div = document.getElementById("container");
-console.log("div", div);
+
 ReactDom.render(
   <Provider store={store}>
     <div>Hello World</div>

@@ -17,7 +17,7 @@
     "build:dev": "webpack --mode development",
     "watch": "nf start",
     "watch:tsc": "tsc --watch",
-    "watch:webpack": "webpack --watch --config webpack.config.js",
+    "watch:webpack": "webpack --mode development --watch --config webpack.config.js",
     "upgrade": "yarn upgrade --latest"
   },
   "repository": {

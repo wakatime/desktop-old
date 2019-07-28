@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = {
-  devtool: "inline-cheap-source-map",
+  devtool: "source-map",
   entry: path.resolve(__dirname, "./src/containers/index.tsx"),
   output: {
     path: path.resolve(__dirname, "./dist"),
@@ -20,7 +20,7 @@ module.exports = {
           {
             loader: "ts-loader",
             options: {
-              esModuleInterop: true
+              configFile: "webpack.tsconfig.json"
             }
           }
         ]

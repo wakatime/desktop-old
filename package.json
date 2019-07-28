@@ -13,10 +13,11 @@
     "build": "npm run build:clean && npm run build:production && npm run build:tsc",
     "build:clean": "rimraf dist",
     "build:tsc": "tsc",
-    "build:production": "NODE_ENV=production webpack --config webpack.config.js",
+    "build:production": "webpack --mode production",
+    "build:dev": "webpack --mode development",
     "watch": "nf start",
     "watch:tsc": "tsc --watch",
-    "watch:webpack": "webpack --watch --config webpack.config.js",
+    "watch:webpack": "webpack --mode development --watch --config webpack.config.js",
     "upgrade": "yarn upgrade --latest"
   },
   "repository": {
@@ -31,6 +32,10 @@
     "time tracking"
   ],
   "devDependencies": {
+    "@types/node": "^12.6.8",
+    "@types/react": "^16.8.23",
+    "@types/react-redux": "^7.1.1",
+    "@types/redux": "^3.6.0",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
     "eslint": "^6.1.0",
@@ -43,6 +48,7 @@
     "eslint-plugin-react": "^7.14.3",
     "husky": "^3.0.1",
     "lint-staged": "^9.2.1",
+    "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
     "typescript": "^3.5.3",
     "typescript-eslint-parser": "^22.0.0",
@@ -50,12 +56,13 @@
     "webpack-cli": "^3.3.6"
   },
   "dependencies": {
-    "@types/node": "^12.6.8",
-    "@types/react": "^16.8.23",
     "async-file": "^2.0.2",
     "electron": "^5.0.8",
     "foreman": "^3.0.1",
     "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "redux": "^4.0.4",
     "rimraf": "^2.6.0",
     "ts-loader": "^6.0.4",
     "webpack": "^4.38.0",

@@ -1,19 +1,18 @@
-import Editor from './editor';
-
-import * as fs from 'async-file';
-import * as os from 'os';
+import * as fs from "async-file";
+import * as os from "os";
+import "./editor";
 
 export default class Vim implements Editor {
   public get name(): string {
-    return 'Vim';
+    return "Vim";
   }
 
   public get icon(): string {
-    return '';
+    return "";
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    let stats = await fs.stat(this._editorFolder());
+    const stats = await fs.stat(this._editorFolder());
     return new Promise<boolean>(resolve => {
       resolve(stats.isDirectory());
     });
@@ -40,10 +39,10 @@ export default class Vim implements Editor {
   private _editorFolder(): string {
     let dir;
     switch (os.platform()) {
-      case 'win32':
+      case "win32":
         break;
-      case 'darwin':
-        dir = '/Applications/Sublime Text 2.app/Contents';
+      case "darwin":
+        dir = "/Applications/Sublime Text 2.app/Contents";
         break;
       default:
         dir = null;

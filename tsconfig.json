@@ -3,7 +3,10 @@
     "module": "commonjs",
     "target": "ES5",
     "outDir": "out",
-    "lib": ["dom", "es7"],
+    "lib": [
+      "dom",
+      "es7"
+    ],
     "strictNullChecks": false,
     "removeComments": true,
     "preserveConstEnums": true,
@@ -11,6 +14,10 @@
   },
   "files": [
     "src/app.ts"
+  ],
+  "include": [
+    "src/**/*",
+    "typings/**/*"
   ],
   "exclude": [
     "node_modules"

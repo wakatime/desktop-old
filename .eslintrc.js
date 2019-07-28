@@ -1,4 +1,5 @@
 module.exports = {
+  parser: '@typescript-eslint/parser',
   env: {
     browser: true,
     es6: true,
@@ -21,7 +22,21 @@ module.exports = {
   },
   plugins: [
     'react',
+    '@typescript-eslint'
   ],
+  settings: {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    },
+  },
   rules: {
+    'class-methods-use-this': 0,
+    'no-underscore-dangle': 0,
+    'no-unused-vars': 1,
+    'import/no-unresolved': 1,
+    'no-prototype-builtins': 1,
+    'vars-on-top': 1
   },
 };

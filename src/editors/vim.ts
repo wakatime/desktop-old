@@ -19,7 +19,7 @@ export default class Vim implements Editor {
 
   public async isEditorInstalled(): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      this.commandExists.exists(this.name, null).then((exists) => {
+      this.commandExists.exists(this.name).then((exists) => {
         resolve(exists);
       }).catch((err) => {
         reject(err);

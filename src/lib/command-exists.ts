@@ -72,7 +72,7 @@ class CommandExists {
         )
     }
 
-    public exists(commandName: string, callback: any): Promise<boolean> {
+    public exists(commandName: string, callback: any = null): Promise<boolean> {
         try {
             var cleanedCommandName = this.cleanInput(commandName);
             if (!callback && typeof Promise !== 'undefined') {

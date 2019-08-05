@@ -8,3 +8,5 @@ declare interface Editor {
   installPlugin(): Promise<void>;
   uninstallPlugin(): Promise<void>;
 }
+
+export default Editor;

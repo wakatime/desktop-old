@@ -1,16 +1,15 @@
-import Editor from './editor'
-import { CommandExists } from '../lib/command-exists';
+import Editor from "./editor";
+import { CommandExists } from "../lib/command-exists";
 
 export default class Vim implements Editor {
-
   private commandExists = new CommandExists();
 
   public get name(): string {
-    return 'vim'
+    return "vim";
   }
 
   public get displayName(): string {
-    return 'Vim'
+    return "Vim";
   }
 
   public get icon(): string {
@@ -22,28 +21,14 @@ export default class Vim implements Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return Promise.reject('method not implemented');
+    throw new Error("Method not implemented.");
   }
 
   public async installPlugin(): Promise<void> {
-    return Promise.reject('method not implemented');
+    throw new Error("Method not implemented.");
   }
 
   public async uninstallPlugin(): Promise<void> {
-    return Promise.reject('method not implemented');
-  }
-
-  private _editorFolder(): string {
-    let dir;
-    switch (os.platform()) {
-      case "win32":
-        break;
-      case "darwin":
-        dir = "/Applications/Sublime Text 2.app/Contents";
-        break;
-      default:
-        dir = null;
-    }
-    return dir;
+    throw new Error("Method not implemented.");
   }
 }

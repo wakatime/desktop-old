@@ -1,0 +1,42 @@
+import SublimeText3 from "../src/editors/sublimeText3";
+var sinon = require('sinon');
+
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
+
+const { expect } = chai;
+chai.use(chaiAsPromised);
+
+describe('Sublime Text 3', () => {   
+    let sublimeText3: SublimeText3;
+    
+    beforeEach(() => {
+        sublimeText3 = new SublimeText3();
+    });
+    afterEach(() => {
+    });
+    it('should return the correct editor name', () => {
+        const result = sublimeText3.name;
+        expect(result).to.equal('subl');
+    });
+    it('should return TRUE if editor is installed', async () => {
+        sinon.stub(sublimeText3, 'isEditorInstalled').returns(Promise.resolve(true));
+        const result = await sublimeText3.isEditorInstalled();
+        expect(result).to.be.true;
+    });
+    it('should return TRUE if plugin is installed', async () => {
+        sinon.stub(sublimeText3, 'isPluginInstalled').returns(Promise.resolve(true));
+        const result = await sublimeText3.isPluginInstalled();
+        expect(result).to.be.true;
+    });
+    it('should return FALSE if editor is not installed', async () => {
+        sinon.stub(sublimeText3, 'isEditorInstalled').returns(Promise.resolve(false));
+        const result = await sublimeText3.isEditorInstalled();
+        expect(result).to.be.false;
+    });
+    it('should return FALSE if plugin is not installed', async () => {
+        sinon.stub(sublimeText3, 'isPluginInstalled').returns(Promise.resolve(false));
+        const result = await sublimeText3.isPluginInstalled();
+        expect(result).to.be.false;
+    });
+})

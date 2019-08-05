@@ -1,10 +1,16 @@
-import * as fs from "async-file";
-import * as os from "os";
-import "./editor";
+import Editor from './editor'
+import CommandExists from '../lib/command-exists';
 
 export default class Vim implements Editor {
+
+  private commandExists = new CommandExists();
+
   public get name(): string {
-    return "Vim";
+    return 'vim'
+  }
+
+  public get displayName(): string {
+    return 'Vim'
   }
 
   public get icon(): string {
@@ -12,9 +18,12 @@ export default class Vim implements Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    const stats = await fs.stat(this._editorFolder());
-    return new Promise<boolean>(resolve => {
-      resolve(stats.isDirectory());
+    return new Promise<boolean>((resolve, reject) => {
+      this.commandExists.exists(this.name, null).then((exists) => {
+        resolve(exists);
+      }).catch((err) => {
+        reject(err);
+      });
     });
   }
 

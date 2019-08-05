@@ -27,17 +27,17 @@ export default class SublimeText3 implements Editor {
     });
   }
 
-  public async installPlugin(): Promise<void> {
-    return new Promise<void>(resolve => {
-      resolve();
-    });
-  }
+//   public async installPlugin(): Promise<void> {
+//     return new Promise<void>(resolve => {
+//       resolve();
+//     });
+//   }
 
-  public async uninstallPlugin(): Promise<void> {
-    return new Promise<void>(resolve => {
-      resolve();
-    });
-  }
+//   public async uninstallPlugin(): Promise<void> {
+//     return new Promise<void>(resolve => {
+//       resolve();
+//     });
+//   }
 
   private _appDirectory(): string {
     let dir;

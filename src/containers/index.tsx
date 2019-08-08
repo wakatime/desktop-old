@@ -1,15 +1,13 @@
 import * as React from "react";
-import ReactDom from "react-dom";
-import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { render } from "react-dom";
+import imgPath from "../imgs/editor-icons/blender-128.png";
 
-const reducer = () => "TODO";
-const store = createStore(reducer);
 const div = document.getElementById("container");
 
-ReactDom.render(
-  <Provider store={store}>
-    <div>Hello World</div>
-  </Provider>,
+render(
+  <div>
+    Hello World
+    <img src={imgPath} alt="Test example of a png imported" />
+  </div>,
   div
 );

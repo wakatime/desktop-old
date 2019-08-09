@@ -1,5 +1,8 @@
 import * as electron from "electron";
 import { join } from "path";
+import installExtension, {
+  REACT_DEVELOPER_TOOLS
+} from "electron-devtools-installer";
 import EditorManager from "./editorManager";
 
 const isDev = process.env.DEV === "true";
@@ -26,6 +29,9 @@ function createWindow() {
     const loadWin = async () => {
       try {
         mainWindow.loadURL("http://localhost:8080");
+        installExtension(REACT_DEVELOPER_TOOLS)
+          .then(name => console.log(`Added Extension:  ${name}`))
+          .catch(err => console.log("An error occurred: ", err));
       } catch (e) {
         console.error("Unable to load page, waiting 500ms to retry...");
         setTimeout(loadWin, 500);

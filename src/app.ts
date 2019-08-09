@@ -21,6 +21,9 @@ function createWindow() {
   // and load the index.html of the app.
   console.log(`Starting in dev mode? ${isDev}`);
   if (isDev) {
+    BrowserWindow.addDevToolsExtension(
+      join(__dirname, "..", "extensions", "react-dev-tools")
+    );
     // Attempt to load window until successful
     // This is cause webpack is launching during this in dev mode
     const loadWin = async () => {

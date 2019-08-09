@@ -1,6 +1,8 @@
 import * as electron from "electron";
+import { join } from "path";
 import EditorManager from "./editorManager";
 
+const isDev = process.env.DEV === "true";
 const { Menu, Tray } = electron;
 // Module to control application life.
 const { app } = electron;
@@ -17,10 +19,29 @@ function createWindow() {
   mainWindow = new BrowserWindow({ width: 800, height: 600 });
 
   // and load the index.html of the app.
-  mainWindow.loadURL(`file://${__dirname}/../html/index.html`);
+  console.log(`Starting in dev mode? ${isDev}`);
+  if (isDev) {
+    // Attempt to load window until successful
+    // This is cause webpack is launching during this in dev mode
+    const loadWin = async () => {
+      try {
+        mainWindow.loadURL("http://localhost:8080");
+      } catch (e) {
+        console.error("Unable to load page, waiting 500ms to retry...");
+        setTimeout(loadWin, 500);
+      }
+    };
+    setTimeout(loadWin, 500);
+  } else {
+    const indexHtmlPath = `file://${__dirname}/index.html`;
+    console.log("indexHTMLPATH", indexHtmlPath);
+    mainWindow.loadURL(indexHtmlPath);
+  }
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  if (isDev) {
+    mainWindow.webContents.openDevTools();
+  }
 
   // Emitted when the window is closed.
   mainWindow.on("closed", function() {

@@ -2,10 +2,14 @@ const path = require("path");
 
 module.exports = {
   devtool: "source-map",
-  entry: path.resolve(__dirname, "./src/containers/index.tsx"),
+  target: "electron-main",
+  entry: path.resolve(__dirname, "./src/app.ts"),
+  node: {
+    __dirname: false
+  },
   output: {
-    path: path.resolve(__dirname, "./dist"),
-    filename: "[name].js"
+    path: path.join(__dirname, "dist"),
+    filename: "app.js"
   },
   resolve: {
     // Add `.ts` and `.tsx` as a resolvable extension.
@@ -18,13 +22,11 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: "ts-loader",
-            options: {
-              configFile: "webpack.tsconfig.json"
-            }
+            loader: "ts-loader"
           }
         ]
       }
     ]
-  }
+  },
+  plugins: []
 };

@@ -1,5 +1,5 @@
 {
   "verbose": true,
-  "delay": 2500,
-  "ignore": [".git", "node_modules/**/*", "dist/**/*"]
+  "ignore": [".git", "node_modules/**/*"],
+  "watch": ["dist/app.js"]
 }

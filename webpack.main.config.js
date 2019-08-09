@@ -1,13 +1,14 @@
-const webpack = require("webpack");
 const path = require("path");
 
-const outputPath = path.join(__dirname, "dist");
 module.exports = {
   devtool: "source-map",
   target: "electron-main",
   entry: path.resolve(__dirname, "./src/app.ts"),
+  node: {
+    __dirname: false
+  },
   output: {
-    path: path.resolve(__dirname, "./dist"),
+    path: path.join(__dirname, "dist"),
     filename: "app.js"
   },
   resolve: {
@@ -27,9 +28,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new webpack.EnvironmentPlugin({
-      outputPath: outputPath
-    })
-  ]
+  plugins: []
 };

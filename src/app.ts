@@ -1,4 +1,5 @@
 import * as electron from "electron";
+import { join } from "path";
 import EditorManager from "./editorManager";
 
 const isDev = process.env.DEV === "true";
@@ -32,7 +33,9 @@ function createWindow() {
     };
     setTimeout(loadWin, 500);
   } else {
-    mainWindow.loadURL(`file://${process.env.outputPath}/index.html`);
+    const indexHtmlPath = `file://${__dirname}/index.html`;
+    console.log("indexHTMLPATH", indexHtmlPath);
+    mainWindow.loadURL(indexHtmlPath);
   }
 
   // Open the DevTools.

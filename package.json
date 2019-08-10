@@ -16,6 +16,7 @@
     "build:main": "webpack --config webpack.main.config.js --mode production",
     "build:renderer": "webpack --config webpack.renderer.config.js --mode production",
     "build:dev-renderer": "webpack --mode development --config webpack.renderer.config.js",
+    "generate:imgPaths": "ts-node scripts/createImgConstFiles.ts && npm run eslint:fix",
     "watch": "nf start",
     "watch:main": "webpack --mode development --watch --config webpack.main.config",
     "watch:renderer": "webpack-dev-server --config webpack.renderer.config.js",
@@ -33,6 +34,7 @@
     "time tracking"
   ],
   "devDependencies": {
+    "@types/lodash": "^4.14.136",
     "@types/node": "^12.6.8",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.5",
@@ -53,6 +55,7 @@
     "lint-staged": "^9.2.1",
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
+    "ts-node": "^8.3.0",
     "typescript": "^3.5.3",
     "typescript-eslint-parser": "^22.0.0",
     "uglifyjs-webpack-plugin": "^2.1.3",
@@ -65,6 +68,7 @@
     "electron-devtools-installer": "^2.2.4",
     "foreman": "^3.0.1",
     "html-webpack-plugin": "^3.2.0",
+    "lodash": "^4.17.15",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",

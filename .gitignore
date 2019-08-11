@@ -4,3 +4,4 @@ npm-debug.log
 out/
 .idea
 dist
+.vscode

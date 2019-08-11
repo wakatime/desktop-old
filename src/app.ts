@@ -25,7 +25,7 @@ function createWindow() {
     // This is cause webpack is launching during this in dev mode
     const loadWin = async () => {
       try {
-        mainWindow.loadURL("http://localhost:8080");
+        mainWindow.loadURL("http://localhost:8080/index.html");
         installExtension(REACT_DEVELOPER_TOOLS)
           // eslint-disable-next-line no-console
           .then(name => console.log(`Added Extension:  ${name}`))

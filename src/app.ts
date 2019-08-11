@@ -1,7 +1,6 @@
 import electron from "electron";
 import installExtension, {
-  REACT_DEVELOPER_TOOLS,
-  REDUX_DEVTOOLS
+  REACT_DEVELOPER_TOOLS
 } from "electron-devtools-installer";
 
 const isDev = process.env.DEV === "true";
@@ -14,7 +13,7 @@ const { BrowserWindow } = electron;
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
-const createWindow = async () => {
+function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800,
@@ -30,21 +29,18 @@ const createWindow = async () => {
   if (isDev) {
     // Attempt to load window until successful
     // This is cause webpack is launching during this in dev mode
-    const loadExt = async (extObject: any) => {
-      const name = await installExtension(extObject);
-      // eslint-disable-next-line no-console
-      console.log(`Added Extension:  ${name}`);
-      return true;
-    };
     const loadWin = async () => {
       try {
         mainWindow.loadURL("http://localhost:8080/index.html");
-        await loadExt(REACT_DEVELOPER_TOOLS);
-        await loadExt(REDUX_DEVTOOLS);
+        installExtension(REACT_DEVELOPER_TOOLS)
+          // eslint-disable-next-line no-console
+          .then(name => console.log(`Added Extension:  ${name}`))
+          // eslint-disable-next-line no-console
+          .catch(err => console.log("An error occurred: ", err));
       } catch (e) {
         // eslint-disable-next-line no-console
-        console.error("Unable to load page, waiting 500ms to retry...", e);
-        setTimeout(loadWin, 5000);
+        console.error("Unable to load page, waiting 500ms to retry...");
+        setTimeout(loadWin, 500);
       }
     };
     setTimeout(loadWin, 500);
@@ -65,7 +61,7 @@ const createWindow = async () => {
     // when you should delete the corresponding element.
     mainWindow = null;
   });
-};
+}
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -102,3 +98,15 @@ app.on("activate", () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+const { ipcMain } = electron;
+// TODO: Apply more meaningful abstraction
+ipcMain.on("asynchronous-message", (event, arg) => {
+  console.log(arg); // prints "ping"
+  event.reply("asynchronous-reply", "pong");
+});
+
+ipcMain.on("synchronous-message", (event, arg) => {
+  console.log(arg); // prints "ping"
+  // eslint-disable-next-line no-param-reassign
+  event.returnValue = "pong";
+});

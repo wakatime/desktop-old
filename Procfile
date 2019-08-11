@@ -1,3 +1,3 @@
-webpack-renderer: npm run watch:renderer
-webpack-main: npm run watch:main
+webpack-renderer: npm run watch:webpack-server
+webpack-main: npm run watch:webpack
 electron: nodemon --exec "electron ."

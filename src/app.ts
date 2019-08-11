@@ -1,4 +1,4 @@
-import * as electron from "electron";
+import electron from "electron";
 import installExtension, {
   REACT_DEVELOPER_TOOLS
 } from "electron-devtools-installer";

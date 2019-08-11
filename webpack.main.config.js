@@ -13,7 +13,7 @@ module.exports = {
   },
   resolve: {
     // Add `.ts` and `.tsx` as a resolvable extension.
-    extensions: [".ts", ".tsx", ".js"] // note if using webpack 1 you'd also need a '' in the array as well
+    extensions: [".ts", ".tsx", ".js", ".json"] // note if using webpack 1 you'd also need a '' in the array as well
   },
   module: {
     rules: [
@@ -22,10 +22,7 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: "ts-loader",
-            options: {
-              configFile: "webpack.tsconfig.json"
-            }
+            loader: "ts-loader"
           }
         ]
       }

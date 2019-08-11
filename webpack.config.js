@@ -57,7 +57,7 @@ const mainProcessWebpackCfg = {
 };
 const rendererWebpackCfg = {
   ...commonWebpackCfg,
-  target: isDev ? "web" : "electron-renderer",
+  target: "electron-renderer",
   entry: {
     mainUI: path.resolve(__dirname, "./src/containers/index.tsx")
   },

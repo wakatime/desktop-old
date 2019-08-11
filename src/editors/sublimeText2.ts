@@ -57,8 +57,7 @@ export default class SublimeText2 implements Editor {
     switch (os.platform()) {
       case "win32": {
         const is64bit =
-          process.arch === "x64" ||
-          process.env.hasOwnProperty("PROCESSOR_ARCHITEW6432");
+          process.arch === "x64" || process.env.PROCESSOR_ARCHITEW6432;
         if (is64bit) return "";
         return "";
       }

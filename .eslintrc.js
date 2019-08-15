@@ -26,6 +26,13 @@ module.exports = {
     }
   },
   rules: {
+    "prefer-destructuring": 1,
+    "no-return-await": 1,
+    "consistent-return": 1,
+    "no-control-regex": 1,
+    "no-useless-escape": 1,
+    "no-unused-expressions": 1,
+    "import/prefer-default-export ": 0,
     "class-methods-use-this": 0,
     "no-underscore-dangle": 0,
     "no-unused-vars": 1,

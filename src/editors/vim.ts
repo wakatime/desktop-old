@@ -1,9 +1,14 @@
-import * as fs from "async-file";
-import * as os from "os";
 import "./editor";
+import { CommandExists } from "../lib/command-exists";
 
 export default class Vim implements Editor {
+  private commandExists = new CommandExists();
+
   public get name(): string {
+    return "vim";
+  }
+
+  public get displayName(): string {
     return "Vim";
   }
 
@@ -12,41 +17,19 @@ export default class Vim implements Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    const stats = await fs.stat(this._editorFolder());
-    return new Promise<boolean>(resolve => {
-      resolve(stats.isDirectory());
-    });
+    // @ts-ignore
+    return this.commandExists.exists(this.name);
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return new Promise<boolean>(resolve => {
-      resolve(false);
-    });
+    throw new Error("Method not implemented.");
   }
 
   public async installPlugin(): Promise<void> {
-    return new Promise<void>(resolve => {
-      resolve();
-    });
+    throw new Error("Method not implemented.");
   }
 
   public async uninstallPlugin(): Promise<void> {
-    return new Promise<void>(resolve => {
-      resolve();
-    });
-  }
-
-  private _editorFolder(): string {
-    let dir;
-    switch (os.platform()) {
-      case "win32":
-        break;
-      case "darwin":
-        dir = "/Applications/Sublime Text 2.app/Contents";
-        break;
-      default:
-        dir = null;
-    }
-    return dir;
+    throw new Error("Method not implemented.");
   }
 }

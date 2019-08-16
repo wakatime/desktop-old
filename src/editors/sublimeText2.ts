@@ -1,10 +1,14 @@
-import * as fs from "async-file";
-import * as os from "os";
-import * as path from "path";
+import os from "os";
+import fs from "async-file";
+import path from "path";
 import "./editor";
 
 export default class SublimeText2 implements Editor {
   public get name(): string {
+    return "subl";
+  }
+
+  public get displayName(): string {
     return "Sublime Text 2";
   }
 
@@ -13,51 +17,45 @@ export default class SublimeText2 implements Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    const stats = await fs.stat(this._editorFolder());
-    return new Promise<boolean>(resolve => {
-      resolve(stats.isDirectory());
-    });
+    return await this.isDirectory(this.appDirectory());
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    const pluginDir = path.join(this._pluginFolder(), "WakaTime");
-    const stats = await fs.stat(pluginDir);
-    return new Promise<boolean>(resolve => {
-      resolve(stats.isDirectory());
-    });
+    return await this.isDirectory(
+      path.join(this.pluginsDirectory(), "WakaTime")
+    );
   }
 
   public async installPlugin(): Promise<void> {
-    return new Promise<void>(resolve => {
-      resolve();
-    });
+    return Promise.reject(new Error("method not implemented"));
   }
 
   public async uninstallPlugin(): Promise<void> {
-    return new Promise<void>(resolve => {
-      resolve();
-    });
+    return Promise.reject(new Error("method not implemented"));
   }
 
-  private _editorFolder(): string {
-    let dir;
+  public async isDirectory(directory: string): Promise<boolean> {
+    const stats = await fs.stat(directory);
+    return stats.isDirectory();
+  }
+
+  private appDirectory(): string {
     switch (os.platform()) {
       case "win32":
-        break;
+        return "";
       case "darwin":
-        dir = "/Applications/Sublime Text 2.app/Contents";
-        break;
+        return "/Applications/Sublime Text 2.app/Contents";
       default:
-        dir = null;
+        return null;
     }
-    return dir;
   }
 
-  private _pluginFolder(): string {
+  private pluginsDirectory(): string {
     switch (os.platform()) {
       case "win32": {
         const is64bit =
-          process.arch === "x64" || process.env.PROCESSOR_ARCHITEW6432;
+          process.arch === "x64" ||
+          process.env.hasOwnProperty("PROCESSOR_ARCHITEW6432");
         if (is64bit) return "";
         return "";
       }

@@ -2,7 +2,6 @@
 
 A universal installer for all WakaTime [plugins][plugins].
 
-
 ## Installation
 
     git clone https://github.com/wakatime/desktop.git
@@ -11,7 +10,6 @@ A universal installer for all WakaTime [plugins][plugins].
     yarn run build
     yarn start
 
-
-#### License [BSD-3-Clause](LICENSE)
+## License [BSD-3-Clause](LICENSE)
 
 [plugins]: https://wakatime.com/editors

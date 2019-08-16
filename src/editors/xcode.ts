@@ -1,15 +1,18 @@
 import os from "os";
 import fs from "async-file";
 import path from "path";
+import { CommandExists } from "../lib/command-exists";
 import "./editor";
 
-export default class SublimeText3 implements Editor {
+export default class Xcode implements Editor {
+  private commandExists = new CommandExists();
+
   public get name(): string {
-    return "subl";
+    return "xed";
   }
 
   public get displayName(): string {
-    return "Sublime Text 3";
+    return "Xcode";
   }
 
   public get icon(): string {
@@ -17,22 +20,33 @@ export default class SublimeText3 implements Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    return await this.isDirectory(this.appDirectory());
+    try {
+      if (await this.commandExists.exists(this.name)) {
+        return true;
+      }
+
+      return await this.isDirectory(this.appDirectory());
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    const val = await this.isDirectory(
-      path.join(this.pluginsDirectory(), "WakaTime")
+    const pluginPath = path.join(
+      this.pluginsDirectory(),
+      "WakaTime.xcplugin/Contents"
     );
+    const val = await this.isDirectory(pluginPath);
     return val;
   }
 
   public async installPlugin(): Promise<void> {
-    return Promise.reject(new Error("method not implemented"));
+    throw new Error("Method not implemented.");
   }
 
   public async uninstallPlugin(): Promise<void> {
-    return Promise.reject(new Error("method not implemented"));
+    throw new Error("Method not implemented.");
   }
 
   public async isDirectory(directory: string): Promise<boolean> {
@@ -40,19 +54,7 @@ export default class SublimeText3 implements Editor {
     return stats.isDirectory();
   }
 
-  private appDirectory(): string {
-    let dir: string;
-    switch (os.platform()) {
-      case "win32":
-        return "";
-      case "darwin":
-        return "/Applications/Sublime Text.app/Contents";
-      default:
-        return null;
-    }
-  }
-
-  private pluginsDirectory(): string {
+  public pluginsDirectory(): string {
     switch (os.platform()) {
       case "win32": {
         const is64bit =
@@ -63,10 +65,21 @@ export default class SublimeText3 implements Editor {
       case "darwin":
         return path.join(
           os.homedir(),
-          "Library/Application Support/Sublime Text 3/Packages"
+          "Library/Application Support/Developer/Shared/Xcode/Plug-ins"
         );
       case "linux":
         return "";
+      default:
+        return null;
+    }
+  }
+
+  private appDirectory(): string {
+    switch (os.platform()) {
+      case "win32":
+        return "";
+      case "darwin":
+        return "/Applications/Xcode.app/Contents";
       default:
         return null;
     }

@@ -26,6 +26,8 @@ module.exports = {
     }
   },
   rules: {
+    "jsx-a11y/click-events-have-key-events":0,
+    "jsx-a11y/no-static-element-interactions": 0,
     "prefer-destructuring": 1,
     "no-return-await": 1,
     "consistent-return": 1,

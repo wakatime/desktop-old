@@ -51,7 +51,7 @@ const mainProcessWebpackCfg = {
     app: path.resolve(__dirname, "./src/app.ts")
   },
   node: {
-    __dirname: true
+    __dirname: isDev
   },
   plugins: []
 };

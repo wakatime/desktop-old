@@ -1,6 +1,7 @@
 import electron from "electron";
 import installExtension, {
-  REACT_DEVELOPER_TOOLS
+  REACT_DEVELOPER_TOOLS,
+  REDUX_DEVTOOLS
 } from "electron-devtools-installer";
 
 const isDev = process.env.DEV === "true";
@@ -13,7 +14,7 @@ const { BrowserWindow } = electron;
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
-function createWindow() {
+const createWindow = async () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800,
@@ -29,18 +30,21 @@ function createWindow() {
   if (isDev) {
     // Attempt to load window until successful
     // This is cause webpack is launching during this in dev mode
+    const loadExt = async (extObject: any) => {
+      const name = await installExtension(extObject);
+      // eslint-disable-next-line no-console
+      console.log(`Added Extension:  ${name}`);
+      return true;
+    };
     const loadWin = async () => {
       try {
         mainWindow.loadURL("http://localhost:8080/index.html");
-        installExtension(REACT_DEVELOPER_TOOLS)
-          // eslint-disable-next-line no-console
-          .then(name => console.log(`Added Extension:  ${name}`))
-          // eslint-disable-next-line no-console
-          .catch(err => console.log("An error occurred: ", err));
+        await loadExt(REACT_DEVELOPER_TOOLS);
+        await loadExt(REDUX_DEVTOOLS);
       } catch (e) {
         // eslint-disable-next-line no-console
-        console.error("Unable to load page, waiting 500ms to retry...");
-        setTimeout(loadWin, 500);
+        console.error("Unable to load page, waiting 500ms to retry...", e);
+        setTimeout(loadWin, 5000);
       }
     };
     setTimeout(loadWin, 500);
@@ -61,7 +65,7 @@ function createWindow() {
     // when you should delete the corresponding element.
     mainWindow = null;
   });
-}
+};
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

@@ -1,4 +1,4 @@
-import * as editors from "../constants/editors";
+import editors from "../constants/editors";
 import imgPathMap from "../config/editorsImgMap";
 import createReducer from "../utils/createReducer";
 

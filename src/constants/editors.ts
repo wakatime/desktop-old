@@ -7,3 +7,14 @@ export const SUBLIMETEXT3 = "SUBLIMETEXT3";
 export const VIM = "VIM";
 export const VSCODE = "VSCODE";
 export const XCODE = "XCODE";
+
+export default [
+  ATOM,
+  CHROME,
+  ECLIPSE,
+  ANDROIDSTUDIO,
+  SUBLIMETEXT2,
+  SUBLIMETEXT3,
+  VIM,
+  VSCODE
+];

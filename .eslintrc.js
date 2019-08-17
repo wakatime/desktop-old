@@ -26,6 +26,7 @@ module.exports = {
     }
   },
   rules: {
+    "react/forbid-prop-types": 0,
     "prefer-destructuring": 1,
     "no-return-await": 1,
     "consistent-return": 1,

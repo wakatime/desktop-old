@@ -1,13 +1,16 @@
 import React from "react";
+import { Provider } from "react-redux";
 import { render } from "react-dom";
-import electron from "electron";
-import AllIconImgs from "../components/AllIconImgs";
+import ActiveEditors from "../components/ActiveEditors";
+import store from "../stores/rendererStore";
 
-console.log("electron", electron);
+console.log("store", store);
+console.log("store state:", store.getState());
+
 const div = document.getElementById("container");
 render(
-  <div>
-    <AllIconImgs />
-  </div>,
+  <Provider store={store}>
+    <ActiveEditors />
+  </Provider>,
   div
 );

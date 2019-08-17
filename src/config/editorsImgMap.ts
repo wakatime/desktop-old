@@ -6,7 +6,8 @@ import {
   SUBLIMETEXT2,
   SUBLIMETEXT3,
   VIM,
-  VSCODE
+  VSCODE,
+  XCODE
 } from "../constants/editors";
 import {
   androidStudio128Path,
@@ -15,7 +16,8 @@ import {
   eclipse128Path,
   sublimeText128Path,
   vim128Path,
-  vsCode128Path
+  vsCode128Path,
+  xcode128Path
 } from "../constants/imgPaths";
 
 interface EditorImageMap {
@@ -30,7 +32,8 @@ const imgMap: EditorImageMap = {
   [SUBLIMETEXT2]: sublimeText128Path,
   [SUBLIMETEXT3]: sublimeText128Path, // Should this be a different image?
   [VIM]: vim128Path,
-  [VSCODE]: vsCode128Path
+  [VSCODE]: vsCode128Path,
+  [XCODE]: xcode128Path
 };
 
 export default imgMap;

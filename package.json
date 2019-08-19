@@ -71,6 +71,7 @@
     "webpack-dev-server": "^3.7.2"
   },
   "dependencies": {
+    "aphrodite": "^2.3.1",
     "async-file": "^2.0.2",
     "electron": "^5.0.8",
     "electron-devtools-installer": "^2.2.4",
@@ -82,6 +83,8 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",
+    "react-with-styles": "^3.2.3",
+    "react-with-styles-interface-aphrodite": "^5.0.1",
     "redux": "^4.0.4",
     "request": "^2.88.0",
     "rimraf": "^2.6.0",

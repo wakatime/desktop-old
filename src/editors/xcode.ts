@@ -2,16 +2,12 @@ import os from "os";
 import fs from "async-file";
 import path from "path";
 import { CommandExists } from "../lib/command-exists";
-import "./editor";
+import Editor from "./editor";
 
-export default class Xcode implements Editor {
+export default class Xcode extends Editor {
   private commandExists = new CommandExists();
 
   public get name(): string {
-    return "xed";
-  }
-
-  public get displayName(): string {
     return "Xcode";
   }
 
@@ -19,12 +15,17 @@ export default class Xcode implements Editor {
     return "";
   }
 
+  public get binaries(): string[] {
+    return ["xed"];
+  }
+
   public async isEditorInstalled(): Promise<boolean> {
     try {
-      if (await this.commandExists.exists(this.name)) {
-        return true;
-      }
-
+      Object.keys(this.binaries).forEach(async binary => {
+        if (await this.commandExists.exists(binary)) {
+          return true;
+        }
+      });
       return await this.isDirectory(this.appDirectory());
     } catch (err) {
       console.error(err);

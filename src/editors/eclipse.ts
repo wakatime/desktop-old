@@ -2,13 +2,10 @@ import os from "os";
 import fs from "async-file";
 import fsSync from "fs";
 import path from "path";
+import Editor from "./editor";
 
-export default class Eclipse implements Editor {
+export default class Eclipse extends Editor {
   public get name(): string {
-    return "eclipse";
-  }
-
-  public get displayName(): string {
     return "Eclipse";
   }
 

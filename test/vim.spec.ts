@@ -19,13 +19,17 @@ describe("Vim", () => {
   afterEach(() => {
     isEditorInstalledStub.restore();
   });
-  it("should return the correct binary name", () => {
-    const result = vim.name;
+  it("should return the correct key name", () => {
+    const result = vim.key;
     expect(result).to.equal("vim");
   });
   it("should return the correct editor name", () => {
-    const result = vim.displayName;
+    const result = vim.name;
     expect(result).to.equal("Vim");
+  });
+  it("should return the correct binary names", () => {
+    const result = vim.binaries;
+    expect(result).to.deep.equal(["vi", "vim"]);
   });
   it("should return TRUE if editor is installed", async () => {
     isEditorInstalledStub.resolves(true);

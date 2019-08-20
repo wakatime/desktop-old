@@ -1,19 +1,15 @@
 import os from "os";
 import fs from "async-file";
-import "./editor";
 import { CommandExists } from "../lib/command-exists";
+import Editor from "./editor";
 
 const util = require("util");
 const exec = util.promisify(require("child_process").exec);
 
-export default class VsCode implements Editor {
+export default class VsCode extends Editor {
   private commandExists = new CommandExists();
 
   public get name(): string {
-    return "code";
-  }
-
-  public get displayName(): string {
     return "Visual Studio Code";
   }
 
@@ -21,12 +17,17 @@ export default class VsCode implements Editor {
     return "";
   }
 
+  public get binaries(): string[] {
+    return ["code"];
+  }
+
   public async isEditorInstalled(): Promise<boolean> {
     try {
-      if (await this.commandExists.exists(this.name)) {
-        return true;
-      }
-
+      Object.keys(this.binaries).forEach(async binary => {
+        if (await this.commandExists.exists(binary)) {
+          return true;
+        }
+      });
       return await this.isDirectory(this.appDirectory());
     } catch (err) {
       console.error(err);

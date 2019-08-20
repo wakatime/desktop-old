@@ -22,12 +22,12 @@ describe("Sublime Text 3", () => {
     isEditorInstalledStub.restore();
     isDirectoryStub.restore();
   });
-  it("should return the correct binary name", () => {
-    const result = sublimeText3.name;
-    expect(result).to.equal("subl");
+  it("should return the correct key name", () => {
+    const result = sublimeText3.key;
+    expect(result).to.equal("sublimetext3");
   });
   it("should return the correct editor name", () => {
-    const result = sublimeText3.displayName;
+    const result = sublimeText3.name;
     expect(result).to.equal("Sublime Text 3");
   });
   it("should return TRUE if editor is installed", async () => {

@@ -22,13 +22,17 @@ describe("Visual Studio Code", () => {
     listExtensionsStub.restore();
     isDirectoryStub.restore();
   });
-  it("should return the correct binary name", () => {
-    const result = vscode.name;
-    expect(result).to.equal("code");
+  it("should return the correct key name", () => {
+    const result = vscode.key;
+    expect(result).to.equal("visualstudiocode");
   });
   it("should return the correct editor name", () => {
-    const result = vscode.displayName;
+    const result = vscode.name;
     expect(result).to.equal("Visual Studio Code");
+  });
+  it("should return the correct binary names", () => {
+    const result = vscode.binaries;
+    expect(result).to.deep.equal(["code"]);
   });
   it("should return TRUE if editor is installed", async () => {
     isDirectoryStub.resolves(true);

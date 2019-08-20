@@ -22,12 +22,12 @@ describe("Sublime Text 2", () => {
     isEditorInstalledStub.restore();
     isDirectoryStub.restore();
   });
-  it("should return the correct binary name", () => {
-    const result = sublimeText2.name;
-    expect(result).to.equal("subl");
+  it("should return the correct key name", () => {
+    const result = sublimeText2.key;
+    expect(result).to.equal("sublimetext2");
   });
   it("should return the correct editor name", () => {
-    const result = sublimeText2.displayName;
+    const result = sublimeText2.name;
     expect(result).to.equal("Sublime Text 2");
   });
   it("should return TRUE if editor is installed", async () => {

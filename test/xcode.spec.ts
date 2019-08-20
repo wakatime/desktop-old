@@ -19,13 +19,17 @@ describe("Xcode", () => {
   afterEach(() => {
     isDirectoryStub.restore();
   });
-  it("should return the correct binary name", () => {
-    const result = xcode.name;
-    expect(result).to.equal("xed");
+  it("should return the correct key name", () => {
+    const result = xcode.key;
+    expect(result).to.equal("xcode");
   });
   it("should return the correct editor name", () => {
-    const result = xcode.displayName;
+    const result = xcode.name;
     expect(result).to.equal("Xcode");
+  });
+  it("should return the correct binary names", () => {
+    const result = xcode.binaries;
+    expect(result).to.deep.equal(["xed"]);
   });
   it("should return TRUE if editor is installed", async () => {
     isDirectoryStub.resolves(true);

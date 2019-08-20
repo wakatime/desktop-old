@@ -19,12 +19,12 @@ describe("Processing", () => {
   afterEach(() => {
     isDirectoryStub.restore();
   });
-  it("should return the correct binary name", () => {
-    const result = processing.name;
+  it("should return the correct key name", () => {
+    const result = processing.key;
     expect(result).to.equal("processing");
   });
   it("should return the correct editor name", () => {
-    const result = processing.displayName;
+    const result = processing.name;
     expect(result).to.equal("Processing");
   });
   it("should return TRUE if editor is installed", async () => {

@@ -1,14 +1,10 @@
 import os from "os";
 import fs from "async-file";
 import path from "path";
-import "./editor";
+import Editor from "./editor";
 
-export default class SublimeText3 implements Editor {
+export default class SublimeText3 extends Editor {
   public get name(): string {
-    return "subl";
-  }
-
-  public get displayName(): string {
     return "Sublime Text 3";
   }
 

@@ -1,14 +1,10 @@
-import "./editor";
+import Editor from "./editor";
 import { CommandExists } from "../lib/command-exists";
 
-export default class Vim implements Editor {
+export default class Vim extends Editor {
   private commandExists = new CommandExists();
 
   public get name(): string {
-    return "vim";
-  }
-
-  public get displayName(): string {
     return "Vim";
   }
 
@@ -16,9 +12,22 @@ export default class Vim implements Editor {
     return "";
   }
 
+  public get binaries(): string[] {
+    return ["vi", "vim"];
+  }
+
   public async isEditorInstalled(): Promise<boolean> {
-    // @ts-ignore
-    return this.commandExists.exists(this.name);
+    try {
+      Object.keys(this.binaries).forEach(async binary => {
+        if (await this.commandExists.exists(binary)) {
+          return true;
+        }
+      });
+      return false;
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
   }
 
   public async isPluginInstalled(): Promise<boolean> {

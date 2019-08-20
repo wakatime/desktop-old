@@ -1,4 +1,4 @@
-export default abstract class Editor implements IEditor {
+export default abstract class Editor implements EditorInterface {
   abstract name: string;
 
   abstract icon: string;
@@ -16,7 +16,7 @@ export default abstract class Editor implements IEditor {
   abstract uninstallPlugin(): Promise<void>;
 }
 
-declare interface IEditor {
+declare interface EditorInterface {
   key: string;
   name: string;
   icon: string;

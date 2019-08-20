@@ -1,6 +1,8 @@
 .DS_Store
 node_modules
 npm-debug.log
+# we use yarn
+package-lock.json
 out/
 .idea
 dist

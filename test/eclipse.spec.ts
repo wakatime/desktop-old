@@ -19,12 +19,12 @@ describe("Eclipse", () => {
   afterEach(() => {
     isDirectoryStub.restore();
   });
-  it("should return the correct binary name", () => {
-    const result = eclipse.name;
+  it("should return the correct key name", () => {
+    const result = eclipse.key;
     expect(result).to.equal("eclipse");
   });
   it("should return the correct editor name", () => {
-    const result = eclipse.displayName;
+    const result = eclipse.name;
     expect(result).to.equal("Eclipse");
   });
   it("should return TRUE if editor is installed", async () => {

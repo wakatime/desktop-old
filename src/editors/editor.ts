@@ -1,6 +1,20 @@
-declare interface Editor {
+export default abstract class Editor implements IEditor {
+  abstract name: string;
+  abstract icon: string;
+
+  get key(): string {
+    return this.name.replace(/\s/g, "").toLowerCase();
+  }
+
+  abstract isEditorInstalled(): Promise<boolean>;
+  abstract isPluginInstalled(): Promise<boolean>;
+  abstract installPlugin(): Promise<void>;
+  abstract uninstallPlugin(): Promise<void>;
+}
+
+declare interface IEditor {
+  key: string;
   name: string;
-  displayName: string;
   icon: string;
 
   isEditorInstalled(): Promise<boolean>;

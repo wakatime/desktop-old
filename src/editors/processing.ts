@@ -4,19 +4,17 @@ import fs from "async-file";
 import fsSync from "fs";
 import path from "path";
 import request from "request";
+import Editor from "./editor";
 
-export default class Processing implements Editor {
+export default class Processing extends Editor {
   private preferences: { [key: string]: string } = {};
 
   constructor() {
+    super();
     this.readPreferences();
   }
 
   public get name(): string {
-    return "processing";
-  }
-
-  public get displayName(): string {
     return "Processing";
   }
 

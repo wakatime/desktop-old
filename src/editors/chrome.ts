@@ -1,13 +1,9 @@
 import os from "os";
 import fs from "async-file";
-import "./editor";
+import Editor from "./editor";
 
-export default class Chrome implements Editor {
+export default class Chrome extends Editor {
   public get name(): string {
-    return "chrome";
-  }
-
-  public get displayName(): string {
     return "Google Chrome";
   }
 

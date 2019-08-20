@@ -22,13 +22,17 @@ describe("Processing", () => {
     isEditorInstalledStub.restore();
     fileExistsStub.restore();
   });
-  it("should return the correct binary name", () => {
-    const result = androidStudio.name;
-    expect(result).to.equal("editor");
+  it("should return the correct key name", () => {
+    const result = androidStudio.key;
+    expect(result).to.equal("androidstudio");
   });
   it("should return the correct editor name", () => {
-    const result = androidStudio.displayName;
+    const result = androidStudio.name;
     expect(result).to.equal("Android Studio");
+  });
+  it("should return the correct binary name", () => {
+    const result = androidStudio.binary;
+    expect(result).to.equal("editor");
   });
   it("should return TRUE if editor is installed", async () => {
     isEditorInstalledStub.resolves(true);

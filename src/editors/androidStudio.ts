@@ -3,26 +3,20 @@ import fs from "async-file";
 import fsSync from "fs";
 import path from "path";
 import { CommandExists } from "../lib/command-exists";
-import "./editor";
+import Editor from "./editor";
 
 const plist = require("plist");
 
-export default class AndroidStudio implements Editor {
+export default class AndroidStudio extends Editor {
   private plistObj;
-
-  any = {};
-
   private commandExists = new CommandExists();
 
   constructor() {
+    super();
     this.readPreferences();
   }
 
   public get name(): string {
-    return "editor";
-  }
-
-  public get displayName(): string {
     return "Android Studio";
   }
 
@@ -30,9 +24,13 @@ export default class AndroidStudio implements Editor {
     return "";
   }
 
+  public get binary(): string {
+    return "editor";
+  }
+
   public async isEditorInstalled(): Promise<boolean> {
     try {
-      if (await this.commandExists.exists(this.name)) {
+      if (await this.commandExists.exists(this.binary)) {
         return true;
       }
 

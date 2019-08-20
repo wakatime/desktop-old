@@ -25,13 +25,17 @@ describe("Atom", () => {
     isDirectoryStub.restore();
     apmStub.restore();
   });
-  it("should return the correct binary name", () => {
-    const result = atom.name;
+  it("should return the correct key name", () => {
+    const result = atom.key;
     expect(result).to.equal("atom");
   });
   it("should return the correct editor name", () => {
-    const result = atom.displayName;
+    const result = atom.name;
     expect(result).to.equal("Atom");
+  });
+  it("should return the correct binary name", () => {
+    const result = atom.binary;
+    expect(result).to.equal("atom");
   });
   it("should return TRUE if editor is installed", async () => {
     isEditorInstalledStub.resolves(true);

@@ -19,12 +19,12 @@ describe("Google Chrome", () => {
   afterEach(() => {
     isDirectoryStub.restore();
   });
-  it("should return the correct binary name", () => {
-    const result = chrome.name;
-    expect(result).to.equal("chrome");
+  it("should return the correct key name", () => {
+    const result = chrome.key;
+    expect(result).to.equal("googlechrome");
   });
   it("should return the correct editor name", () => {
-    const result = chrome.displayName;
+    const result = chrome.name;
     expect(result).to.equal("Google Chrome");
   });
   it("should return TRUE if editor is installed", async () => {

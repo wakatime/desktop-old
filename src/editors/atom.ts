@@ -2,18 +2,15 @@ import os from "os";
 import fs from "async-file";
 import path from "path";
 import { CommandExists } from "../lib/command-exists";
+import Editor from "./editor";
 
 const util = require("util");
 const exec = util.promisify(require("child_process").exec);
 
-export default class Atom implements Editor {
+export default class Atom extends Editor {
   private commandExists = new CommandExists();
 
   public get name(): string {
-    return "atom";
-  }
-
-  public get displayName(): string {
     return "Atom";
   }
 
@@ -21,10 +18,14 @@ export default class Atom implements Editor {
     return "";
   }
 
+  public get binary(): string {
+    return "atom";
+  }
+
   public async isEditorInstalled(): Promise<boolean> {
     try {
       // @ts-ignore
-      return await this.commandExists.exists(this.name);
+      return await this.commandExists.exists(this.binary);
     } catch (err) {
       console.error(err);
       return false;

@@ -9,6 +9,7 @@ const plist = require("plist");
 
 export default class AndroidStudio extends Editor {
   private plistObj;
+
   private commandExists = new CommandExists();
 
   constructor() {

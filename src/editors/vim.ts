@@ -1,6 +1,5 @@
-import "./editor";
-import { CommandExists } from "../lib/command-exists";
 import Editor from "./editor";
+import { CommandExists } from "../lib/command-exists";
 
 export default class Vim extends Editor {
   private commandExists = new CommandExists();

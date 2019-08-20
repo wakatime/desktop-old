@@ -1,5 +1,6 @@
 export default abstract class Editor implements IEditor {
   abstract name: string;
+
   abstract icon: string;
 
   get key(): string {
@@ -7,8 +8,11 @@ export default abstract class Editor implements IEditor {
   }
 
   abstract isEditorInstalled(): Promise<boolean>;
+
   abstract isPluginInstalled(): Promise<boolean>;
+
   abstract installPlugin(): Promise<void>;
+
   abstract uninstallPlugin(): Promise<void>;
 }
 

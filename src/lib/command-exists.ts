@@ -106,6 +106,17 @@ export class CommandExists {
       return Promise.reject(new Error(e));
     }
   }
+
+  // public exists(commandNames: string[], callback: any = null) {
+  //   for(let commandName of commandNames) {
+  //     if (this.exists(commandName)) {
+  //       callback(true);
+  //       return;
+  //     }
+  //   }
+
+  //   callback(false);
+  // }
 }
 
 export default CommandExists;

@@ -33,9 +33,9 @@ describe("Atom", () => {
     const result = atom.name;
     expect(result).to.equal("Atom");
   });
-  it("should return the correct binary name", () => {
-    const result = atom.binary;
-    expect(result).to.equal("atom");
+  it("should return the correct binary names", () => {
+    const result = atom.binaries;
+    expect(result).to.deep.equal(["atom"]);
   });
   it("should return TRUE if editor is installed", async () => {
     isEditorInstalledStub.resolves(true);

@@ -18,14 +18,18 @@ export default class Atom extends Editor {
     return "";
   }
 
-  public get binary(): string {
-    return "atom";
+  public get binaries(): string[] {
+    return ["atom"];
   }
 
   public async isEditorInstalled(): Promise<boolean> {
     try {
-      // @ts-ignore
-      return await this.commandExists.exists(this.binary);
+      Object.keys(this.binaries).forEach(async binary => {
+        if (await this.commandExists.exists(binary)) {
+          return true;
+        }
+      });
+      return false;
     } catch (err) {
       console.error(err);
       return false;

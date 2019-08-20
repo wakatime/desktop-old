@@ -27,9 +27,9 @@ describe("Xcode", () => {
     const result = xcode.name;
     expect(result).to.equal("Xcode");
   });
-  it("should return the correct binary name", () => {
-    const result = xcode.binary;
-    expect(result).to.equal("xed");
+  it("should return the correct binary names", () => {
+    const result = xcode.binaries;
+    expect(result).to.deep.equal(["xed"]);
   });
   it("should return TRUE if editor is installed", async () => {
     isDirectoryStub.resolves(true);

@@ -15,16 +15,17 @@ export default class Xcode extends Editor {
     return "";
   }
 
-  public get binary(): string {
-    return "xed";
+  public get binaries(): string[] {
+    return ["xed"];
   }
 
   public async isEditorInstalled(): Promise<boolean> {
     try {
-      if (await this.commandExists.exists(this.binary)) {
-        return true;
-      }
-
+      Object.keys(this.binaries).forEach(async binary => {
+        if (await this.commandExists.exists(binary)) {
+          return true;
+        }
+      });
       return await this.isDirectory(this.appDirectory());
     } catch (err) {
       console.error(err);

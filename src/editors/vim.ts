@@ -12,13 +12,22 @@ export default class Vim extends Editor {
     return "";
   }
 
-  public get binary(): string {
-    return "vim";
+  public get binaries(): string[] {
+    return ["vi", "vim"];
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    // @ts-ignore
-    return this.commandExists.exists(this.binary);
+    try {
+      Object.keys(this.binaries).forEach(async binary => {
+        if (await this.commandExists.exists(binary)) {
+          return true;
+        }
+      });
+      return false;
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
   }
 
   public async isPluginInstalled(): Promise<boolean> {

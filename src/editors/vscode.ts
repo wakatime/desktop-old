@@ -17,16 +17,17 @@ export default class VsCode extends Editor {
     return "";
   }
 
-  public get binary(): string {
-    return "code";
+  public get binaries(): string[] {
+    return ["code"];
   }
 
   public async isEditorInstalled(): Promise<boolean> {
     try {
-      if (await this.commandExists.exists(this.binary)) {
-        return true;
-      }
-
+      Object.keys(this.binaries).forEach(async binary => {
+        if (await this.commandExists.exists(binary)) {
+          return true;
+        }
+      });
       return await this.isDirectory(this.appDirectory());
     } catch (err) {
       console.error(err);

@@ -36,7 +36,6 @@ export default class Processing extends Editor {
 
   public async installPlugin(): Promise<void> {
     const temp = path.join(os.tmpdir(), "processing-wakatime-deploy.zip");
-    console.log(temp);
     const file = fsSync.createWriteStream(temp);
 
     await new Promise((resolve, reject) => {

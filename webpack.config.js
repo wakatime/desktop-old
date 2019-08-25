@@ -20,6 +20,9 @@ const tsloader = {
     }
   ]
 };
+if (isDev) {
+  tsloader.use = ["cache-loader", ...tsloader.use];
+}
 const fileLoader = {
   test: /\.(png|jpe?g|gif)$/,
   use: [
@@ -36,6 +39,9 @@ const fileLoader = {
     }
   ]
 };
+if (isDev) {
+  fileLoader.use = ["cache-loader", ...fileLoader.use];
+}
 const commonWebpackCfg = {
   devtool,
   output,

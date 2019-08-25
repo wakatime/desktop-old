@@ -90,6 +90,7 @@
     "react-with-styles": "^3.2.3",
     "react-with-styles-interface-aphrodite": "^5.0.1",
     "redux": "^4.0.4",
+    "remote-redux-devtools": "^0.5.16",
     "request": "^2.88.0",
     "rimraf": "^2.6.0",
     "ts-loader": "^6.0.4",

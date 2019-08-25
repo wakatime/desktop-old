@@ -1,7 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const isDev = process.env.DEV === "true";
+const isDev = process.env.NODE_ENV === "development";
 const output = {
   path: path.resolve(__dirname, "./dist"),
   filename: "[name].js"

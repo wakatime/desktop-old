@@ -4,10 +4,10 @@ import installExtension, {
   REDUX_DEVTOOLS
 } from "electron-devtools-installer";
 import isMainProcess from "./utils/isMainProcess";
+import "./stores/mainProcStore";
 
 console.log("isMainProcess", isMainProcess);
-
-const isDev = process.env.DEV === "true";
+const isDev = process.env.NODE_ENV === "development";
 // Module to control application life.
 const { app } = electron;
 // Module to create native browser window.

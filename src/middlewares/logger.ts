@@ -1,8 +1,6 @@
 import { Store, Dispatch, Action } from "redux";
 
-const crashReporter = (store: Store) => (next: Dispatch) => (
-  action: Action
-) => {
+const logger = (store: Store) => (next: Dispatch) => (action: Action) => {
   const { getState } = store;
   const beforeActionState = getState();
   const result = next(action);
@@ -17,4 +15,4 @@ const crashReporter = (store: Store) => (next: Dispatch) => (
   );
   return result;
 };
-export default crashReporter;
+export default logger;

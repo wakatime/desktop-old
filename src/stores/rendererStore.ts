@@ -1,10 +1,14 @@
-import { createStore } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
+import crashReporter from "../middlewares/crashReporter";
 import rootReducer from "../reducers";
 
 const store = createStore(
   rootReducer,
-  // @ts-ignore
-  window.devToolsExtension ? window.devToolsExtension() : f => f
+  compose(
+    applyMiddleware(crashReporter),
+    // @ts-ignore
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+  )
 );
 
 export default store;

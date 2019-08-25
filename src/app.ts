@@ -3,6 +3,9 @@ import installExtension, {
   REACT_DEVELOPER_TOOLS,
   REDUX_DEVTOOLS
 } from "electron-devtools-installer";
+import isMainProcess from "./utils/isMainProcess";
+
+console.log("isMainProcess", isMainProcess);
 
 const isDev = process.env.DEV === "true";
 // Module to control application life.

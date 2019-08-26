@@ -26,6 +26,7 @@ module.exports = {
     }
   },
   rules: {
+    "import/prefer-default-export": 0,
     "react/forbid-prop-types": 0,
     "prefer-destructuring": 1,
     "no-return-await": 1,

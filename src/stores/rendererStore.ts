@@ -1,7 +1,9 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import crashReporter from "../middlewares/crashReporter";
 import logger from "../middlewares/logger";
-import rootReducer from "../reducers";
+import forwardToMain from "../middlewares/forwardToMain";
+import rootReducer from "../reducers/renderProc";
+import { onRenderStoreCreated } from "../actions/rendererActions";
 
 let composeEnhancers = compose;
 // @ts-ignore
@@ -13,6 +15,7 @@ const initialState = {};
 const store = createStore(
   rootReducer,
   initialState,
-  composeEnhancers(applyMiddleware(logger, crashReporter))
+  composeEnhancers(applyMiddleware(forwardToMain, logger, crashReporter))
 );
+store.dispatch(onRenderStoreCreated());
 export default store;

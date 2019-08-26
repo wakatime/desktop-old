@@ -1,7 +1,6 @@
-import { Action } from "redux";
 import {
   ON_MAIN_PROCESS_STATE,
-  RENDER_STORE_CREATED
+  SYNC_MAIN_STATE
 } from "../constants/rendererActionTypes";
 import makeActionCreator, {
   makeActionWithMeta
@@ -14,4 +13,4 @@ export const setMainProcessState = makeActionCreator(
 
 export const onRenderStoreCreated = makeActionWithMeta({
   forwardToMain: true
-})(RENDER_STORE_CREATED);
+})(SYNC_MAIN_STATE);

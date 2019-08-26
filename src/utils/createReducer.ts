@@ -1,6 +1,13 @@
-const createReducer = (initialState, handlers) => {
+import { Reducer } from "redux";
+
+type handlers = {
+  [s: string]: Reducer;
+};
+type State = object | number | string;
+
+const createReducer = (initialState: State, handlers: handlers) => {
   return (state = initialState, action) => {
-    if (handlers.hasOwnProperty(action.type)) {
+    if (handlers[action.type]) {
       return handlers[action.type](state, action);
     }
     return state;

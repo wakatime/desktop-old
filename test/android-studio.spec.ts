@@ -1,4 +1,4 @@
-import AndroidStudio from "../src/editors/androidStudio";
+import AndroidStudio from "../src/editors/android-studio";
 
 const sinon = require("sinon");
 

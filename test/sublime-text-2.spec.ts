@@ -1,4 +1,4 @@
-import SublimeText2 from "../src/editors/sublimeText2";
+import SublimeText2 from "../src/editors/sublime-text-2";
 
 const sinon = require("sinon");
 

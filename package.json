@@ -89,6 +89,7 @@
     "react-redux": "^7.1.0",
     "react-with-styles": "^3.2.3",
     "react-with-styles-interface-aphrodite": "^5.0.1",
+    "readdirp": "^3.1.2",
     "redux": "^4.0.4",
     "remote-redux-devtools": "^0.5.16",
     "request": "^2.88.0",
@@ -96,6 +97,7 @@
     "ts-loader": "^6.0.4",
     "unzipper": "^0.9.15",
     "webpack": "^4.38.0",
+    "winreg": "^1.2.4",
     "yarn": "^1.17.3"
   },
   "husky": {

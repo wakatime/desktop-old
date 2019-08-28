@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "npm run build && npm run  watch",
     "start": "electron dist/app.js",
+    "cache:clean": "rimraf node_modules/.cache",
     "eslint": "eslint --ext ts --ext tsx .",
     "eslint:fix": "eslint --ext ts --ext tsx --fix .",
     "build": "npm run build:clean && npm run build:webpack",

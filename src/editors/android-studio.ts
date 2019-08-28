@@ -61,11 +61,6 @@ export default class AndroidStudio extends Editor {
     return await fs.exists(file);
   }
 
-  public async isDirectory(directory: string): Promise<boolean> {
-    const stats = await fs.stat(directory);
-    return stats.isDirectory();
-  }
-
   public pluginsDirectory(): string {
     switch (os.platform()) {
       case "win32": {

@@ -50,11 +50,6 @@ export default class Xcode extends Editor {
     throw new Error("Method not implemented.");
   }
 
-  public async isDirectory(directory: string): Promise<boolean> {
-    const stats = await fs.stat(directory);
-    return stats.isDirectory();
-  }
-
   public pluginsDirectory(): string {
     switch (os.platform()) {
       case "win32": {

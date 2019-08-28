@@ -72,11 +72,6 @@ export default class Processing extends Editor {
     return Promise.resolve();
   }
 
-  public async isDirectory(directory: string): Promise<boolean> {
-    const stats = await fs.stat(directory);
-    return stats.isDirectory();
-  }
-
   private appDirectory(): string {
     switch (os.platform()) {
       case "win32":

@@ -31,11 +31,6 @@ export default class SublimeText3 extends Editor {
     return Promise.reject(new Error("method not implemented"));
   }
 
-  public async isDirectory(directory: string): Promise<boolean> {
-    const stats = await fs.stat(directory);
-    return stats.isDirectory();
-  }
-
   private appDirectory(): string {
     let dir: string;
     switch (os.platform()) {

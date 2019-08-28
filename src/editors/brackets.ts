@@ -45,7 +45,7 @@ export default class Brackets extends Editor {
         return "%USERPROFILE\\AppData\\Roaming\\Brackets\\extensions\\user\\brackets-wakatime";
       }
       case "darwin":
-        return "/Users/gandarez/Library/Application Support/Brackets/extensions/user/brackets-wakatime";
+        return "~/Library/Application Support/Brackets/extensions/user/brackets-wakatime";
       case "linux":
         return "~/.config/brackets/extensions/user/brackets-wakatime";
       default:

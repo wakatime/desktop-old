@@ -1,10 +1,9 @@
 import os from "os";
-import fs from "async-file";
 import Editor from "./editor";
 
-export default class Chrome extends Editor {
+export default class Unity extends Editor {
   public get name(): string {
-    return "Google Chrome";
+    return "Unity";
   }
 
   public get icon(): string {
@@ -30,9 +29,11 @@ export default class Chrome extends Editor {
   private appDirectory(): string {
     switch (os.platform()) {
       case "win32":
-        return "";
+        return "C:\\Program Files\\Unity\\Editor";
       case "darwin":
-        return "/Applications/Google Chrome.app/Contents";
+        return "/Applications/Unity/Unity.app/Contents";
+      case "linux":
+        return "/opt/Unity/Editor/Unity";
       default:
         return null;
     }

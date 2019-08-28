@@ -1,3 +1,5 @@
+import fs from "async-file";
+
 export default abstract class Editor implements EditorInterface {
   abstract name: string;
 
@@ -5,6 +7,11 @@ export default abstract class Editor implements EditorInterface {
 
   get key(): string {
     return this.name.replace(/\s/g, "").toLowerCase();
+  }
+
+  public async isDirectory(directory: string): Promise<boolean> {
+    const stats = await fs.stat(directory);
+    return stats.isDirectory();
   }
 
   abstract isEditorInstalled(): Promise<boolean>;

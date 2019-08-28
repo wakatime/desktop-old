@@ -1,11 +1,9 @@
 import os from "os";
-import fs from "async-file";
-import path from "path";
 import Editor from "./editor";
 
-export default class SublimeText2 extends Editor {
+export default class Brackets extends Editor {
   public get name(): string {
-    return "Sublime Text 2";
+    return "Brackets";
   }
 
   public get icon(): string {
@@ -17,25 +15,25 @@ export default class SublimeText2 extends Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.isDirectory(
-      path.join(this.pluginsDirectory(), "WakaTime")
-    );
+    return await this.isDirectory(this.appDirectory());
   }
 
   public async installPlugin(): Promise<void> {
-    return Promise.reject(new Error("method not implemented"));
+    throw new Error("Method not implemented.");
   }
 
   public async uninstallPlugin(): Promise<void> {
-    return Promise.reject(new Error("method not implemented"));
+    throw new Error("Method not implemented.");
   }
 
   private appDirectory(): string {
     switch (os.platform()) {
       case "win32":
-        return "";
+        return "C:\\Program Files (x86)\\Brackets";
       case "darwin":
-        return "/Applications/Sublime Text 2.app/Contents";
+        return "/Applications/Brackets.app/Contents";
+      case "linux":
+        return null;
       default:
         return null;
     }
@@ -44,19 +42,12 @@ export default class SublimeText2 extends Editor {
   private pluginsDirectory(): string {
     switch (os.platform()) {
       case "win32": {
-        const is64bit =
-          process.arch === "x64" ||
-          process.env.hasOwnProperty("PROCESSOR_ARCHITEW6432");
-        if (is64bit) return "";
-        return "";
+        return "%USERPROFILE\\AppData\\Roaming\\Brackets\\extensions\\user\\brackets-wakatime";
       }
       case "darwin":
-        return path.join(
-          os.homedir(),
-          "Library/Application Support/Sublime Text 2/Packages"
-        );
+        return "/Users/gandarez/Library/Application Support/Brackets/extensions/user/brackets-wakatime";
       case "linux":
-        return "";
+        return "~/.config/brackets/extensions/user/brackets-wakatime";
       default:
         return null;
     }

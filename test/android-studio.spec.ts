@@ -8,7 +8,7 @@ const chaiAsPromised = require("chai-as-promised");
 const { expect } = chai;
 chai.use(chaiAsPromised);
 
-describe("Processing", () => {
+describe("Android Studio", () => {
   let androidStudio: AndroidStudio;
   let isEditorInstalledStub: any;
   let fileExistsStub: any;

@@ -14,6 +14,11 @@ export default abstract class Editor implements EditorInterface {
     return stats.isDirectory();
   }
 
+  public async isFile(path: string): Promise<boolean> {
+    const stats = await fs.stat(path);
+    return stats.isFile();
+  }
+
   abstract isEditorInstalled(): Promise<boolean>;
 
   abstract isPluginInstalled(): Promise<boolean>;

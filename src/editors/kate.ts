@@ -1,9 +1,9 @@
 import os from "os";
 import Editor from "./editor";
 
-export default class Brackets extends Editor {
+export default class Kate extends Editor {
   public get name(): string {
-    return "Brackets";
+    return "Kate";
   }
 
   public get icon(): string {
@@ -15,7 +15,7 @@ export default class Brackets extends Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.isDirectory(this.appDirectory());
+    return await this.isFile(this.pluginsDirectory());
   }
 
   public async installPlugin(): Promise<void> {
@@ -29,9 +29,9 @@ export default class Brackets extends Editor {
   private appDirectory(): string {
     switch (os.platform()) {
       case "win32":
-        return "C:\\Program Files (x86)\\Brackets";
+        return null;
       case "darwin":
-        return "/Applications/Brackets.app/Contents";
+        return "/Applications/Kate.app/Contents";
       case "linux":
         return null;
       default:
@@ -42,12 +42,13 @@ export default class Brackets extends Editor {
   private pluginsDirectory(): string {
     switch (os.platform()) {
       case "win32": {
-        return "%USERPROFILE\\AppData\\Roaming\\Brackets\\extensions\\user\\brackets-wakatime";
+        return "";
       }
       case "darwin":
-        return "~/Library/Application Support/Brackets/extensions/user/brackets-wakatime";
+        // return "/Applications/kate.app/Contents/PlugIns";
+        return "/opt/local/lib/plugins/ktexteditor/ktexteditor_wakatime.so";
       case "linux":
-        return "~/.config/brackets/extensions/user/brackets-wakatime";
+        return "";
       default:
         return null;
     }

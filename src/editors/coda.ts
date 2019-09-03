@@ -12,14 +12,11 @@ export default class Coda extends Editor {
 
   public async isEditorInstalled(): Promise<boolean> {
     try {
-      let ret = false;
-      Object.keys(this.appDirectory).forEach(async directory => {
+      return Object.keys(this.appDirectory).some(async directory => {
         if (await this.isDirectory(directory)) {
-          ret = true;
-          return ret;
+          return true;
         }
       });
-      return ret;
     } catch (err) {
       console.error(err);
       return false;
@@ -28,14 +25,11 @@ export default class Coda extends Editor {
 
   public async isPluginInstalled(): Promise<boolean> {
     try {
-      let ret = false;
-      Object.keys(this.pluginsDirectory).forEach(async directory => {
+      Object.keys(this.pluginsDirectory).some(async directory => {
         if (await this.isFile(directory)) {
-          ret = true;
-          return ret;
+          return true;
         }
       });
-      return ret;
     } catch (err) {
       console.error(err);
       return false;

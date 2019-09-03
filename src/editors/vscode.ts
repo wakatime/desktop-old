@@ -23,11 +23,13 @@ export default class VsCode extends Editor {
 
   public async isEditorInstalled(): Promise<boolean> {
     try {
-      Object.keys(this.binaries).forEach(async binary => {
+      let ret = false;
+      ret = Object.keys(this.binaries).some(async binary => {
         if (await this.commandExists.exists(binary)) {
           return true;
         }
       });
+      if (ret) return true;
       return await this.isDirectory(this.appDirectory());
     } catch (err) {
       console.error(err);

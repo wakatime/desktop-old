@@ -8,16 +8,19 @@ const chaiAsPromised = require("chai-as-promised");
 const { expect } = chai;
 chai.use(chaiAsPromised);
 
-describe("Visual Studio Code", () => {
+describe("Visual Studio", () => {
   let visualStudio: VisualStudio;
-  let getInstalledVersions: any;
+  let getInstalledVersionsStub: any;
+  let isDirectoryStub: any;
 
   beforeEach(() => {
     visualStudio = new VisualStudio();
-    getInstalledVersions = sinon.stub(visualStudio, "getInstalledVersions");
+    getInstalledVersionsStub = sinon.stub(visualStudio, "getInstalledVersions");
+    isDirectoryStub = sinon.stub(visualStudio, "isDirectory");
   });
   afterEach(() => {
-    getInstalledVersions.restore();
+    getInstalledVersionsStub.restore();
+    isDirectoryStub.restore();
   });
   it("should return the correct key name", () => {
     const result = visualStudio.key;
@@ -28,12 +31,14 @@ describe("Visual Studio Code", () => {
     expect(result).to.equal("Visual Studio");
   });
   it("should return TRUE if editor is installed", async () => {
-    getInstalledVersions.returns([2010, 2012]);
+    getInstalledVersionsStub.returns([2010, 2012]);
+    isDirectoryStub.resolves(true);
     const result = await visualStudio.isEditorInstalled();
     expect(result).to.be.true;
   });
   it("should return FALSE if editor is not installed", async () => {
-    getInstalledVersions.returns([]);
+    getInstalledVersionsStub.returns([]);
+    isDirectoryStub.resolves(false);
     const result = await visualStudio.isEditorInstalled();
     expect(result).to.be.false;
   });

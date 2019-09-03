@@ -18,12 +18,11 @@ export default class Vim extends Editor {
 
   public async isEditorInstalled(): Promise<boolean> {
     try {
-      Object.keys(this.binaries).forEach(async binary => {
+      return Object.keys(this.binaries).some(async binary => {
         if (await this.commandExists.exists(binary)) {
           return true;
         }
       });
-      return false;
     } catch (err) {
       console.error(err);
       return false;

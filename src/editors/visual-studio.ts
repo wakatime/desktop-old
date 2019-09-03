@@ -24,7 +24,15 @@ export default class VisualStudio extends Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    return this.getInstalledVersions().length > 0;
+    switch (os.platform()) {
+      case "win32":
+        return this.getInstalledVersions().length > 0;
+      case "darwin":
+        return await this.isDirectory(this.appDirectory());
+      case "linux":
+      default:
+        return false;
+    }
   }
 
   private getInstalledVersions(): number[] {
@@ -92,5 +100,16 @@ export default class VisualStudio extends Editor {
 
   public async uninstallPlugin(): Promise<void> {
     throw new Error("Method not implemented.");
+  }
+
+  private appDirectory(): string {
+    switch (os.platform()) {
+      case "win32":
+        return "";
+      case "darwin":
+        return "/Applications/Visual Studio.app/Contents";
+      default:
+        return null;
+    }
   }
 }

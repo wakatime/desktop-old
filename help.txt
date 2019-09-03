@@ -1,0 +1,2 @@
+ [update from upstream]
+ git fetch upstream && git rebase upstream/master && git push origin editors --force-with-lease

@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware, compose } from "redux";
-import { ipcRenderer } from "electron";
+import { ipcRenderer, IpcRendererEvent } from "electron";
 import crashReporter from "../middlewares/crashReporter";
 import logger from "../middlewares/logger";
 import forwardToMain from "../middlewares/forwardToMain";
@@ -22,7 +22,7 @@ const onFetchMainStoreState = () => {
   store.dispatch(onRenderStoreCreated());
 };
 onFetchMainStoreState();
-ipcRenderer.on("message", (event: string, message) => {
+ipcRenderer.on("message", (event: IpcRendererEvent, message) => {
   console.log("[on message]", event, message);
   onFetchMainStoreState();
 });

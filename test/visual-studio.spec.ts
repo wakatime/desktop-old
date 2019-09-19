@@ -8,7 +8,7 @@ const chaiAsPromised = require("chai-as-promised");
 const { expect } = chai;
 chai.use(chaiAsPromised);
 
-describe("Visual Studio Code", () => {
+describe("Visual Studio", () => {
   let visualStudio: VisualStudio;
   let getInstalledVersions: any;
   let isDirectory: any;

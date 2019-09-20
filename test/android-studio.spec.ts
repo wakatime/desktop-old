@@ -48,13 +48,13 @@ describe("Android Studio", () => {
   });
   it("should return TRUE if plugin is installed", async () => {
     fileExistsStub.resolves(true);
-    pluginsDirectoryStub.returns('');
+    pluginsDirectoryStub.returns("");
     const result = await androidStudio.isPluginInstalled();
     expect(result).to.be.true;
   });
   it("should return FALSE if plugin is not installed", async () => {
     fileExistsStub.resolves(false);
-    pluginsDirectoryStub.returns('');
+    pluginsDirectoryStub.returns("");
     const result = await androidStudio.isPluginInstalled();
     expect(result).to.be.false;
   });

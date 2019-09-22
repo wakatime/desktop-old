@@ -92,8 +92,10 @@ export default class AndroidStudio extends Editor {
       case "win32":
         break;
       case "darwin": {
-        const plistFile = path.join(this.appDirectory(), "Info.plist");
-        this.plistObj = plist.parse(fsSync.readFileSync(plistFile, "utf8"));
+        if (this.isDirectorySync(this.appDirectory())) {
+          const plistFile = path.join(this.appDirectory(), "Info.plist");
+          this.plistObj = plist.parse(fsSync.readFileSync(plistFile, "utf8"));
+        }
         break;
       }
       default:

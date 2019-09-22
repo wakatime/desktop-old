@@ -1,4 +1,5 @@
 import fs from "async-file";
+import fsSync from "fs";
 
 export default abstract class Editor implements EditorInterface {
   abstract name: string;
@@ -12,6 +13,15 @@ export default abstract class Editor implements EditorInterface {
   public async isDirectory(directory: string): Promise<boolean> {
     const stats = await fs.stat(directory);
     return stats.isDirectory();
+  }
+
+  public isDirectorySync(directory: string): boolean {
+    try {
+      const stats = fsSync.statSync(directory);
+      return stats.isDirectory();
+    } catch (err) {
+      return false;
+    }
   }
 
   public async isFile(path: string): Promise<boolean> {

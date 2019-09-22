@@ -1,5 +1,5 @@
 import fs from "async-file";
-import fsfs from "fs";
+import fsSync from "fs";
 
 export default abstract class Editor implements EditorInterface {
   abstract name: string;
@@ -17,7 +17,7 @@ export default abstract class Editor implements EditorInterface {
 
   public isDirectorySync(directory: string): boolean {
     try {
-      const stats = fsfs.statSync(directory);
+      const stats = fsSync.statSync(directory);
       return stats.isDirectory();
     } catch (err) {
       return false;

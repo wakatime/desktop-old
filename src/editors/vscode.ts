@@ -71,7 +71,7 @@ export default class VsCode extends Editor {
   private appDirectory(): string {
     switch (os.platform()) {
       case "win32":
-        return "";
+        return "%USERPROFILE\\AppData\\Local\\Programs\\Microsoft VS Code";
       case "darwin":
         return "/Applications/Visual Studio Code.app/Contents";
       default:

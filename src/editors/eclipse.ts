@@ -1,6 +1,4 @@
 import os from "os";
-import fs from "async-file";
-import fsSync from "fs";
 import path from "path";
 import Editor from "./editor";
 

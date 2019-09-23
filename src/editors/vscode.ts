@@ -1,5 +1,5 @@
 import os from "os";
-import fs from "async-file";
+import fs from "fs";
 import { CommandExists } from "../lib/command-exists";
 import Editor from "./editor";
 
@@ -63,8 +63,8 @@ export default class VsCode extends Editor {
     return stdout.includes(filter);
   }
 
-  public async fileExists(file: string): Promise<boolean> {
-    const val = await fs.exists(file);
+  public fileExists(file: string): boolean {
+    const val = fs.existsSync(file);
     return val;
   }
 

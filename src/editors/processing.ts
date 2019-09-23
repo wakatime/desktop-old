@@ -1,7 +1,6 @@
 import { Extract } from "unzipper";
 import os from "os";
-import fs from "async-file";
-import fsSync from "fs";
+import fs from "fs";
 import path from "path";
 import request from "request";
 import Editor from "./editor";
@@ -41,7 +40,7 @@ export default class Processing extends Editor {
       "processing",
       "processing-wakatime-deploy.zip"
     );
-    const file = fsSync.createWriteStream(temp);
+    const file = fs.createWriteStream(temp);
 
     await new Promise((resolve, reject) => {
       request({
@@ -54,7 +53,7 @@ export default class Processing extends Editor {
           const pluginsDirectory = this.pluginsDirectory();
           const stream2 = await fs.createReadStream(temp);
           await stream2.pipe(Extract({ path: pluginsDirectory }));
-          fs.delete(temp);
+          fs.unlinkSync(temp);
           resolve();
         })
         .on("error", (err: any) => {
@@ -68,7 +67,7 @@ export default class Processing extends Editor {
 
   public async uninstallPlugin(): Promise<void> {
     const pluginPath = path.join(this.pluginsDirectory(), "WakatimeTool");
-    await fs.delete(pluginPath);
+    await fs.rmdirSync(pluginPath);
     return Promise.resolve();
   }
 
@@ -92,8 +91,8 @@ export default class Processing extends Editor {
           os.homedir(),
           "Library/Processing/preferences.txt"
         );
-        if (fsSync.existsSync(file)) {
-          const data = fsSync.readFileSync(file, { encoding: "utf8" });
+        if (fs.existsSync(file)) {
+          const data = fs.readFileSync(file, { encoding: "utf8" });
           if (data) {
             data.split(/\r?\n/).forEach(line => {
               const split = line.split("=");

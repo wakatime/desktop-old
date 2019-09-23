@@ -1,4 +1,7 @@
 import fs from "fs";
+import util from "util";
+
+const stat = util.promisify(fs.stat);
 
 export default abstract class Editor implements EditorInterface {
   abstract name: string;
@@ -9,8 +12,8 @@ export default abstract class Editor implements EditorInterface {
     return this.name.replace(/\s/g, "").toLowerCase();
   }
 
-  public isDirectory(directory: string): boolean {
-    const stats = fs.statSync(directory);
+  public async isDirectory(directory: string): Promise<boolean> {
+    const stats = await stat(directory);
     return stats.isDirectory();
   }
 
@@ -23,8 +26,8 @@ export default abstract class Editor implements EditorInterface {
     }
   }
 
-  public isFile(path: string): boolean {
-    const stats = fs.statSync(path);
+  public async isFile(path: string): Promise<boolean> {
+    const stats = await stat(path);
     return stats.isFile();
   }
 

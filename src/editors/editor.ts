@@ -1,5 +1,7 @@
-import fs from "async-file";
-import fsSync from "fs";
+import fs from "fs";
+import util from "util";
+
+const stat = util.promisify(fs.stat);
 
 export default abstract class Editor implements EditorInterface {
   abstract name: string;
@@ -11,13 +13,13 @@ export default abstract class Editor implements EditorInterface {
   }
 
   public async isDirectory(directory: string): Promise<boolean> {
-    const stats = await fs.stat(directory);
+    const stats = await stat(directory);
     return stats.isDirectory();
   }
 
   public isDirectorySync(directory: string): boolean {
     try {
-      const stats = fsSync.statSync(directory);
+      const stats = fs.statSync(directory);
       return stats.isDirectory();
     } catch (err) {
       return false;
@@ -25,7 +27,7 @@ export default abstract class Editor implements EditorInterface {
   }
 
   public async isFile(path: string): Promise<boolean> {
-    const stats = await fs.stat(path);
+    const stats = await stat(path);
     return stats.isFile();
   }
 

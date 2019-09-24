@@ -77,7 +77,6 @@
   },
   "dependencies": {
     "aphrodite": "^2.3.1",
-    "async-file": "^2.0.2",
     "electron": "^6.0.7",
     "electron-devtools-installer": "^2.2.4",
     "foreman": "^3.0.1",

@@ -1,6 +1,5 @@
 import os from "os";
-import fs from "async-file";
-import fsSync from "fs";
+import fs from "fs";
 import path from "path";
 import { CommandExists } from "../lib/command-exists";
 import Editor from "./editor";
@@ -59,8 +58,8 @@ export default class AndroidStudio extends Editor {
     throw new Error("Method not implemented.");
   }
 
-  public async fileExists(file: string): Promise<boolean> {
-    return await fs.exists(file);
+  public fileExists(file: string): boolean {
+    return fs.existsSync(file);
   }
 
   public pluginsDirectory(): string {
@@ -94,7 +93,7 @@ export default class AndroidStudio extends Editor {
       case "darwin": {
         if (this.isDirectorySync(this.appDirectory())) {
           const plistFile = path.join(this.appDirectory(), "Info.plist");
-          this.plistObj = plist.parse(fsSync.readFileSync(plistFile, "utf8"));
+          this.plistObj = plist.parse(fs.readFileSync(plistFile, "utf8"));
         }
         break;
       }

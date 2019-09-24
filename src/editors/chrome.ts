@@ -1,5 +1,4 @@
 import os from "os";
-import fs from "async-file";
 import Editor from "./editor";
 
 export default class Chrome extends Editor {

@@ -13,8 +13,12 @@ export default abstract class Editor implements EditorInterface {
   }
 
   public async isDirectory(directory: string): Promise<boolean> {
-    const stats = await stat(directory);
-    return stats.isDirectory();
+    try {
+      const stats = await stat(directory);
+      return stats.isDirectory();
+    } catch (err) {
+      return false;
+    }
   }
 
   public isDirectorySync(directory: string): boolean {
@@ -40,7 +44,7 @@ export default abstract class Editor implements EditorInterface {
   abstract uninstallPlugin(): Promise<void>;
 }
 
-declare interface EditorInterface {
+export declare interface EditorInterface {
   key: string;
   name: string;
   icon: string;

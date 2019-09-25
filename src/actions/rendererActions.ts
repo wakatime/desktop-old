@@ -1,6 +1,7 @@
 import {
   ON_MAIN_PROCESS_STATE,
-  SYNC_MAIN_STATE
+  SYNC_MAIN_STATE,
+  ENABLE_EDITORS
 } from "../constants/rendererActionTypes";
 import makeActionCreator, {
   makeActionWithMeta
@@ -14,3 +15,5 @@ export const setMainProcessState = makeActionCreator(
 export const onRenderStoreCreated = makeActionWithMeta({
   forwardToMain: true
 })(SYNC_MAIN_STATE);
+
+export const enableEditors = makeActionCreator(ENABLE_EDITORS, "payload");

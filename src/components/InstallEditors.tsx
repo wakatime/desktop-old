@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { connect } from "react-redux";
 
+import { useStyles } from '../themes';
 import Button from './Button';
 
 const InstallEditors = ({ editors }) => {
-  
+
   const [installing, setInstalling] = useState(false);
-  const [uninstalling, setUninstalling] = useState(false);
+  const { css, styles } = useStyles({ stylesFn });
 
   /**
    * Install Wakatime plugin on all available editors in the system
@@ -21,25 +22,20 @@ const InstallEditors = ({ editors }) => {
     setInstalling(false);
   }
 
-  /**
-   * Uninstall Wakatime plugin on all available editors in the system
-   */
-  const uninstallAllEditors = async () => {
-    setUninstalling(true);
-    for (const editor of editors) {
-      if (editor.name === 'Visual Studio Code') {
-        await editor.instance.uninstallPlugin();
-      }
-    };
-    setUninstalling(false);
-  }
-
   return (
-    <div>
+    <div {...css(styles.div)}>
       <Button text="Install" onClick={installAllEditors} enabled={!installing} />
-      <Button text="UnInstall" onClick={uninstallAllEditors} enabled={!uninstalling} />
     </div>
   )
+}
+
+const stylesFn = () => {
+  return ({
+    div: {
+      marginBottom: '1rem',
+      textAlign: 'center'
+    }
+  });
 }
 
 const mapStateToProps = ({ editors = [] }) => ({

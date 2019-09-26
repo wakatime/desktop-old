@@ -1,20 +1,37 @@
-export const ANDROIDSTUDIO = "ANDROIDSTUDIO";
-export const ATOM = "ATOM";
-export const CHROME = "CHROME";
-export const ECLIPSE = "ECLIPSE";
-export const SUBLIMETEXT2 = "SUBLIMETEXT2";
-export const SUBLIMETEXT3 = "SUBLIMETEXT3";
-export const VIM = "VIM";
-export const VSCODE = "VSCODE";
-export const XCODE = "XCODE";
+import AndroidStudio from "../editors/android-studio";
+import Atom from "../editors/atom";
+import Blender from "../editors/blender";
+import Brackets from "../editors/brackets";
+import Chrome from "../editors/chrome";
+import Coda from "../editors/coda";
+import Eclipse from "../editors/eclipse";
+import Kate from "../editors/Kate";
+import Processing from "../editors/processing";
+import SublimeText2 from "../editors/sublime-text-2";
+import SublimeText3 from "../editors/sublime-text-3";
+import Terminal from "../editors/terminal";
+import Unity from "../editors/unity";
+import Vim from "../editors/vim";
+import VisualStudio from "../editors/visual-studio";
+import VSCode from "../editors/vscode";
+import XCode from "../editors/xcode";
 
-export default [
-  ATOM,
-  CHROME,
-  ECLIPSE,
-  ANDROIDSTUDIO,
-  SUBLIMETEXT2,
-  SUBLIMETEXT3,
-  VIM,
-  VSCODE
-];
+export default {
+  AndroidStudio,
+  Atom,
+  Blender,
+  Brackets,
+  Chrome,
+  Coda,
+  Eclipse,
+  Kate,
+  Processing,
+  SublimeText2,
+  SublimeText3,
+  Terminal,
+  Unity,
+  Vim,
+  VisualStudio,
+  VSCode,
+  XCode
+};

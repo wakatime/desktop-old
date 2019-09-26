@@ -3,7 +3,7 @@ import createReducer from "../utils/createReducer";
 
 const initialState = Object.values(editors).reduce((accum, val) => {
   // eslint-disable-next-line no-param-reassign
-  accum[val] = {
+  accum[val.name] = {
     installed: false,
     installing: false
   };

@@ -27,7 +27,10 @@ const ActiveEditors = ({ editors, enableEditors }) => {
   return (
     <div {...css(styles.div)}>
       {editors.map(editor => (
-        <EditorIcon {...editor} />
+        <div {...css(styles.editor)}>
+          <EditorIcon {...editor} />
+          <div {...css(styles.editorName)}>{editor.name}</div>
+        </div>
       ))}
     </div>
   )
@@ -45,6 +48,14 @@ const stylesFn = () => {
       display: 'flex',
       flexWrap: 'wrap',
       justifyContent: 'center'
+    },
+    editor: {
+      textAlign: "center",
+      marginBottom: '.5rem'
+    },
+    editorName: {
+      fontSize: '.9rem',
+      opacity: .6
     }
   });
 }

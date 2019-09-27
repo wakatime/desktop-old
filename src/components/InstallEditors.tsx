@@ -4,10 +4,11 @@ import { bindActionCreators } from "redux";
 
 import { useStyles } from '../themes';
 import Button from './Button';
-import { enableEditors } from '../actions/rendererActions';
+
+import { enableEditors, clearSelectEditors } from '../actions/rendererActions';
 import { getEditorsState } from '../utils/editors';
 
-const InstallEditors = ({ editors, enableEditors }) => {
+const InstallEditors = ({ editors, enableEditors, clearSelectEditors }) => {
 
   const [installing, setInstalling] = useState(false);
   const { css, styles } = useStyles({ stylesFn });
@@ -16,17 +17,23 @@ const InstallEditors = ({ editors, enableEditors }) => {
    * Install Wakatime plugin on all available editors in the system
    */
   const installAllEditors = async () => {
-    setInstalling(true);
-    for (const editor of editors) {
 
-      // TODO: Remove this if once the `installPlugin` is implemented on all editors
-      if (editor.name === 'Visual Studio Code' || editor.name === 'Processing') {
-        await editor.instance.installPlugin();
-      }
-    };
-    const enabledEditors = await getEditorsState(editors);
-    enableEditors(enabledEditors);
-    setInstalling(false);
+    // TODO: @alanhamlett do we want this confirm here? i think is good but you have the last word on this
+    const confirmation = confirm('Do you want to install Wakatime on all the editors?');
+    if (confirmation) {
+      setInstalling(true);
+      for (const editor of editors) {
+
+        // Install only editors that the user picked and are not already installed
+        if (editor.isSelected && !editor.enabled) {
+          await editor.instance.installPlugin();
+        }
+      };
+      const enabledEditors = await getEditorsState(editors);
+      enableEditors(enabledEditors);
+      clearSelectEditors();
+      setInstalling(false);
+    }
   }
 
   return (
@@ -57,7 +64,8 @@ const mapStateToProps = ({ editors = [] }) => ({
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      enableEditors
+      enableEditors,
+      clearSelectEditors
     },
     dispatch
   );

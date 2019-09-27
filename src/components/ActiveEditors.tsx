@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import EditorIcon from "./EditorIcon";
-import { enableEditors } from '../actions/rendererActions';
+import { enableEditors, selectEditorToInstall } from '../actions/rendererActions';
 import { useStyles } from '../themes';
 import { getEditorsState } from '../utils/editors';
 
-const ActiveEditors = ({ editors, enableEditors }) => {
+const ActiveEditors = ({ editors, enableEditors, selectEditorToInstall }) => {
 
   const { css, styles } = useStyles({ stylesFn });
 
@@ -20,12 +20,24 @@ const ActiveEditors = ({ editors, enableEditors }) => {
     fetchData();
   }, []); // eslint-disable-line
 
+  const onCheckboxChange = (changeEvent, selected) => {
+    const { name } = changeEvent.target;
+
+    selectEditorToInstall({ name, selected });
+  };
+
   return (
     <div {...css(styles.div)}>
       {editors.map(editor => (
         <div {...css(styles.editor)}>
           <EditorIcon {...editor} />
           <div {...css(styles.editorName)}>{editor.name}</div>
+          <input
+            type="checkbox"
+            checked={editor.isSelected}
+            name={editor.name}
+            onChange={e => onCheckboxChange(e, !editor.isSelected)}
+          />
         </div>
       ))}
     </div>
@@ -63,7 +75,8 @@ const mapStateToProps = ({ editors = [] }) => ({
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      enableEditors
+      enableEditors,
+      selectEditorToInstall
     },
     dispatch
   );

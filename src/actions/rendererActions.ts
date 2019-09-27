@@ -1,7 +1,9 @@
 import {
   ON_MAIN_PROCESS_STATE,
   SYNC_MAIN_STATE,
-  ENABLE_EDITORS
+  ENABLE_EDITORS,
+  SELECT_EDITOR_TO_INSTALL,
+  CLEAR_SELECT_EDITORS
 } from "../constants/rendererActionTypes";
 import makeActionCreator, {
   makeActionWithMeta
@@ -17,3 +19,13 @@ export const onRenderStoreCreated = makeActionWithMeta({
 })(SYNC_MAIN_STATE);
 
 export const enableEditors = makeActionCreator(ENABLE_EDITORS, "payload");
+
+export const selectEditorToInstall = makeActionCreator(
+  SELECT_EDITOR_TO_INSTALL,
+  "payload"
+);
+
+export const clearSelectEditors = makeActionCreator(
+  CLEAR_SELECT_EDITORS,
+  "payload"
+);

@@ -39,7 +39,7 @@ const handlers = {
     return state.map(editor => {
       const newEditor = { ...editor };
       newEditor.isSelected = false;
-      return editor;
+      return newEditor;
     });
   }
 };

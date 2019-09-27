@@ -29,7 +29,10 @@ const ActiveEditors = ({ editors, enableEditors, selectEditorToInstall }) => {
   return (
     <div {...css(styles.div)}>
       {editors.map(editor => (
-        <div {...css(styles.editor)}>
+        <div
+          {...css(styles.editor)}
+          onClick={() => selectEditorToInstall({ name: editor.name, selected: !editor.isSelected })}
+        >
           <EditorIcon {...editor} />
           <div {...css(styles.editorName)}>{editor.name}</div>
           <input
@@ -59,7 +62,11 @@ const stylesFn = () => {
     },
     editor: {
       textAlign: "center",
-      marginBottom: '.5rem'
+      marginBottom: '.5rem',
+      borderRadius: '.3rem',
+      ':hover': {
+        backgroundColor: '#f5fbfb'
+      }
     },
     editorName: {
       fontSize: '.9rem',

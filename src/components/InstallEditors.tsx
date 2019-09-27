@@ -29,6 +29,7 @@ const InstallEditors = ({ editors, enableEditors, clearSelectEditors }) => {
           await editor.instance.installPlugin();
         }
       };
+      await getEditorsState(editors);
       const enabledEditors = await getEditorsState(editors);
       enableEditors(enabledEditors);
       clearSelectEditors();

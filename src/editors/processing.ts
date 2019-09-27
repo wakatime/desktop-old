@@ -35,6 +35,7 @@ export default class Processing extends Editor {
 
   public async installPlugin(): Promise<void> {
     let temp = path.join(os.tmpdir(), "WakaTime", "processing");
+
     // Create the temp folder first if this does not exists yet
     fs.mkdirSync(temp, { recursive: true });
 

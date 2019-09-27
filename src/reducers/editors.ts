@@ -9,6 +9,7 @@ const initialState = Object.values(editors).reduce((accum, Val) => {
   // eslint-disable-next-line no-param-reassign
   accum.push({
     name: instance.name,
+    installed: true,
     enabled: true, // Enabled by default for now
     img: imgPathMap[instance.name],
     instance

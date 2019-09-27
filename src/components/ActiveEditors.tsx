@@ -6,6 +6,7 @@ import { bindActionCreators } from "redux";
 import EditorIcon from "./EditorIcon";
 import { enableEditors } from '../actions/rendererActions';
 import { useStyles } from '../themes';
+import { getEditorsState } from '../utils/editors';
 
 const ActiveEditors = ({ editors, enableEditors }) => {
 
@@ -13,12 +14,7 @@ const ActiveEditors = ({ editors, enableEditors }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const enabledEditors = await Promise.all(editors.map(async editor => {
-        return {
-          ...editor,
-          enabled: await editor.instance.isEditorInstalled()
-        }
-      }))
+      const enabledEditors = await getEditorsState(editors);
       enableEditors(enabledEditors);
     };
     fetchData();
@@ -61,7 +57,7 @@ const stylesFn = () => {
 }
 
 const mapStateToProps = ({ editors = [] }) => ({
-  editors: editors.filter(e => e.enabled)
+  editors: editors.filter(e => e.installed)
 });
 
 const mapDispatchToProps = dispatch => {

@@ -73,11 +73,14 @@ export default class AndroidStudio extends Editor {
         return "";
       }
       case "darwin": {
-        const version = this.plistObj.CFBundleShortVersionString;
-        return path.join(
-          os.homedir(),
-          `Library/Application Support/AndroidStudio${version}`
-        );
+        if (this.plistObj) {
+          const version = this.plistObj.CFBundleShortVersionString;
+          return path.join(
+            os.homedir(),
+            `Library/Application Support/AndroidStudio${version}`
+          );
+        }
+        return "";
       }
       case "linux":
         return "";

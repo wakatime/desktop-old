@@ -29,6 +29,9 @@ const InstallEditors = ({ editors, enableEditors, clearSelectEditors }) => {
           await editor.instance.installPlugin();
         }
       };
+      // this method `getEditorsState` has to be called twice because there is a bug on 
+      // the `installPlugin` or `isPluginInstalled` for `processing` editor
+      // `installPlugin` only returns true after calling it the second time after the plugin was installed
       await getEditorsState(editors);
       const enabledEditors = await getEditorsState(editors);
       enableEditors(enabledEditors);

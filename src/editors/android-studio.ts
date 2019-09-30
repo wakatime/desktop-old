@@ -1,8 +1,10 @@
 import os from "os";
 import fs from "fs";
 import path from "path";
+
 import { CommandExists } from "../lib/command-exists";
 import Editor from "./editor";
+import { androidStudio128Path } from "../constants/imgPaths";
 
 const plist = require("plist");
 
@@ -25,7 +27,7 @@ export default class AndroidStudio extends Editor {
   }
 
   public get icon(): string {
-    return "";
+    return androidStudio128Path;
   }
 
   public get binaries(): string[] {

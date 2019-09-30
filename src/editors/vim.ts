@@ -1,5 +1,6 @@
 import Editor from "./editor";
 import { CommandExists } from "../lib/command-exists";
+import { vim128Path } from "../constants/imgPaths";
 
 export default class Vim extends Editor {
   private commandExists = new CommandExists();
@@ -13,7 +14,7 @@ export default class Vim extends Editor {
   }
 
   public get icon(): string {
-    return "";
+    return vim128Path;
   }
 
   public get binaries(): string[] {

@@ -1,5 +1,4 @@
 import editors from "../constants/editors";
-import imgPathMap from "../config/editorsImgMap";
 import createReducer from "../utils/createReducer";
 import { FSA } from "../actions/fsaAction";
 import {
@@ -16,7 +15,7 @@ const initialState = Object.values(editors).reduce((accum, Val) => {
     name: instance.name,
     installed: true,
     enabled: true, // Enabled by default for now
-    img: imgPathMap[instance.name],
+    img: instance.icon,
     instance,
     isSelected: false
   });

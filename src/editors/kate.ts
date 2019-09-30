@@ -1,5 +1,7 @@
 import os from "os";
+
 import Editor from "./editor";
+import { kate128Path } from "../constants/imgPaths";
 
 export default class Kate extends Editor {
   public static getName(): string {
@@ -11,7 +13,7 @@ export default class Kate extends Editor {
   }
 
   public get icon(): string {
-    return "";
+    return kate128Path;
   }
 
   public async isEditorInstalled(): Promise<boolean> {

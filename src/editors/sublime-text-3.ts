@@ -1,6 +1,8 @@
 import os from "os";
 import path from "path";
+
 import Editor from "./editor";
+import { sublimeText128Path } from "../constants/imgPaths";
 
 export default class SublimeText3 extends Editor {
   public static getName(): string {
@@ -12,7 +14,7 @@ export default class SublimeText3 extends Editor {
   }
 
   public get icon(): string {
-    return "";
+    return sublimeText128Path;
   }
 
   public async isEditorInstalled(): Promise<boolean> {

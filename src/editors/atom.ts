@@ -1,7 +1,9 @@
 import os from "os";
 import path from "path";
+
 import { CommandExists } from "../lib/command-exists";
 import Editor from "./editor";
+import { atom128Path } from "../constants/imgPaths";
 
 const util = require("util");
 const exec = util.promisify(require("child_process").exec);
@@ -18,7 +20,7 @@ export default class Atom extends Editor {
   }
 
   public get icon(): string {
-    return "";
+    return atom128Path;
   }
 
   public get binaries(): string[] {

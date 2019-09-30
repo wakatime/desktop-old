@@ -12,6 +12,11 @@ const InstallEditors = ({ editors, setEditorEnabled, clearSelectEditors }) => {
   const [installing, setInstalling] = useState(false);
   const { css, styles } = useStyles({ stylesFn });
 
+  const installPlugin = async (editor) => {
+    await editor.instance.installPlugin();
+    setEditorEnabled({ name: editor.name });
+  };
+
   /**
    * Install Wakatime plugin on all available editors in the system
    */
@@ -21,14 +26,15 @@ const InstallEditors = ({ editors, setEditorEnabled, clearSelectEditors }) => {
     const confirmation = confirm('Do you want to install Wakatime on all the editors?');
     if (confirmation) {
       setInstalling(true);
+      const editorsToInstall = [];
       for (const editor of editors) {
 
         // Install only editors that the user picked and are not already installed
         if (editor.isSelected && !editor.enabled) {
-          await editor.instance.installPlugin();
-          setEditorEnabled({ name: editor.name });
+          editorsToInstall.push(installPlugin(editor));
         }
       };
+      await Promise.all(editorsToInstall);
       clearSelectEditors();
       setInstalling(false);
     }

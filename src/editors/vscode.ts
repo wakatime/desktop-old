@@ -44,14 +44,14 @@ export default class VsCode extends Editor {
 
   public async installPlugin(): Promise<void> {
     const { stdout, stderr } = await exec(
-      "code --install-extension WakaTime.vscode-wakatime"
+      "code --install-extension wakatime.vscode-wakatime"
     );
     if (stderr) return Promise.reject(new Error(stderr));
   }
 
   public async uninstallPlugin(): Promise<void> {
     const { stdout, stderr } = await exec(
-      "code --uninstall-extension WakaTime.vscode-wakatime"
+      "code --uninstall-extension wakatime.vscode-wakatime"
     );
     if (stderr) return Promise.reject(new Error(stderr));
   }

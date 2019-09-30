@@ -2,10 +2,14 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+
 import EditorIcon from "./EditorIcon";
 import { enableEditors } from '../actions/rendererActions';
+import { useStyles } from '../themes';
 
 const ActiveEditors = ({ editors, enableEditors }) => {
+
+  const { css, styles } = useStyles({ stylesFn });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,9 +25,12 @@ const ActiveEditors = ({ editors, enableEditors }) => {
   }, []); // eslint-disable-line
 
   return (
-    <div>
+    <div {...css(styles.div)}>
       {editors.map(editor => (
-        <EditorIcon {...editor} />
+        <div {...css(styles.editor)}>
+          <EditorIcon {...editor} />
+          <div {...css(styles.editorName)}>{editor.name}</div>
+        </div>
       ))}
     </div>
   )
@@ -34,6 +41,25 @@ ActiveEditors.propTypes = {
 ActiveEditors.defaultProps = {
   editors: []
 };
+
+const stylesFn = () => {
+  return ({
+    div: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'center'
+    },
+    editor: {
+      textAlign: "center",
+      marginBottom: '.5rem'
+    },
+    editorName: {
+      fontSize: '.9rem',
+      opacity: .6
+    }
+  });
+}
+
 const mapStateToProps = ({ editors = [] }) => ({
   editors: editors.filter(e => e.enabled)
 });

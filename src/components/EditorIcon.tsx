@@ -39,7 +39,8 @@ export default withStyles(() => ({
     width: "auto",
     height: "20vw",
     maxHeight: 128,
-    minHeight: 48
+    minHeight: 48,
+    margin: '.5rem'
   },
   enabled: {
     opacity: 1

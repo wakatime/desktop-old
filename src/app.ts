@@ -53,7 +53,7 @@ const createWindow = async () => {
         await loadExt(REDUX_DEVTOOLS);
       } catch (e) {
         // eslint-disable-next-line no-console
-        console.error("Unable to load page, waiting 500ms to retry...", e);
+        console.error("Unable to load page, waiting 5s to retry...", e);
         setTimeout(loadWin, 5000);
       }
     };

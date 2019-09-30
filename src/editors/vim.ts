@@ -4,6 +4,10 @@ import { CommandExists } from "../lib/command-exists";
 export default class Vim extends Editor {
   private commandExists = new CommandExists();
 
+  public static getName(): string {
+    return "Vim";
+  }
+
   public get name(): string {
     return "Vim";
   }

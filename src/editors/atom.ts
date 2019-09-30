@@ -9,6 +9,10 @@ const exec = util.promisify(require("child_process").exec);
 export default class Atom extends Editor {
   private commandExists = new CommandExists();
 
+  public static getName(): string {
+    return "Atom";
+  }
+
   public get name(): string {
     return "Atom";
   }

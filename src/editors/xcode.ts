@@ -6,6 +6,10 @@ import Editor from "./editor";
 export default class Xcode extends Editor {
   private commandExists = new CommandExists();
 
+  public static getName(): string {
+    return "Xcode";
+  }
+
   public get name(): string {
     return "Xcode";
   }

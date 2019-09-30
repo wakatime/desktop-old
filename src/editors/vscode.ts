@@ -9,6 +9,10 @@ const exec = util.promisify(require("child_process").exec);
 export default class VsCode extends Editor {
   private commandExists = new CommandExists();
 
+  public static getName(): string {
+    return "Visual Studio Code";
+  }
+
   public get name(): string {
     return "Visual Studio Code";
   }

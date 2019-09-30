@@ -16,6 +16,10 @@ export default class AndroidStudio extends Editor {
     this.readPreferences();
   }
 
+  public static getName(): string {
+    return "Android Studio";
+  }
+
   public get name(): string {
     return "Android Studio";
   }

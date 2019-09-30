@@ -13,6 +13,10 @@ export default class Processing extends Editor {
     this.readPreferences();
   }
 
+  public static getName(): string {
+    return "Processing";
+  }
+
   public get name(): string {
     return "Processing";
   }

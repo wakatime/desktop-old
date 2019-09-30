@@ -2,6 +2,10 @@ import os from "os";
 import Editor from "./editor";
 
 export default class Kate extends Editor {
+  public static getName(): string {
+    return "Kate";
+  }
+
   public get name(): string {
     return "Kate";
   }

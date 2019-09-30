@@ -7,6 +7,10 @@ import CommandExists from "../lib/command-exists";
 export default class Blender extends Editor {
   private commandExists = new CommandExists();
 
+  public static getName(): string {
+    return "Blender";
+  }
+
   public get name(): string {
     return "Blender";
   }

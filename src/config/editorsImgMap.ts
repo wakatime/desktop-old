@@ -23,23 +23,23 @@ interface EditorImageMap {
 }
 
 const imgMap: EditorImageMap = {
-  [new editors.AndroidStudio().name]: androidStudio128Path,
-  [new editors.Atom().name]: atom128Path,
-  [new editors.Blender().name]: blender128Path,
-  [new editors.Brackets().name]: brackets128Path,
-  [new editors.Chrome().name]: chrome128Path,
-  [new editors.Coda().name]: coda128Path,
-  [new editors.Eclipse().name]: eclipse128Path,
-  [new editors.Kate().name]: kate128Path,
-  [new editors.Processing().name]: processing128Path,
-  [new editors.SublimeText2().name]: sublimeText128Path,
-  [new editors.SublimeText3().name]: sublimeText128Path, // Should this be a different image?
-  [new editors.Terminal().name]: terminal128Path,
-  [new editors.Unity().name]: unity128Path,
-  [new editors.Vim().name]: vim128Path,
-  [new editors.VisualStudio().name]: visualStudio128Path,
-  [new editors.VSCode().name]: vsCode128Path,
-  [new editors.XCode().name]: xcode128Path
+  [editors.AndroidStudio.getName()]: androidStudio128Path,
+  [editors.Atom.getName()]: atom128Path,
+  [editors.Blender.getName()]: blender128Path,
+  [editors.Brackets.getName()]: brackets128Path,
+  [editors.Chrome.getName()]: chrome128Path,
+  [editors.Coda.getName()]: coda128Path,
+  [editors.Eclipse.getName()]: eclipse128Path,
+  [editors.Kate.getName()]: kate128Path,
+  [editors.Processing.getName()]: processing128Path,
+  [editors.SublimeText2.getName()]: sublimeText128Path,
+  [editors.SublimeText3.getName()]: sublimeText128Path, // Should this be a different image?
+  [editors.Terminal.getName()]: terminal128Path,
+  [editors.Unity.getName()]: unity128Path,
+  [editors.Vim.getName()]: vim128Path,
+  [editors.VisualStudio.getName()]: visualStudio128Path,
+  [editors.VSCode.getName()]: vsCode128Path,
+  [editors.XCode.getName()]: xcode128Path
 };
 
 export default imgMap;

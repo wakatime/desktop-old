@@ -3,6 +3,10 @@ import path from "path";
 import Editor from "./editor";
 
 export default class SublimeText2 extends Editor {
+  public static getName(): string {
+    return "Sublime Text 2";
+  }
+
   public get name(): string {
     return "Sublime Text 2";
   }

@@ -15,6 +15,10 @@ export default class VisualStudio extends Editor {
     16: 2019
   };
 
+  public static getName(): string {
+    return "Visual Studio";
+  }
+
   public get name(): string {
     return "Visual Studio";
   }

@@ -2,6 +2,10 @@ import os from "os";
 import Editor from "./editor";
 
 export default class Unity extends Editor {
+  public static getName(): string {
+    return "Unity";
+  }
+
   public get name(): string {
     return "Unity";
   }

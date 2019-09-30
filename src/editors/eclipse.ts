@@ -3,6 +3,10 @@ import path from "path";
 import Editor from "./editor";
 
 export default class Eclipse extends Editor {
+  public static getName(): string {
+    return "Eclipse";
+  }
+
   public get name(): string {
     return "Eclipse";
   }

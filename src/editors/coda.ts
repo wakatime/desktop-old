@@ -2,6 +2,10 @@ import os from "os";
 import Editor from "./editor";
 
 export default class Coda extends Editor {
+  public static getName(): string {
+    return "Coda";
+  }
+
   public get name(): string {
     return "Coda";
   }

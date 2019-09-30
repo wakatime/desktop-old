@@ -4,6 +4,10 @@ import { CommandExists } from "../lib/command-exists";
 export default class Terminal extends Editor {
   private commandExists = new CommandExists();
 
+  public static getName(): string {
+    return "Terminal";
+  }
+
   public get name(): string {
     return "Terminal";
   }

@@ -2,6 +2,10 @@ import os from "os";
 import Editor from "./editor";
 
 export default class Brackets extends Editor {
+  public static getName(): string {
+    return "Brackets";
+  }
+
   public get name(): string {
     return "Brackets";
   }

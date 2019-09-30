@@ -2,6 +2,10 @@ import os from "os";
 import Editor from "./editor";
 
 export default class Chrome extends Editor {
+  public static getName(): string {
+    return "Google Chrome";
+  }
+
   public get name(): string {
     return "Google Chrome";
   }

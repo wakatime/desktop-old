@@ -1,13 +1,19 @@
 import os from "os";
+
 import Editor from "./editor";
+import { kate128Path } from "../constants/imgPaths";
 
 export default class Kate extends Editor {
+  public static getName(): string {
+    return "Kate";
+  }
+
   public get name(): string {
     return "Kate";
   }
 
   public get icon(): string {
-    return "";
+    return kate128Path;
   }
 
   public async isEditorInstalled(): Promise<boolean> {

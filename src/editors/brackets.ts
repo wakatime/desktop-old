@@ -1,13 +1,19 @@
 import os from "os";
+
 import Editor from "./editor";
+import { brackets128Path } from "../constants/imgPaths";
 
 export default class Brackets extends Editor {
+  public static getName(): string {
+    return "Brackets";
+  }
+
   public get name(): string {
     return "Brackets";
   }
 
   public get icon(): string {
-    return "";
+    return brackets128Path;
   }
 
   public async isEditorInstalled(): Promise<boolean> {

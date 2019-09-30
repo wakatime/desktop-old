@@ -7,7 +7,7 @@
   "description": "The WakaTime desktop app.",
   "main": "dist/app.js",
   "scripts": {
-    "dev": "npm run build && npm run  watch",
+    "dev": "npm run build && npm run watch",
     "start": "electron dist/app.js",
     "cache:clean": "rimraf node_modules/.cache",
     "eslint": "eslint --ext ts --ext tsx .",

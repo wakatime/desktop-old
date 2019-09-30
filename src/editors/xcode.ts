@@ -1,17 +1,23 @@
 import os from "os";
 import path from "path";
+
 import { CommandExists } from "../lib/command-exists";
 import Editor from "./editor";
+import { xcode128Path } from "../constants/imgPaths";
 
 export default class Xcode extends Editor {
   private commandExists = new CommandExists();
+
+  public static getName(): string {
+    return "Xcode";
+  }
 
   public get name(): string {
     return "Xcode";
   }
 
   public get icon(): string {
-    return "";
+    return xcode128Path;
   }
 
   public get binaries(): string[] {

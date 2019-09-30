@@ -46,6 +46,6 @@ export default withStyles(() => ({
     opacity: 1
   },
   disabled: {
-    opacity: 0.6
+    filter: "grayscale(100%)"
   }
 }))(EditorIcon);

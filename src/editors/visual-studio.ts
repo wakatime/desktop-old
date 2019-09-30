@@ -1,6 +1,7 @@
 import os from "os";
 
 import Editor from "./editor";
+import { visualStudio128Path } from "../constants/imgPaths";
 
 const Registry = require("winreg");
 const readdirp = require("readdirp");
@@ -15,12 +16,16 @@ export default class VisualStudio extends Editor {
     16: 2019
   };
 
+  public static getName(): string {
+    return "Visual Studio";
+  }
+
   public get name(): string {
     return "Visual Studio";
   }
 
   public get icon(): string {
-    return "";
+    return visualStudio128Path;
   }
 
   public async isEditorInstalled(): Promise<boolean> {

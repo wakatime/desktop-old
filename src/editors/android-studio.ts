@@ -1,8 +1,10 @@
 import os from "os";
 import fs from "fs";
 import path from "path";
+
 import { CommandExists } from "../lib/command-exists";
 import Editor from "./editor";
+import { androidStudio128Path } from "../constants/imgPaths";
 
 const plist = require("plist");
 
@@ -16,12 +18,16 @@ export default class AndroidStudio extends Editor {
     this.readPreferences();
   }
 
+  public static getName(): string {
+    return "Android Studio";
+  }
+
   public get name(): string {
     return "Android Studio";
   }
 
   public get icon(): string {
-    return "";
+    return androidStudio128Path;
   }
 
   public get binaries(): string[] {
@@ -73,11 +79,14 @@ export default class AndroidStudio extends Editor {
         return "";
       }
       case "darwin": {
-        const version = this.plistObj.CFBundleShortVersionString;
-        return path.join(
-          os.homedir(),
-          `Library/Application Support/AndroidStudio${version}`
-        );
+        if (this.plistObj) {
+          const version = this.plistObj.CFBundleShortVersionString;
+          return path.join(
+            os.homedir(),
+            `Library/Application Support/AndroidStudio${version}`
+          );
+        }
+        return "";
       }
       case "linux":
         return "";

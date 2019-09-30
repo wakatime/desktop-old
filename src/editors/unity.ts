@@ -1,13 +1,19 @@
 import os from "os";
+
 import Editor from "./editor";
+import { unity128Path } from "../constants/imgPaths";
 
 export default class Unity extends Editor {
+  public static getName(): string {
+    return "Unity";
+  }
+
   public get name(): string {
     return "Unity";
   }
 
   public get icon(): string {
-    return "";
+    return unity128Path;
   }
 
   public async isEditorInstalled(): Promise<boolean> {

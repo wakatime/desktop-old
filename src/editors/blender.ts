@@ -1,18 +1,24 @@
 import os from "os";
 import path from "path";
 import fsSync from "fs";
+
 import Editor from "./editor";
 import CommandExists from "../lib/command-exists";
+import { blender128Path } from "../constants/imgPaths";
 
 export default class Blender extends Editor {
   private commandExists = new CommandExists();
+
+  public static getName(): string {
+    return "Blender";
+  }
 
   public get name(): string {
     return "Blender";
   }
 
   public get icon(): string {
-    return "";
+    return blender128Path;
   }
 
   public get binaries(): string[] {

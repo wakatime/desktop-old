@@ -4,32 +4,43 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import EditorIcon from "./EditorIcon";
-import { enableEditors } from '../actions/rendererActions';
+import { enableEditors, selectEditorToInstall } from '../actions/rendererActions';
 import { useStyles } from '../themes';
+import { getEditorsState } from '../utils/editors';
 
-const ActiveEditors = ({ editors, enableEditors }) => {
+const ActiveEditors = ({ editors, enableEditors, selectEditorToInstall }) => {
 
   const { css, styles } = useStyles({ stylesFn });
 
   useEffect(() => {
     const fetchData = async () => {
-      const enabledEditors = await Promise.all(editors.map(async editor => {
-        return {
-          ...editor,
-          enabled: await editor.instance.isEditorInstalled()
-        }
-      }))
+      const enabledEditors = await getEditorsState(editors);
       enableEditors(enabledEditors);
     };
     fetchData();
   }, []); // eslint-disable-line
 
+  const onCheckboxChange = (changeEvent, selected) => {
+    const { name } = changeEvent.target;
+
+    selectEditorToInstall({ name, selected });
+  };
+
   return (
     <div {...css(styles.div)}>
       {editors.map(editor => (
-        <div {...css(styles.editor)}>
+        <div
+          {...css(styles.editor)}
+          onClick={() => selectEditorToInstall({ name: editor.name, selected: !editor.isSelected })}
+        >
           <EditorIcon {...editor} />
-          <div {...css(styles.editorName)}>{editor.name}</div>
+          <div {...css(styles.editorName)}>{editor.name}: {editor.enabled? 'true': 'false'}</div>
+          <input
+            type="checkbox"
+            checked={editor.isSelected}
+            name={editor.name}
+            onChange={e => onCheckboxChange(e, !editor.isSelected)}
+          />
         </div>
       ))}
     </div>
@@ -51,7 +62,11 @@ const stylesFn = () => {
     },
     editor: {
       textAlign: "center",
-      marginBottom: '.5rem'
+      marginBottom: '.5rem',
+      borderRadius: '.3rem',
+      ':hover': {
+        backgroundColor: '#f5fbfb'
+      }
     },
     editorName: {
       fontSize: '.9rem',
@@ -61,13 +76,14 @@ const stylesFn = () => {
 }
 
 const mapStateToProps = ({ editors = [] }) => ({
-  editors: editors.filter(e => e.enabled)
+  editors: editors.filter(e => e.installed)
 });
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      enableEditors
+      enableEditors,
+      selectEditorToInstall
     },
     dispatch
   );

@@ -1,7 +1,9 @@
 import os from "os";
 import fs from "fs";
+
 import { CommandExists } from "../lib/command-exists";
 import Editor from "./editor";
+import { vsCode128Path } from "../constants/imgPaths";
 
 const util = require("util");
 const exec = util.promisify(require("child_process").exec);
@@ -9,12 +11,16 @@ const exec = util.promisify(require("child_process").exec);
 export default class VsCode extends Editor {
   private commandExists = new CommandExists();
 
+  public static getName(): string {
+    return "Visual Studio Code";
+  }
+
   public get name(): string {
     return "Visual Studio Code";
   }
 
   public get icon(): string {
-    return "";
+    return vsCode128Path;
   }
 
   public get binaries(): string[] {
@@ -38,7 +44,7 @@ export default class VsCode extends Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    const val = await this.listExtensions("WakaTime");
+    const val = await this.listExtensions("wakatime");
     return val;
   }
 

@@ -3,7 +3,9 @@ import os from "os";
 import fs from "fs";
 import path from "path";
 import request from "request";
+
 import Editor from "./editor";
+import { processing128Path } from "../constants/imgPaths";
 
 export default class Processing extends Editor {
   private preferences: { [key: string]: string } = {};
@@ -13,12 +15,16 @@ export default class Processing extends Editor {
     this.readPreferences();
   }
 
+  public static getName(): string {
+    return "Processing";
+  }
+
   public get name(): string {
     return "Processing";
   }
 
   public get icon(): string {
-    return "";
+    return processing128Path;
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -34,12 +40,13 @@ export default class Processing extends Editor {
   }
 
   public async installPlugin(): Promise<void> {
-    const temp = path.join(
-      os.tmpdir(),
-      "WakaTime",
-      "processing",
-      "processing-wakatime-deploy.zip"
-    );
+    let temp = path.join(os.tmpdir(), "WakaTime", "processing");
+
+    // Create the temp folder first if this does not exists yet
+    fs.mkdirSync(temp, { recursive: true });
+
+    temp = path.join(temp, "processing-wakatime-deploy.zip");
+
     const file = fs.createWriteStream(temp);
 
     await new Promise((resolve, reject) => {

@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+
+import Loader from './Loader';
 import { useStyles } from "../themes";
 
-const Button = ({ enabled, text, onClick }) => {
+const Button = ({ enabled, text, onClick, loading }) => {
 
   const { css, styles } = useStyles({ stylesFn });
 
@@ -11,7 +13,8 @@ const Button = ({ enabled, text, onClick }) => {
       onClick={() => enabled ? onClick() : console.log('disabled')}
       {...css(styles.wrapper, enabled ? styles.enabled : styles.disabled)}
     >
-      {text}
+      <span {...css(loading ? styles.textLoading : styles.text)}>{text}</span>
+      {loading && <Loader /> }
     </div>
   );
 };
@@ -20,18 +23,20 @@ Button.propTypes = {
   onClick: PropTypes.func,
   enabled: PropTypes.bool,
   text: PropTypes.string.isRequired,
+  loading: PropTypes.bool
 };
 
 Button.defaultProps = {
-  enabled: true
+  enabled: true,
+  loading: false
 };
 
-const stylesFn = () => {
+const stylesFn = ({ color }) => {
   return ({
     wrapper: {
       cursor: "pointer",
       userSelect: 'none',
-      display: 'inline-block',
+      display: 'inline-flex',
       fontWeight: 400,
       textAlign: 'center',
       verticalAlign: 'middle',
@@ -42,11 +47,13 @@ const stylesFn = () => {
       borderRadius: '.25rem',
       transition: 'color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out',
       color: '#fff',
-      backgroundColor: '#17a2b8',
-      borderColor: '#17a2b8',
+      backgroundColor: color.primary,
+      borderColor: color.primary,
+      minWidth: '70px',
+      justifyContent: 'center',
       ':hover': {
-        backgroundColor: '#138496',
-        borderColor: '#117a8b'
+        backgroundColor: color.secondary,
+        borderColor: color.secondary
       }
     },
     enabled: {
@@ -54,6 +61,10 @@ const stylesFn = () => {
     },
     disabled: {
       opacity: 0.6
+    },
+    text: {},
+    textLoading: {
+      marginRight: '.25rem'
     }
   });
 }

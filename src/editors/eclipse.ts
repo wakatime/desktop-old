@@ -1,14 +1,20 @@
 import os from "os";
 import path from "path";
+
 import Editor from "./editor";
+import { eclipse128Path } from "../constants/imgPaths";
 
 export default class Eclipse extends Editor {
+  public static getName(): string {
+    return "Eclipse";
+  }
+
   public get name(): string {
     return "Eclipse";
   }
 
   public get icon(): string {
-    return "";
+    return eclipse128Path;
   }
 
   public async isEditorInstalled(): Promise<boolean> {

@@ -5,10 +5,9 @@ import { bindActionCreators } from "redux";
 import { useStyles } from '../themes';
 import Button from './Button';
 
-import { enableEditors, clearSelectEditors } from '../actions/rendererActions';
-import { getEditorsState } from '../utils/editors';
+import { setEditorEnabled, clearSelectEditors } from '../actions/rendererActions';
 
-const InstallEditors = ({ editors, enableEditors, clearSelectEditors }) => {
+const InstallEditors = ({ editors, setEditorEnabled, clearSelectEditors }) => {
 
   const [installing, setInstalling] = useState(false);
   const { css, styles } = useStyles({ stylesFn });
@@ -27,14 +26,9 @@ const InstallEditors = ({ editors, enableEditors, clearSelectEditors }) => {
         // Install only editors that the user picked and are not already installed
         if (editor.isSelected && !editor.enabled) {
           await editor.instance.installPlugin();
+          setEditorEnabled({ name: editor.name });
         }
       };
-      // this method `getEditorsState` has to be called twice because there is a bug on 
-      // the `installPlugin` or `isPluginInstalled` for `processing` editor
-      // `installPlugin` only returns true after calling it the second time after the plugin was installed
-      await getEditorsState(editors);
-      const enabledEditors = await getEditorsState(editors);
-      enableEditors(enabledEditors);
       clearSelectEditors();
       setInstalling(false);
     }
@@ -68,7 +62,7 @@ const mapStateToProps = ({ editors = [] }) => ({
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      enableEditors,
+      setEditorEnabled,
       clearSelectEditors
     },
     dispatch

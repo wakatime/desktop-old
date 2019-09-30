@@ -3,6 +3,7 @@ import {
   SYNC_MAIN_STATE,
   ENABLE_EDITORS,
   SELECT_EDITOR_TO_INSTALL,
+  SET_EDITOR_ENABLED,
   CLEAR_SELECT_EDITORS
 } from "../constants/rendererActionTypes";
 import makeActionCreator, {
@@ -22,6 +23,11 @@ export const enableEditors = makeActionCreator(ENABLE_EDITORS, "payload");
 
 export const selectEditorToInstall = makeActionCreator(
   SELECT_EDITOR_TO_INSTALL,
+  "payload"
+);
+
+export const setEditorEnabled = makeActionCreator(
+  SET_EDITOR_ENABLED,
   "payload"
 );
 

@@ -5,6 +5,7 @@ import { FSA } from "../actions/fsaAction";
 import {
   ENABLE_EDITORS,
   SELECT_EDITOR_TO_INSTALL,
+  SET_EDITOR_ENABLED,
   CLEAR_SELECT_EDITORS
 } from "../constants/rendererActionTypes";
 
@@ -31,6 +32,15 @@ const handlers = {
       const newEditor = { ...editor };
       if (newEditor.name === action.payload.name) {
         newEditor.isSelected = action.payload.selected;
+      }
+      return newEditor;
+    });
+  },
+  [SET_EDITOR_ENABLED]: (state = [], action: FSA<any>) => {
+    return state.map(editor => {
+      const newEditor = { ...editor };
+      if (newEditor.name === action.payload.name) {
+        newEditor.enabled = true;
       }
       return newEditor;
     });

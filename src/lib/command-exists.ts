@@ -87,7 +87,7 @@ export class CommandExists {
     });
   }
 
-  public exists(commandName: string, callback: any = null) {
+  public exists(commandName: string, callback: any = null): Promise<boolean> {
     try {
       const cleanedCommandName = this.cleanInput(commandName);
       if (!callback && typeof Promise !== "undefined") {

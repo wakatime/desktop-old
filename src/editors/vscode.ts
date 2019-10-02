@@ -68,11 +68,6 @@ export default class VsCode extends Editor {
     return stdout.includes(filter);
   }
 
-  public fileExists(file: string): boolean {
-    const val = fs.existsSync(file);
-    return val;
-  }
-
   private appDirectory(): string {
     switch (os.platform()) {
       case "win32":

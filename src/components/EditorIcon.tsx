@@ -40,7 +40,7 @@ export default withStyles(() => ({
     height: "20vw",
     maxHeight: 128,
     minHeight: 48,
-    margin: '.5rem'
+    margin: ".5rem"
   },
   enabled: {
     opacity: 1

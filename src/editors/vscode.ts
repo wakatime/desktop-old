@@ -3,7 +3,6 @@ import fs from "fs";
 
 import { CommandExists } from "../lib/command-exists";
 import Editor from "./editor";
-import { vsCode128Path } from "../constants/imgPaths";
 
 const util = require("util");
 const exec = util.promisify(require("child_process").exec);
@@ -20,7 +19,7 @@ export default class VsCode extends Editor {
   }
 
   public get icon(): string {
-    return vsCode128Path;
+    return "";
   }
 
   public get binaries(): string[] {

@@ -95,7 +95,7 @@ export default class Terminal extends Editor {
   }
 
   private async isPluginInstalledForBash(): Promise<boolean> {
-    if (this.isFile("~/.bashrc")) {
+    if (this.fileExists("~/.bashrc")) {
       const find = await findInFiles.find("bash-wakatime.sh", "~/", ".bashrc$");
       return find[".bashrc"].count > 0;
     }
@@ -110,7 +110,7 @@ export default class Terminal extends Editor {
   }
 
   private async isPluginInstalledForFish(): Promise<boolean> {
-    if (this.isFile("~/.config/fish/functions/fish_prompt.fish")) {
+    if (this.fileExists("~/.config/fish/functions/fish_prompt.fish")) {
       const find = await findInFiles.find(
         "wakatime",
         "~/.config/fish/functions/",

@@ -2,6 +2,7 @@ import fs from "fs";
 import util from "util";
 
 const stat = util.promisify(fs.stat);
+const exists = util.promisify(fs.exists);
 
 export default abstract class Editor implements EditorInterface {
   abstract name: string;
@@ -17,6 +18,7 @@ export default abstract class Editor implements EditorInterface {
       const stats = await stat(directory);
       return stats.isDirectory();
     } catch (err) {
+      console.error(err);
       return false;
     }
   }
@@ -26,6 +28,7 @@ export default abstract class Editor implements EditorInterface {
       const stats = fs.statSync(directory);
       return stats.isDirectory();
     } catch (err) {
+      console.error(err);
       return false;
     }
   }
@@ -33,6 +36,34 @@ export default abstract class Editor implements EditorInterface {
   public async isFile(path: string): Promise<boolean> {
     const stats = await stat(path);
     return stats.isFile();
+  }
+
+  public isFileSync(path: string): boolean {
+    try {
+      const stats = fs.statSync(path);
+      return stats.isFile();
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
+  }
+
+  public async fileExists(file: string): Promise<boolean> {
+    try {
+      return await exists(file);
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
+  }
+
+  public fileExistsSync(file: string): boolean {
+    try {
+      return fs.existsSync(file);
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
   }
 
   abstract isEditorInstalled(): Promise<boolean>;

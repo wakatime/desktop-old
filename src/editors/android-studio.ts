@@ -64,10 +64,6 @@ export default class AndroidStudio extends Editor {
     throw new Error("Method not implemented.");
   }
 
-  public fileExists(file: string): boolean {
-    return fs.existsSync(file);
-  }
-
   public pluginsDirectory(): string {
     switch (os.platform()) {
       case "win32": {

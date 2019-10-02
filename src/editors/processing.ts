@@ -98,7 +98,7 @@ export default class Processing extends Editor {
           os.homedir(),
           "Library/Processing/preferences.txt"
         );
-        if (fs.existsSync(file)) {
+        if (this.fileExistsSync(file)) {
           const data = fs.readFileSync(file, { encoding: "utf8" });
           if (data) {
             data.split(/\r?\n/).forEach(line => {

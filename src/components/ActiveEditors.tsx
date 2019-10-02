@@ -4,12 +4,14 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import EditorIcon from "./EditorIcon";
-import { enableEditors, selectEditorToInstall } from '../actions/rendererActions';
-import { useStyles } from '../themes';
-import { getEditorsState } from '../utils/editors';
+import {
+  enableEditors,
+  selectEditorToInstall
+} from "../actions/rendererActions";
+import { useStyles } from "../themes";
+import { getEditorsState } from "../utils/editors";
 
 const ActiveEditors = ({ editors, enableEditors, selectEditorToInstall }) => {
-
   const { css, styles } = useStyles({ stylesFn });
 
   useEffect(() => {
@@ -31,10 +33,18 @@ const ActiveEditors = ({ editors, enableEditors, selectEditorToInstall }) => {
       {editors.map(editor => (
         <div
           {...css(styles.editor)}
-          onClick={() => selectEditorToInstall({ name: editor.name, selected: !editor.isSelected })}
+          onClick={() =>
+            selectEditorToInstall({
+              name: editor.name,
+              selected: !editor.isSelected
+            })}
         >
           <EditorIcon {...editor} />
-          <div {...css(styles.editorName)}>{editor.name}: {editor.enabled? 'true': 'false'}</div>
+          <div {...css(styles.editorName)}>
+            {editor.name}
+:
+{editor.enabled ? "true" : "false"}
+          </div>
           <input
             type="checkbox"
             checked={editor.isSelected}
@@ -44,7 +54,7 @@ const ActiveEditors = ({ editors, enableEditors, selectEditorToInstall }) => {
         </div>
       ))}
     </div>
-  )
+  );
 };
 ActiveEditors.propTypes = {
   editors: PropTypes.array
@@ -54,26 +64,26 @@ ActiveEditors.defaultProps = {
 };
 
 const stylesFn = () => {
-  return ({
+  return {
     div: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'center'
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center"
     },
     editor: {
       textAlign: "center",
-      marginBottom: '.5rem',
-      borderRadius: '.3rem',
-      ':hover': {
-        backgroundColor: '#f5fbfb'
+      marginBottom: ".5rem",
+      borderRadius: ".3rem",
+      ":hover": {
+        backgroundColor: "#f5fbfb"
       }
     },
     editorName: {
-      fontSize: '.9rem',
-      opacity: .6
+      fontSize: ".9rem",
+      opacity: 0.6
     }
-  });
-}
+  };
+};
 
 const mapStateToProps = ({ editors = [] }) => ({
   editors: editors.filter(e => e.installed)

@@ -1,7 +1,6 @@
 import os from "os";
 
 import Editor from "./editor";
-import { unity128Path } from "../constants/imgPaths";
 
 export default class Unity extends Editor {
   public static getName(): string {
@@ -13,7 +12,7 @@ export default class Unity extends Editor {
   }
 
   public get icon(): string {
-    return unity128Path;
+    return "";
   }
 
   public async isEditorInstalled(): Promise<boolean> {

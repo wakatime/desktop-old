@@ -1,7 +1,6 @@
 import os from "os";
 
 import Editor from "./editor";
-import { chrome128Path } from "../constants/imgPaths";
 
 export default class Chrome extends Editor {
   public static getName(): string {
@@ -13,7 +12,7 @@ export default class Chrome extends Editor {
   }
 
   public get icon(): string {
-    return chrome128Path;
+    return "";
   }
 
   public async isEditorInstalled(): Promise<boolean> {

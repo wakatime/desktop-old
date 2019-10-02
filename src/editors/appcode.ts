@@ -1,15 +1,14 @@
 import os from "os";
-import path from "path";
 
 import Editor from "./editor";
 
-export default class SublimeText3 extends Editor {
+export default class AppCode extends Editor {
   public static getName(): string {
-    return "Sublime Text 3";
+    return "AppCode";
   }
 
   public get name(): string {
-    return "Sublime Text 3";
+    return "AppCode";
   }
 
   public get icon(): string {
@@ -21,27 +20,25 @@ export default class SublimeText3 extends Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    const val = await this.isDirectory(
-      path.join(this.pluginsDirectory(), "WakaTime")
-    );
-    return val;
+    return await this.isFile(this.pluginsDirectory());
   }
 
   public async installPlugin(): Promise<void> {
-    return Promise.reject(new Error("method not implemented"));
+    throw new Error("Method not implemented.");
   }
 
   public async uninstallPlugin(): Promise<void> {
-    return Promise.reject(new Error("method not implemented"));
+    throw new Error("Method not implemented.");
   }
 
   private appDirectory(): string {
-    let dir: string;
     switch (os.platform()) {
       case "win32":
-        return "";
+        return null;
       case "darwin":
-        return "/Applications/Sublime Text.app/Contents";
+        return "/Applications/AppCode.app/Contents";
+      case "linux":
+        return null;
       default:
         return null;
     }
@@ -50,16 +47,10 @@ export default class SublimeText3 extends Editor {
   private pluginsDirectory(): string {
     switch (os.platform()) {
       case "win32": {
-        const is64bit =
-          process.arch === "x64" || process.env.PROCESSOR_ARCHITEW6432;
-        if (is64bit) return "";
         return "";
       }
       case "darwin":
-        return path.join(
-          os.homedir(),
-          "Library/Application Support/Sublime Text 3/Packages"
-        );
+        return "/opt/local/lib/plugins/ktexteditor/ktexteditor_wakatime.so";
       case "linux":
         return "";
       default:

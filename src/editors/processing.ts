@@ -5,7 +5,6 @@ import path from "path";
 import request from "request";
 
 import Editor from "./editor";
-import { processing128Path } from "../constants/imgPaths";
 
 export default class Processing extends Editor {
   private preferences: { [key: string]: string } = {};
@@ -24,7 +23,7 @@ export default class Processing extends Editor {
   }
 
   public get icon(): string {
-    return processing128Path;
+    return "";
   }
 
   public async isEditorInstalled(): Promise<boolean> {

@@ -1,4 +1,5 @@
 import AndroidStudio from "../editors/android-studio";
+import AppCode from "../editors/appcode";
 import Atom from "../editors/atom";
 import Blender from "../editors/blender";
 import Brackets from "../editors/brackets";
@@ -7,6 +8,7 @@ import Coda from "../editors/coda";
 import Eclipse from "../editors/eclipse";
 import Kate from "../editors/Kate";
 import Processing from "../editors/processing";
+import RubyMine from "../editors/rubymine";
 import SublimeText2 from "../editors/sublime-text-2";
 import SublimeText3 from "../editors/sublime-text-3";
 import Terminal from "../editors/terminal";
@@ -18,6 +20,7 @@ import XCode from "../editors/xcode";
 
 export default {
   AndroidStudio,
+  AppCode,
   Atom,
   Blender,
   Brackets,
@@ -26,6 +29,7 @@ export default {
   Eclipse,
   Kate,
   Processing,
+  RubyMine,
   SublimeText2,
   SublimeText3,
   Terminal,

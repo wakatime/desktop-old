@@ -36,7 +36,6 @@ describe("AppCode", () => {
     const result = await appCode.isEditorInstalled();
     expect(result).to.be.true;
   });
-
   // it("should return TRUE if plugin is installed", async () => {
   //   listExtensionsStub.resolves(true);
   //   const result = await vscode.isPluginInstalled();

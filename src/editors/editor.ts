@@ -2,7 +2,6 @@ import fs from "fs";
 import util from "util";
 
 const stat = util.promisify(fs.stat);
-const exists = util.promisify(fs.exists);
 
 export default abstract class Editor implements EditorInterface {
   abstract name: string;
@@ -50,7 +49,7 @@ export default abstract class Editor implements EditorInterface {
 
   public async fileExists(file: string): Promise<boolean> {
     try {
-      return await exists(file);
+      return fs.existsSync(file);
     } catch (err) {
       console.error(err);
       return false;

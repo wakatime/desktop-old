@@ -50,7 +50,7 @@ export default class AppCode extends Editor {
         return "";
       }
       case "darwin":
-        return "/opt/local/lib/plugins/ktexteditor/ktexteditor_wakatime.so";
+        return `${os.homedir()}/Library/Application\ Support/AppCode2019.2/WakaTime.jar`;
       case "linux":
         return "";
       default:

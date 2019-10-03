@@ -13,7 +13,7 @@ interface TerminalInterface {
 export default class Terminal extends Editor {
   private commandExists = new CommandExists();
 
-  private availableTerminals: { [id: string]: TerminalInterface };
+  private availableTerminals: { [id: string]: TerminalInterface } = {};
 
   constructor() {
     super();
@@ -41,9 +41,9 @@ export default class Terminal extends Editor {
   }
 
   private getTerminals() {
-    Object.keys(this.binaries).forEach(async binary => {
-      const exists = await this.commandExists.exists(binary);
-      this.availableTerminals[binary].exists = exists;
+    this.binaries.forEach(async (binary: string) => {
+      const exists: boolean = await this.commandExists.exists(binary);
+      this.availableTerminals[binary] = { exists };
     });
   }
 
@@ -94,7 +94,7 @@ export default class Terminal extends Editor {
   }
 
   private async isPluginInstalledForBash(): Promise<boolean> {
-    if (this.fileExists("~/.bashrc")) {
+    if (this.fileExistsSync("~/.bashrc")) {
       const find = await findInFiles.find("bash-wakatime.sh", "~/", ".bashrc$");
       return find[".bashrc"].count > 0;
     }
@@ -109,7 +109,7 @@ export default class Terminal extends Editor {
   }
 
   private async isPluginInstalledForFish(): Promise<boolean> {
-    if (this.fileExists("~/.config/fish/functions/fish_prompt.fish")) {
+    if (this.fileExistsSync("~/.config/fish/functions/fish_prompt.fish")) {
       const find = await findInFiles.find(
         "wakatime",
         "~/.config/fish/functions/",

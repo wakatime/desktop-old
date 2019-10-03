@@ -42,7 +42,7 @@ export default abstract class Editor implements EditorInterface {
       const stats = fs.statSync(path);
       return stats.isFile();
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       return false;
     }
   }

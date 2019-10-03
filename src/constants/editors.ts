@@ -1,6 +1,7 @@
 import AndroidStudio from "../editors/android-studio";
 import AppCode from "../editors/appcode";
 import Atom from "../editors/atom";
+import AzureDataStudio from "../editors/azure-data-studio";
 import Blender from "../editors/blender";
 import Brackets from "../editors/brackets";
 import Chrome from "../editors/chrome";
@@ -29,6 +30,7 @@ export default {
   AndroidStudio,
   AppCode,
   Atom,
+  AzureDataStudio,
   Blender,
   Brackets,
   Chrome,

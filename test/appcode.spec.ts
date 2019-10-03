@@ -11,10 +11,12 @@ chai.use(chaiAsPromised);
 describe("AppCode", () => {
   let appCode: AppCode;
   let isDirectoryStub: any;
+  let isFileSyncStub: any;
 
   beforeEach(() => {
     appCode = new AppCode();
     isDirectoryStub = sinon.stub(appCode, "isDirectory");
+    isFileSyncStub = sinon.stub(appCode, "isFileSync");
   });
   afterEach(() => {
     isDirectoryStub.restore();
@@ -36,14 +38,14 @@ describe("AppCode", () => {
     const result = await appCode.isEditorInstalled();
     expect(result).to.be.true;
   });
-  // it("should return TRUE if plugin is installed", async () => {
-  //   listExtensionsStub.resolves(true);
-  //   const result = await vscode.isPluginInstalled();
-  //   expect(result).to.be.true;
-  // });
-  // it("should return FALSE if plugin is n ot installed", async () => {
-  //   listExtensionsStub.resolves(false);
-  //   const result = await vscode.isPluginInstalled();
-  //   expect(result).to.be.false;
-  // });
+  it("should return TRUE if plugin is installed", async () => {
+    isFileSyncStub.returns(true);
+    const result = await appCode.isPluginInstalled();
+    expect(result).to.be.true;
+  });
+  it("should return FALSE if plugin is n ot installed", async () => {
+    isFileSyncStub.returns(false);
+    const result = await appCode.isPluginInstalled();
+    expect(result).to.be.false;
+  });
 });

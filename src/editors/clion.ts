@@ -2,13 +2,13 @@ import os from "os";
 
 import Editor from "./editor";
 
-export default class AppCode extends Editor {
+export default class CLion extends Editor {
   public static getName(): string {
-    return "AppCode";
+    return "CLion";
   }
 
   public get name(): string {
-    return "AppCode";
+    return "CLion";
   }
 
   public get icon(): string {
@@ -16,7 +16,7 @@ export default class AppCode extends Editor {
   }
 
   public get binaries(): string[] {
-    return ["appcode"];
+    return ["clion"];
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -40,7 +40,7 @@ export default class AppCode extends Editor {
       case "win32":
         return null;
       case "darwin":
-        return "/Applications/AppCode.app/Contents";
+        return "/Applications/CLion.app/Contents";
       case "linux":
         return null;
       default:
@@ -54,7 +54,7 @@ export default class AppCode extends Editor {
         return "";
       }
       case "darwin":
-        return `${os.homedir()}/Library/Application\ Support/AppCode2019.2/WakaTime.jar`;
+        return `${os.homedir()}/Library/Application\ Support/CLion2019.2/WakaTime.jar`;
       case "linux":
         return "";
       default:

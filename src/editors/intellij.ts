@@ -41,7 +41,7 @@ export default class AppCode extends Editor {
         return null;
       case "darwin":
         return "/Applications/IntelliJ IDEA CE.app/Contents"; // This one is Community edition
-      // return "/Applications/IntelliJ IDEA CE.app/Contents";  // This one is Ultimate edition
+      // return "/Applications/IntelliJ IDEA.app/Contents";  // This one is Ultimate edition
       case "linux":
         return null;
       default:

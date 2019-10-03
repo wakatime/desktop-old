@@ -47,15 +47,6 @@ export default abstract class Editor implements EditorInterface {
     }
   }
 
-  public async fileExists(file: string): Promise<boolean> {
-    try {
-      return fs.existsSync(file);
-    } catch (err) {
-      console.error(err);
-      return false;
-    }
-  }
-
   public fileExistsSync(file: string): boolean {
     try {
       return fs.existsSync(file);

@@ -17,7 +17,7 @@ export default class Coda extends Editor {
 
   public async isEditorInstalled(): Promise<boolean> {
     try {
-      return Object.keys(this.appDirectory).some(async directory => {
+      return this.appDirectory().some(async directory => {
         if (await this.isDirectory(directory)) {
           return true;
         }
@@ -30,7 +30,7 @@ export default class Coda extends Editor {
 
   public async isPluginInstalled(): Promise<boolean> {
     try {
-      Object.keys(this.pluginsDirectory).some(async directory => {
+      this.pluginsDirectory().some(async directory => {
         if (await this.isFile(directory)) {
           return true;
         }

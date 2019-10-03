@@ -28,7 +28,7 @@ export default class Atom extends Editor {
 
   public async isEditorInstalled(): Promise<boolean> {
     try {
-      return Object.keys(this.binaries).some(async binary => {
+      return this.binaries.some(async binary => {
         if (await this.commandExists.exists(binary)) {
           return true;
         }

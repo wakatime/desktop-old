@@ -12,12 +12,14 @@ describe("Android Studio", () => {
   let androidStudio: AndroidStudio;
   let isEditorInstalledStub: any;
   let fileExistsStub: any;
+  let fileExistsSyncStub: any;
   let pluginsDirectoryStub: any;
 
   beforeEach(() => {
     androidStudio = new AndroidStudio();
     isEditorInstalledStub = sinon.stub(androidStudio, "isEditorInstalled");
     fileExistsStub = sinon.stub(androidStudio, "fileExists");
+    fileExistsSyncStub = sinon.stub(androidStudio, "fileExistsSync");
     pluginsDirectoryStub = sinon.stub(androidStudio, "pluginsDirectory");
   });
   afterEach(() => {
@@ -47,13 +49,13 @@ describe("Android Studio", () => {
     expect(result).to.be.false;
   });
   it("should return TRUE if plugin is installed", async () => {
-    fileExistsStub.resolves(true);
+    fileExistsSyncStub.returns(true);
     pluginsDirectoryStub.returns("");
     const result = await androidStudio.isPluginInstalled();
     expect(result).to.be.true;
   });
   it("should return FALSE if plugin is not installed", async () => {
-    fileExistsStub.resolves(false);
+    fileExistsSyncStub.returns(false);
     pluginsDirectoryStub.returns("");
     const result = await androidStudio.isPluginInstalled();
     expect(result).to.be.false;

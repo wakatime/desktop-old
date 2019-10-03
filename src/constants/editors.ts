@@ -4,6 +4,7 @@ import Atom from "../editors/atom";
 import Blender from "../editors/blender";
 import Brackets from "../editors/brackets";
 import Chrome from "../editors/chrome";
+import CLion from "../editors/clion";
 import Coda from "../editors/coda";
 import Eclipse from "../editors/eclipse";
 import Kate from "../editors/Kate";
@@ -25,6 +26,7 @@ export default {
   Blender,
   Brackets,
   Chrome,
+  CLion,
   Coda,
   Eclipse,
   Kate,

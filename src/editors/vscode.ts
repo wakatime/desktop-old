@@ -1,5 +1,4 @@
 import os from "os";
-import fs from "fs";
 
 import { CommandExists } from "../lib/command-exists";
 import Editor from "./editor";
@@ -29,7 +28,7 @@ export default class VsCode extends Editor {
   public async isEditorInstalled(): Promise<boolean> {
     try {
       let ret = false;
-      ret = Object.keys(this.binaries).some(async binary => {
+      ret = this.binaries.some(async binary => {
         if (await this.commandExists.exists(binary)) {
           return true;
         }

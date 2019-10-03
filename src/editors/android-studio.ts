@@ -36,7 +36,7 @@ export default class AndroidStudio extends Editor {
   public async isEditorInstalled(): Promise<boolean> {
     try {
       let ret = false;
-      ret = Object.keys(this.binaries).some(async binary => {
+      ret = this.binaries.some(async binary => {
         if (await this.commandExists.exists(binary)) {
           return true;
         }

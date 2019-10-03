@@ -6,9 +6,15 @@ import Brackets from "../editors/brackets";
 import Chrome from "../editors/chrome";
 import CLion from "../editors/clion";
 import Coda from "../editors/coda";
+import DataGrip from "../editors/datagrip";
 import Eclipse from "../editors/eclipse";
+import GoLand from "../editors/goland";
+import IntelliJ from "../editors/intellij";
 import Kate from "../editors/Kate";
+import PhpStorm from "../editors/phpstorm";
 import Processing from "../editors/processing";
+import PyCharm from "../editors/pycharm";
+import Rider from "../editors/rider";
 import RubyMine from "../editors/rubymine";
 import SublimeText2 from "../editors/sublime-text-2";
 import SublimeText3 from "../editors/sublime-text-3";
@@ -28,9 +34,15 @@ export default {
   Chrome,
   CLion,
   Coda,
+  DataGrip,
   Eclipse,
+  GoLand,
+  IntelliJ,
   Kate,
+  PhpStorm,
   Processing,
+  PyCharm,
+  Rider,
   RubyMine,
   SublimeText2,
   SublimeText3,

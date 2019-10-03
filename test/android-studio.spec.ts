@@ -11,20 +11,17 @@ chai.use(chaiAsPromised);
 describe("Android Studio", () => {
   let androidStudio: AndroidStudio;
   let isEditorInstalledStub: any;
-  let fileExistsStub: any;
   let fileExistsSyncStub: any;
   let pluginsDirectoryStub: any;
 
   beforeEach(() => {
     androidStudio = new AndroidStudio();
     isEditorInstalledStub = sinon.stub(androidStudio, "isEditorInstalled");
-    fileExistsStub = sinon.stub(androidStudio, "fileExists");
     fileExistsSyncStub = sinon.stub(androidStudio, "fileExistsSync");
     pluginsDirectoryStub = sinon.stub(androidStudio, "pluginsDirectory");
   });
   afterEach(() => {
     isEditorInstalledStub.restore();
-    fileExistsStub.restore();
   });
   it("should return the correct key name", () => {
     const result = androidStudio.key;

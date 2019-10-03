@@ -14,6 +14,7 @@ import Kate from "../editors/Kate";
 import PhpStorm from "../editors/phpstorm";
 import Processing from "../editors/processing";
 import PyCharm from "../editors/pycharm";
+import Rider from "../editors/rider";
 import RubyMine from "../editors/rubymine";
 import SublimeText2 from "../editors/sublime-text-2";
 import SublimeText3 from "../editors/sublime-text-3";
@@ -41,6 +42,7 @@ export default {
   PhpStorm,
   Processing,
   PyCharm,
+  Rider,
   RubyMine,
   SublimeText2,
   SublimeText3,

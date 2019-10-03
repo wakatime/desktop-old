@@ -16,6 +16,7 @@ import {
   phpstorm128Path,
   processing128Path,
   pycharm128Path,
+  rider128LightPath,
   rubymine128Path,
   sublimeText128Path,
   terminal128Path,
@@ -47,6 +48,7 @@ const imgMap: EditorImageMap = {
   [editors.PhpStorm.getName()]: phpstorm128Path,
   [editors.Processing.getName()]: processing128Path,
   [editors.PyCharm.getName()]: pycharm128Path,
+  [editors.Rider.getName()]: rider128LightPath,
   [editors.RubyMine.getName()]: rubymine128Path,
   [editors.SublimeText2.getName()]: sublimeText128Path,
   [editors.SublimeText3.getName()]: sublimeText128Path, // Should this be a different image?

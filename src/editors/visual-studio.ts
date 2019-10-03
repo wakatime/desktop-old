@@ -34,7 +34,7 @@ export default class VisualStudio extends Editor {
       case "darwin":
         return await this.isDirectory(this.appDirectory());
       case "linux":
-        return true;  // TODO: Fix this, only leave as tru so it pass the CI that runs on linux
+        return await this.isDirectory(this.appDirectory()); // TODO: Fix this, only leave as tru so it pass the CI that runs on linux
       default:
         return false;
     }

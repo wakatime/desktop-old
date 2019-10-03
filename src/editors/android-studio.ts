@@ -50,7 +50,7 @@ export default class AndroidStudio extends Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.fileExists(
+    return this.fileExistsSync(
       path.join(this.pluginsDirectory(), "WakaTime.jar")
     );
   }

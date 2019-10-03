@@ -63,7 +63,7 @@ export default class SublimeText3 extends Editor {
       case "linux":
         return "";
       default:
-        return null;
+        return "";
     }
   }
 }

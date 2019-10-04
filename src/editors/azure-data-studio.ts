@@ -17,7 +17,6 @@ export default class AzureDataStudio extends Editor {
   public async isEditorInstalled(): Promise<boolean> {
     try {
       const installed = await this.isDirectory(this.appDirectory());
-      console.log(`${this.name} installed: ${installed}`);
       return installed;
     } catch (err) {
       console.error(err);

@@ -24,6 +24,7 @@ import Unity from "../editors/unity";
 import Vim from "../editors/vim";
 import VisualStudio from "../editors/visual-studio";
 import VSCode from "../editors/vscode";
+import WebStorm from "../editors/webstorm";
 import XCode from "../editors/xcode";
 
 export default {
@@ -53,5 +54,6 @@ export default {
   Vim,
   VisualStudio,
   VSCode,
+  WebStorm,
   XCode
 };

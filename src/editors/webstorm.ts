@@ -2,13 +2,13 @@ import os from "os";
 
 import Editor from "./editor";
 
-export default class PyCharm extends Editor {
+export default class WebStorm extends Editor {
   public static getName(): string {
-    return "PyCharm";
+    return "WebStorm";
   }
 
   public get name(): string {
-    return "PyCharm";
+    return "WebStorm";
   }
 
   public get icon(): string {
@@ -16,7 +16,7 @@ export default class PyCharm extends Editor {
   }
 
   public get binaries(): string[] {
-    return ["pycharm"];
+    return ["webstorm"];
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -44,7 +44,7 @@ export default class PyCharm extends Editor {
       case "win32":
         return null;
       case "darwin":
-        return "/Applications/PyCharm.app/Contents";
+        return "/Applications/WebStorm.app/Contents";
       case "linux":
         return null;
       default:
@@ -61,7 +61,7 @@ export default class PyCharm extends Editor {
       case "darwin":
         return pathsToCheck.map(
           path =>
-            `${os.homedir()}/Library/Application\ Support/PyCharm${path}/WakaTime.jar`
+            `${os.homedir()}/Library/Application\ Support/WebStorm${path}/WakaTime.jar`
         );
       case "linux":
         return [""];

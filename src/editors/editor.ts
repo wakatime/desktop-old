@@ -1,5 +1,7 @@
 import fs from "fs";
 import util from "util";
+import path from "path";
+import request from "request";
 
 const stat = util.promisify(fs.stat);
 
@@ -32,14 +34,14 @@ export default abstract class Editor implements EditorInterface {
     }
   }
 
-  public async isFile(path: string): Promise<boolean> {
-    const stats = await stat(path);
+  public async isFile(filePath: string): Promise<boolean> {
+    const stats = await stat(filePath);
     return stats.isFile();
   }
 
-  public isFileSync(path: string): boolean {
+  public isFileSync(filePath: string): boolean {
     try {
-      const stats = fs.statSync(path);
+      const stats = fs.statSync(filePath);
       return stats.isFile();
     } catch (err) {
       // console.error(err);
@@ -53,6 +55,45 @@ export default abstract class Editor implements EditorInterface {
     } catch (err) {
       // console.error(err);
       return false;
+    }
+  }
+
+  public async installJetbrainsPlugin(pluginsDirectory: string): Promise<void> {
+    let temp = path.join(pluginsDirectory);
+
+    // Create the temp folder first if this does not exists yet
+    fs.mkdirSync(temp, { recursive: true });
+
+    temp = path.join(temp, "WakaTime.jar");
+
+    const file = fs.createWriteStream(temp);
+
+    await new Promise((resolve, reject) => {
+      request({
+        uri: "https://plugins.jetbrains.com/files/7425/51419/WakaTime.jar"
+      })
+        .pipe(file)
+        .on("finish", async () => {
+          resolve();
+        })
+        .on("error", (err: any) => {
+          console.error(err);
+          reject(err);
+        });
+    }).catch(err => {
+      console.error(err);
+    });
+  }
+
+  public async unInstallJetbrainsPlugin(
+    pluginsDirectory: string
+  ): Promise<void> {
+    try {
+      fs.unlinkSync(`${pluginsDirectory}/WakaTime.jar`);
+      return Promise.resolve();
+    } catch (err) {
+      console.error(err);
+      return Promise.reject();
     }
   }
 

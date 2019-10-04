@@ -31,40 +31,11 @@ export default class AppCode extends Editor {
   }
 
   public async installPlugin(): Promise<void> {
-    let temp = path.join(this.pluginsDirectory());
-
-    // Create the temp folder first if this does not exists yet
-    fs.mkdirSync(temp, { recursive: true });
-
-    temp = path.join(temp, "WakaTime.jar");
-
-    const file = fs.createWriteStream(temp);
-
-    await new Promise((resolve, reject) => {
-      request({
-        uri: "https://plugins.jetbrains.com/files/7425/51419/WakaTime.jar"
-      })
-        .pipe(file)
-        .on("finish", async () => {
-          resolve();
-        })
-        .on("error", (err: any) => {
-          console.error(err);
-          reject(err);
-        });
-    }).catch(err => {
-      console.error(err);
-    });
+    this.installJetbrainsPlugin(this.pluginsDirectory());
   }
 
   public async uninstallPlugin(): Promise<void> {
-    try {
-      fs.unlinkSync(`${this.pluginsDirectory()}/WakaTime.jar`);
-      return Promise.resolve();
-    } catch (err) {
-      console.error(err);
-      return Promise.reject();
-    }
+    this.unInstallJetbrainsPlugin(this.pluginsDirectory());
   }
 
   private appDirectory(): string {

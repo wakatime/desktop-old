@@ -17,11 +17,12 @@ export default class Coda extends Editor {
 
   public async isEditorInstalled(): Promise<boolean> {
     try {
-      return this.appDirectory().some(async directory => {
+      this.appDirectory().some(async directory => {
         if (await this.isDirectory(directory)) {
           return true;
         }
       });
+      return false;
     } catch (err) {
       console.error(err);
       return false;

@@ -1,9 +1,10 @@
 import os from "os";
-import fs from "fs";
-import path from "path";
-import request from "request";
 
 import Editor from "./editor";
+import {
+  installJetbrainsPlugin,
+  unInstallJetbrainsPlugin
+} from "../utils/jetbrains";
 
 export default class RubyMine extends Editor {
   public static getName(): string {
@@ -31,11 +32,11 @@ export default class RubyMine extends Editor {
   }
 
   public async installPlugin(): Promise<void> {
-    this.installJetbrainsPlugin(this.pluginsDirectory());
+    installJetbrainsPlugin(this.pluginsDirectory());
   }
 
   public async uninstallPlugin(): Promise<void> {
-    this.unInstallJetbrainsPlugin(this.pluginsDirectory());
+    unInstallJetbrainsPlugin(this.pluginsDirectory());
   }
 
   private appDirectory(): string {

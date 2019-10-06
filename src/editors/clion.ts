@@ -1,6 +1,10 @@
 import os from "os";
 
 import Editor from "./editor";
+import {
+  installJetbrainsPlugin,
+  unInstallJetbrainsPlugin
+} from "../utils/jetbrains";
 
 export default class CLion extends Editor {
   public static getName(): string {
@@ -24,15 +28,15 @@ export default class CLion extends Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.isFile(this.pluginsDirectory());
+    return await this.isFileSync(`${this.pluginsDirectory()}/WakaTime.jar`);
   }
 
   public async installPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    installJetbrainsPlugin(this.pluginsDirectory());
   }
 
   public async uninstallPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    unInstallJetbrainsPlugin(this.pluginsDirectory());
   }
 
   private appDirectory(): string {
@@ -49,14 +53,39 @@ export default class CLion extends Editor {
   }
 
   private pluginsDirectory(): string {
+    let directory = "";
     switch (os.platform()) {
       case "win32": {
         return "";
       }
       case "darwin":
-        return `${os.homedir()}/Library/Application\ Support/CLion2019.2/WakaTime.jar`;
+        this.pluginsDirectories().some(pluginPath => {
+          if (this.isDirectorySync(pluginPath)) {
+            directory = pluginPath;
+            return true;
+          }
+          return false;
+        });
+        return directory;
       case "linux":
         return "";
+      default:
+        return null;
+    }
+  }
+
+  private pluginsDirectories(): string[] {
+    const pathsToCheck = ["2019.2", "2019.1", "2018.2", "2018.1"];
+    switch (os.platform()) {
+      case "win32": {
+        return [""];
+      }
+      case "darwin":
+        return pathsToCheck.map(
+          check => `${os.homedir()}/Library/Application\ Support/CLion${check}`
+        );
+      case "linux":
+        return [""];
       default:
         return null;
     }

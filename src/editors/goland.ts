@@ -24,7 +24,11 @@ export default class GoLand extends Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.isFile(this.pluginsDirectory());
+    const result = this.pluginsDirectories().some(path => {
+      return this.isFileSync(path) === true;
+    });
+
+    return await result;
   }
 
   public async installPlugin(): Promise<void> {
@@ -48,15 +52,19 @@ export default class GoLand extends Editor {
     }
   }
 
-  private pluginsDirectory(): string {
+  private pluginsDirectories(): string[] {
+    const pathsToCheck = ["2019.2", "2019.1", "2018.2", "2018.1"];
     switch (os.platform()) {
       case "win32": {
-        return "";
+        return [""];
       }
       case "darwin":
-        return `${os.homedir()}/Library/Application\ Support/GoLand2019.2/WakaTime.jar`;
+        return pathsToCheck.map(
+          path =>
+            `${os.homedir()}/Library/Application\ Support/GoLand${path}/WakaTime.jar`
+        );
       case "linux":
-        return "";
+        return [""];
       default:
         return null;
     }

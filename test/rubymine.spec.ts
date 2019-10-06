@@ -11,10 +11,12 @@ chai.use(chaiAsPromised);
 describe("RubyMine", () => {
   let rubyMine: RubyMine;
   let isDirectoryStub: any;
+  let isFileSyncStub: any;
 
   beforeEach(() => {
     rubyMine = new RubyMine();
     isDirectoryStub = sinon.stub(rubyMine, "isDirectory");
+    isFileSyncStub = sinon.stub(rubyMine, "isFileSync");
   });
   afterEach(() => {
     isDirectoryStub.restore();
@@ -36,15 +38,14 @@ describe("RubyMine", () => {
     const result = await rubyMine.isEditorInstalled();
     expect(result).to.be.true;
   });
-
-  // it("should return TRUE if plugin is installed", async () => {
-  //   listExtensionsStub.resolves(true);
-  //   const result = await vscode.isPluginInstalled();
-  //   expect(result).to.be.true;
-  // });
-  // it("should return FALSE if plugin is n ot installed", async () => {
-  //   listExtensionsStub.resolves(false);
-  //   const result = await vscode.isPluginInstalled();
-  //   expect(result).to.be.false;
-  // });
+  it("should return TRUE if plugin is installed", async () => {
+    isFileSyncStub.returns(true);
+    const result = await rubyMine.isPluginInstalled();
+    expect(result).to.be.true;
+  });
+  it("should return FALSE if plugin is n ot installed", async () => {
+    isFileSyncStub.returns(false);
+    const result = await rubyMine.isPluginInstalled();
+    expect(result).to.be.false;
+  });
 });

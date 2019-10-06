@@ -25,6 +25,7 @@ import {
   vim128Path,
   visualStudio128Path,
   vsCode128Path,
+  webstorm128Path,
   xcode128Path
 } from "../constants/imgPaths";
 
@@ -59,6 +60,7 @@ const imgMap: EditorImageMap = {
   [editors.Vim.getName()]: vim128Path,
   [editors.VisualStudio.getName()]: visualStudio128Path,
   [editors.VSCode.getName()]: vsCode128Path,
+  [editors.WebStorm.getName()]: webstorm128Path,
   [editors.XCode.getName()]: xcode128Path
 };
 

@@ -6,13 +6,13 @@ import {
   unInstallJetbrainsPlugin
 } from "../utils/jetbrains";
 
-export default class PhpStorm extends Editor {
+export default class WebStorm extends Editor {
   public static getName(): string {
-    return "PhpStorm";
+    return "WebStorm";
   }
 
   public get name(): string {
-    return "PhpStorm";
+    return "WebStorm";
   }
 
   public get icon(): string {
@@ -20,7 +20,7 @@ export default class PhpStorm extends Editor {
   }
 
   public get binaries(): string[] {
-    return ["phpstorm"];
+    return ["webstorm"];
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -44,7 +44,7 @@ export default class PhpStorm extends Editor {
       case "win32":
         return null;
       case "darwin":
-        return "/Applications/PhpStorm.app/Contents";
+        return "/Applications/WebStorm.app/Contents";
       case "linux":
         return null;
       default:
@@ -83,7 +83,7 @@ export default class PhpStorm extends Editor {
       case "darwin":
         return pathsToCheck.map(
           check =>
-            `${os.homedir()}/Library/Application\ Support/PhpStorm${check}`
+            `${os.homedir()}/Library/Application\ Support/WebStorm${check}`
         );
       case "linux":
         return [""];

@@ -4,6 +4,8 @@ import Editor from "./editor";
 import { CommandExists } from "../lib/command-exists";
 
 const findInFiles = require("find-in-files");
+const util = require("util");
+const exec = util.promisify(require("child_process").exec);
 
 interface TerminalInterface {
   exists: boolean;
@@ -103,9 +105,10 @@ export default class Terminal extends Editor {
   }
 
   private async isPluginInstalledForiTerm(): Promise<boolean> {
-    // Preferences are stored as a binary file at ~/Library/Preferences/com.googlecode.iterm2.plist
-    // Need to find a way on asking iTerm if WakaTime is enabled
-    return false;
+    const { stdout, stderr } = await exec("plutil -convert xml1 -o - ~/Library/Preferences/com.googlecode.iterm2.plist");
+    if (stderr) return Promise.reject(new Error(stderr));
+
+    return stdout.includes("wakatime");
   }
 
   private async isPluginInstalledForFish(): Promise<boolean> {

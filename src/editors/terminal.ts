@@ -86,11 +86,24 @@ export default class Terminal extends Editor {
   }
 
   private async isPluginInstalledForZsh(): Promise<boolean> {
-    // Need to check also for antigen and zgen
     if (await this.isDirectory("~/.oh-my-zsh/custom/plugins/wakatime"))
       return true;
     if (await this.isDirectory("~/.oh-my-zsh/custom/plugins/zsh-wakatime"))
       return true;
+
+    if (await this.commandExists.exists("antigen")) {
+      const { stdout, stderr } = await exec("antigen list --simple");
+      if (stderr) return Promise.reject(new Error(stderr));
+
+      return stdout.includes("wakatime");
+    }
+
+    if (await this.commandExists.exists("zgen")) {
+      const { stdout, stderr } = await exec("zgen list");
+      if (stderr) return Promise.reject(new Error(stderr));
+
+      return stdout.includes("wakatime");
+    }
 
     return false;
   }
@@ -105,7 +118,9 @@ export default class Terminal extends Editor {
   }
 
   private async isPluginInstalledForiTerm(): Promise<boolean> {
-    const { stdout, stderr } = await exec("plutil -convert xml1 -o - ~/Library/Preferences/com.googlecode.iterm2.plist");
+    const { stdout, stderr } = await exec(
+      "plutil -convert xml1 -o - ~/Library/Preferences/com.googlecode.iterm2.plist"
+    );
     if (stderr) return Promise.reject(new Error(stderr));
 
     return stdout.includes("wakatime");

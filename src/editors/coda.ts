@@ -36,6 +36,7 @@ export default class Coda extends Editor {
           return true;
         }
       });
+      return false;
     } catch (err) {
       console.error(err);
       return false;

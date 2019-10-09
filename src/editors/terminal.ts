@@ -62,30 +62,30 @@ export default class Terminal extends Editor {
       case "win32":
         return false;
       case "darwin": {
-        Object.keys(this.availableTerminals).forEach(async terminal => {
-          if (terminal === "zsh") {
-            this.availableTerminals[
-              terminal
-            ].pluginInstalled = await this.isPluginInstalledForZsh();
-          } else if (terminal === "bash") {
-            this.availableTerminals[
-              terminal
-            ].pluginInstalled = await this.isPluginInstalledForBash();
-          } else if (terminal === "iterm") {
-            this.availableTerminals[
-              terminal
-            ].pluginInstalled = await this.isPluginInstalledForiTerm();
-          } else if (terminal === "fish") {
-            this.availableTerminals[
-              terminal
-            ].pluginInstalled = await this.isPluginInstalledForFish();
-          }
-        });
-        console.log(this.availableTerminals);
-        const ret = Object.keys(this.availableTerminals)
+        await Promise.all(
+          Object.keys(this.availableTerminals).map(async terminal => {
+            if (terminal === "zsh") {
+              this.availableTerminals[
+                terminal
+              ].pluginInstalled = await this.isPluginInstalledForZsh();
+            } else if (terminal === "bash") {
+              this.availableTerminals[
+                terminal
+              ].pluginInstalled = await this.isPluginInstalledForBash();
+            } else if (terminal === "iterm") {
+              this.availableTerminals[
+                terminal
+              ].pluginInstalled = await this.isPluginInstalledForiTerm();
+            } else if (terminal === "fish") {
+              this.availableTerminals[
+                terminal
+              ].pluginInstalled = await this.isPluginInstalledForFish();
+            }
+          })
+        );
+        return Object.keys(this.availableTerminals)
           .map(key => this.availableTerminals[key])
           .some(x => x.pluginInstalled);
-        return Promise.resolve(ret);
       }
       case "linux":
       default:

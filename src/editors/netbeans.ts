@@ -69,7 +69,7 @@ export default class Netbeans extends Editor {
   }
 
   private pluginsDirectories(): string[] {
-    const pathsToCheck = ["2019.2", "2019.1", "2018.2", "2018.1"];
+    const pathsToCheck = ["11.0", "10.0", "9.0"];
     switch (os.platform()) {
       case "win32": {
         return [""];

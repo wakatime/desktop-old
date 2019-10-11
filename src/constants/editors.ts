@@ -9,6 +9,7 @@ import CLion from "../editors/clion";
 import Coda from "../editors/coda";
 import DataGrip from "../editors/datagrip";
 import Eclipse from "../editors/eclipse";
+import Gedit from "../editors/gedit";
 import GoLand from "../editors/goland";
 import IntelliJ from "../editors/intellij";
 import Kate from "../editors/Kate";
@@ -39,6 +40,7 @@ export default {
   Coda,
   DataGrip,
   Eclipse,
+  Gedit,
   GoLand,
   IntelliJ,
   Kate,

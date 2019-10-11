@@ -4,6 +4,8 @@ import request from "request";
 
 /**
  * Installs WakaTime plugin for Jetbrains editors
+ * Directories used by the IDE to store settings go here
+ * https://intellij-support.jetbrains.com/hc/en-us/articles/206544519-Directories-used-by-the-IDE-to-store-settings-caches-plugins-and-logs
  * @param pluginsDirectory
  */
 export const installJetbrainsPlugin = async (

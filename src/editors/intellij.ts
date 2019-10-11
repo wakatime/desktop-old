@@ -1,6 +1,10 @@
 import os from "os";
 
 import Editor from "./editor";
+import {
+  installJetbrainsPlugin,
+  unInstallJetbrainsPlugin
+} from "../utils/jetbrains";
 
 export default class AppCode extends Editor {
   public static getName(): string {
@@ -20,34 +24,57 @@ export default class AppCode extends Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    return await this.isDirectory(this.appDirectory());
+    return (
+      (await this.isDirectory(this.appDirectory()[0])) ||
+      (await this.isDirectory(this.appDirectory()[1]))
+    );
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    const result = this.pluginsDirectories().some(path => {
-      return this.isFileSync(path) === true;
-    });
-
-    return await result;
+    return await this.isFileSync(`${this.pluginsDirectory()}/WakaTime.jar`);
   }
 
   public async installPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    installJetbrainsPlugin(this.pluginsDirectory()[0]);
   }
 
   public async uninstallPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    unInstallJetbrainsPlugin(this.pluginsDirectory()[0]);
   }
 
-  private appDirectory(): string {
+  private appDirectory(): string[] {
     switch (os.platform()) {
       case "win32":
-        return null;
+        return [""];
       case "darwin":
-        return "/Applications/IntelliJ IDEA CE.app/Contents"; // This one is Community edition
-      // return "/Applications/IntelliJ IDEA.app/Contents";  // This one is Ultimate edition
+        return [
+          "/Applications/IntelliJ IDEA CE.app/Contents", // This one is Community edition
+          "/Applications/IntelliJ IDEA.app/Contents" // This one is Ultimate edition
+        ];
       case "linux":
-        return null;
+        return [""];
+      default:
+        return [""];
+    }
+  }
+
+  private pluginsDirectory(): string {
+    let directory = "";
+    switch (os.platform()) {
+      case "win32": {
+        return "";
+      }
+      case "darwin":
+        this.pluginsDirectories().some(pluginPath => {
+          if (this.isDirectorySync(pluginPath)) {
+            directory = pluginPath;
+            return true;
+          }
+          return false;
+        });
+        return directory;
+      case "linux":
+        return "";
       default:
         return null;
     }
@@ -55,17 +82,22 @@ export default class AppCode extends Editor {
 
   private pluginsDirectories(): string[] {
     const pathsToCheck = ["2019.2", "2019.1", "2018.2", "2018.1"];
+    let intelliJIdea = [];
+    let IdeaIC = [];
     switch (os.platform()) {
       case "win32": {
         return [""];
       }
       case "darwin":
-        // IdeaIC2019.2 => This one is Community edition
-        // IntelliJIdea2019.2 => This one is Ultimate edition
-        return pathsToCheck.map(
+        intelliJIdea = pathsToCheck.map(
           path =>
-            `${os.homedir()}/Library/Application\ Support/AppCode${path}/WakaTime.jar`
+            `${os.homedir()}/Library/Application Support/IntelliJIdea${path}/WakaTime.jar`
         );
+        IdeaIC = pathsToCheck.map(
+          path =>
+            `${os.homedir()}/Library/Application Support/IdeaIC${path}/WakaTime.jar`
+        );
+        return intelliJIdea.concat(IdeaIC);
       case "linux":
         return [""];
       default:

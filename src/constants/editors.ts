@@ -20,6 +20,7 @@ import RubyMine from "../editors/rubymine";
 import SublimeText2 from "../editors/sublime-text-2";
 import SublimeText3 from "../editors/sublime-text-3";
 import Terminal from "../editors/terminal";
+import TextMate from "../editors/textmate";
 import Unity from "../editors/unity";
 import Vim from "../editors/vim";
 import VisualStudio from "../editors/visual-studio";
@@ -50,6 +51,7 @@ export default {
   SublimeText2,
   SublimeText3,
   Terminal,
+  TextMate,
   Unity,
   Vim,
   VisualStudio,

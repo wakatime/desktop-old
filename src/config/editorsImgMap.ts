@@ -26,7 +26,8 @@ import {
   visualStudio128Path,
   vsCode128Path,
   webstorm128Path,
-  xcode128Path
+  xcode128Path,
+  netbeans128Path
 } from "../constants/imgPaths";
 
 interface EditorImageMap {
@@ -48,6 +49,7 @@ const imgMap: EditorImageMap = {
   [editors.GoLand.getName()]: goland128Path,
   [editors.IntelliJ.getName()]: intellijIdea128Path,
   [editors.Kate.getName()]: kate128Path,
+  [editors.Netbeans.getName()]: netbeans128Path,
   [editors.PhpStorm.getName()]: phpstorm128Path,
   [editors.Processing.getName()]: processing128Path,
   [editors.PyCharm.getName()]: pycharm128Path,

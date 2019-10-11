@@ -12,6 +12,7 @@ import Eclipse from "../editors/eclipse";
 import GoLand from "../editors/goland";
 import IntelliJ from "../editors/intellij";
 import Kate from "../editors/Kate";
+import Netbeans from "../editors/netbeans";
 import PhpStorm from "../editors/phpstorm";
 import Processing from "../editors/processing";
 import PyCharm from "../editors/pycharm";
@@ -42,6 +43,7 @@ export default {
   GoLand,
   IntelliJ,
   Kate,
+  Netbeans,
   PhpStorm,
   Processing,
   PyCharm,

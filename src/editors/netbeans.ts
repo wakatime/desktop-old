@@ -38,7 +38,7 @@ export default class Netbeans extends Editor {
       case "win32":
         return null;
       case "darwin":
-        return "/Applications/NetBeans/Contents";
+        return "/Applications/NetBeans.app/Contents";
       case "linux":
         return null;
       default:

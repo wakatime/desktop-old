@@ -15,10 +15,6 @@ export default class Notepadpp extends Editor {
     return "";
   }
 
-  public get binaries(): string[] {
-    return ["notepadpp"];
-  }
-
   public async isEditorInstalled(): Promise<boolean> {
     return await this.isDirectory(this.appDirectory());
   }
@@ -38,11 +34,11 @@ export default class Notepadpp extends Editor {
   private appDirectory(): string {
     switch (os.platform()) {
       case "win32":
-        return null;
+        return "";
       case "darwin":
         return "";
       case "linux":
-        return null;
+        return "";
       default:
         return null;
     }

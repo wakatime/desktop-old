@@ -27,10 +27,6 @@ describe("CLion", () => {
     const result = cLion.name;
     expect(result).to.equal("CLion");
   });
-  it("should return the correct binary names", () => {
-    const result = cLion.binaries;
-    expect(result).to.deep.equal(["clion"]);
-  });
   it("should return TRUE if editor is installed", async () => {
     isDirectoryStub.resolves(true);
     const result = await cLion.isEditorInstalled();

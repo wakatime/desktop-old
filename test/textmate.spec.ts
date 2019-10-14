@@ -29,10 +29,6 @@ describe("TextMate", () => {
     const result = textMate.name;
     expect(result).to.equal("TextMate");
   });
-  it("should return the correct binary names", () => {
-    const result = textMate.binaries;
-    expect(result).to.deep.equal(["textmate"]);
-  });
   it("should return TRUE if editor is installed", async () => {
     isDirectoryStub.resolves(true);
     const result = await textMate.isEditorInstalled();

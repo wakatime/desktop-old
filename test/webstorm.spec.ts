@@ -29,10 +29,6 @@ describe("WebStorm", () => {
     const result = webStorm.name;
     expect(result).to.equal("WebStorm");
   });
-  it("should return the correct binary names", () => {
-    const result = webStorm.binaries;
-    expect(result).to.deep.equal(["webstorm"]);
-  });
   it("should return TRUE if editor is installed", async () => {
     isDirectoryStub.resolves(true);
     const result = await webStorm.isEditorInstalled();

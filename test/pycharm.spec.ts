@@ -27,10 +27,6 @@ describe("PyCharm", () => {
     const result = pyCharm.name;
     expect(result).to.equal("PyCharm");
   });
-  it("should return the correct binary names", () => {
-    const result = pyCharm.binaries;
-    expect(result).to.deep.equal(["pycharm"]);
-  });
   it("should return TRUE if editor is installed", async () => {
     isDirectoryStub.resolves(true);
     const result = await pyCharm.isEditorInstalled();

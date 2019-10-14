@@ -19,10 +19,6 @@ export default class PyCharm extends Editor {
     return "";
   }
 
-  public get binaries(): string[] {
-    return ["pycharm"];
-  }
-
   public async isEditorInstalled(): Promise<boolean> {
     return await this.isDirectory(this.appDirectory());
   }

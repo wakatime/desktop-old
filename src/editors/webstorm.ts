@@ -19,10 +19,6 @@ export default class WebStorm extends Editor {
     return "";
   }
 
-  public get binaries(): string[] {
-    return ["webstorm"];
-  }
-
   public async isEditorInstalled(): Promise<boolean> {
     return await this.isDirectory(this.appDirectory());
   }

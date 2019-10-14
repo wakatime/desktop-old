@@ -19,10 +19,6 @@ export default class PhpStorm extends Editor {
     return "";
   }
 
-  public get binaries(): string[] {
-    return ["phpstorm"];
-  }
-
   public async isEditorInstalled(): Promise<boolean> {
     return await this.isDirectory(this.appDirectory());
   }

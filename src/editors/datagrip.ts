@@ -19,10 +19,6 @@ export default class DataGrip extends Editor {
     return "";
   }
 
-  public get binaries(): string[] {
-    return ["datagrip"];
-  }
-
   public async isEditorInstalled(): Promise<boolean> {
     return await this.isDirectory(this.appDirectory());
   }

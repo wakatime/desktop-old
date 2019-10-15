@@ -15,10 +15,6 @@ export default class GoLand extends Editor {
     return "";
   }
 
-  public get binaries(): string[] {
-    return ["goland"];
-  }
-
   public async isEditorInstalled(): Promise<boolean> {
     return await this.isDirectory(this.appDirectory());
   }

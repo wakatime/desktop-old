@@ -29,10 +29,6 @@ describe("AppCode", () => {
     const result = appCode.name;
     expect(result).to.equal("AppCode");
   });
-  it("should return the correct binary names", () => {
-    const result = appCode.binaries;
-    expect(result).to.deep.equal(["appcode"]);
-  });
   it("should return TRUE if editor is installed", async () => {
     isDirectoryStub.resolves(true);
     const result = await appCode.isEditorInstalled();

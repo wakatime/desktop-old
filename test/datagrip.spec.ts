@@ -27,10 +27,6 @@ describe("DataGrip", () => {
     const result = dataGrip.name;
     expect(result).to.equal("DataGrip");
   });
-  it("should return the correct binary names", () => {
-    const result = dataGrip.binaries;
-    expect(result).to.deep.equal(["datagrip"]);
-  });
   it("should return TRUE if editor is installed", async () => {
     isDirectoryStub.resolves(true);
     const result = await dataGrip.isEditorInstalled();

@@ -27,10 +27,6 @@ describe("GoLand", () => {
     const result = goLand.name;
     expect(result).to.equal("GoLand");
   });
-  it("should return the correct binary names", () => {
-    const result = goLand.binaries;
-    expect(result).to.deep.equal(["goland"]);
-  });
   it("should return TRUE if editor is installed", async () => {
     isDirectoryStub.resolves(true);
     const result = await goLand.isEditorInstalled();

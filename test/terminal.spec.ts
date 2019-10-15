@@ -29,7 +29,7 @@ describe("Terminal", () => {
   });
   it("should return the correct binary names", () => {
     const result = terminal.binaries;
-    expect(result).to.deep.equal(["bash", "zsh", "iterm", "iterm2", "fish"]);
+    expect(result).to.deep.equal(["bash", "zsh", "iterm", "fish"]);
   });
   it("should return TRUE if editor is installed", async () => {
     isEditorInstalledStub.resolves(true);

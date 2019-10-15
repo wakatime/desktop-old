@@ -22,6 +22,8 @@ describe("Android Studio", () => {
   });
   afterEach(() => {
     isEditorInstalledStub.restore();
+    fileExistsSyncStub.restore();
+    pluginsDirectoryStub.restore();
   });
   it("should return the correct key name", () => {
     const result = androidStudio.key;

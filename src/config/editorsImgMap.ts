@@ -11,6 +11,7 @@ import {
   coda128Path,
   datagrip128Path,
   eclipse128Path,
+  gedit128Path,
   goland128Path,
   intellijIdea128Path,
   kate128Path,
@@ -22,12 +23,14 @@ import {
   rubymine128Path,
   sublimeText128Path,
   terminal128Path,
+  textmate128Path,
   unity128Path,
   vim128Path,
   visualStudio128Path,
   vsCode128Path,
   webstorm128Path,
-  xcode128Path
+  xcode128Path,
+  netbeans128Path
 } from "../constants/imgPaths";
 
 interface EditorImageMap {
@@ -46,10 +49,12 @@ const imgMap: EditorImageMap = {
   [editors.Coda.getName()]: coda128Path,
   [editors.DataGrip.getName()]: datagrip128Path,
   [editors.Eclipse.getName()]: eclipse128Path,
+  [editors.Gedit.getName()]: gedit128Path,
   [editors.GoLand.getName()]: goland128Path,
   [editors.IntelliJ.getName()]: intellijIdea128Path,
   [editors.Kate.getName()]: kate128Path,
   [editors.Notepadpp.getName()]: notepad128Path,
+  [editors.Netbeans.getName()]: netbeans128Path,
   [editors.PhpStorm.getName()]: phpstorm128Path,
   [editors.Processing.getName()]: processing128Path,
   [editors.PyCharm.getName()]: pycharm128Path,
@@ -58,6 +63,7 @@ const imgMap: EditorImageMap = {
   [editors.SublimeText2.getName()]: sublimeText128Path,
   [editors.SublimeText3.getName()]: sublimeText128Path, // Should this be a different image?
   [editors.Terminal.getName()]: terminal128Path,
+  [editors.TextMate.getName()]: textmate128Path,
   [editors.Unity.getName()]: unity128Path,
   [editors.Vim.getName()]: vim128Path,
   [editors.VisualStudio.getName()]: visualStudio128Path,

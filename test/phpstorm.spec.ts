@@ -27,10 +27,6 @@ describe("PhpStorm", () => {
     const result = phpStorm.name;
     expect(result).to.equal("PhpStorm");
   });
-  it("should return the correct binary names", () => {
-    const result = phpStorm.binaries;
-    expect(result).to.deep.equal(["phpstorm"]);
-  });
   it("should return TRUE if editor is installed", async () => {
     isDirectoryStub.resolves(true);
     const result = await phpStorm.isEditorInstalled();

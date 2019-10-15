@@ -9,6 +9,7 @@ import {
   unRegisterWindow
 } from "./middlewares/forwardToRenderer";
 import "./stores/mainProcStore";
+// import wakatimeIcon from "./imgs/wakatime-16x16.png";
 
 console.log("isMainProcess", isMainProcess);
 const isDev = process.env.NODE_ENV === "development";
@@ -20,6 +21,7 @@ const { BrowserWindow } = electron;
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
+// let appIcon = null;
 
 const createWindow = async () => {
   // Create the browser window.
@@ -99,7 +101,7 @@ if (!gotTheLock) {
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
   app.on("ready", () => {
-    /* appIcon = new Tray('/Users/alanhamlett/git/wakatime-desktop/src/img/wakatime-240.png');
+    /* appIcon = new Tray(wakatimeIcon);
     const contextMenu = Menu.buildFromTemplate([
       {label: 'Item1', type: 'radio'},
       {label: 'Item2', type: 'radio'},

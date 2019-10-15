@@ -29,10 +29,6 @@ describe("RubyMine", () => {
     const result = rubyMine.name;
     expect(result).to.equal("RubyMine");
   });
-  it("should return the correct binary names", () => {
-    const result = rubyMine.binaries;
-    expect(result).to.deep.equal(["rubymine"]);
-  });
   it("should return TRUE if editor is installed", async () => {
     isDirectoryStub.resolves(true);
     const result = await rubyMine.isEditorInstalled();

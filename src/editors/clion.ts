@@ -19,10 +19,6 @@ export default class CLion extends Editor {
     return "";
   }
 
-  public get binaries(): string[] {
-    return ["clion"];
-  }
-
   public async isEditorInstalled(): Promise<boolean> {
     return await this.isDirectory(this.appDirectory());
   }

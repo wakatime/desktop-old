@@ -27,10 +27,6 @@ describe("Rider", () => {
     const result = rider.name;
     expect(result).to.equal("Rider");
   });
-  it("should return the correct binary names", () => {
-    const result = rider.binaries;
-    expect(result).to.deep.equal(["rider"]);
-  });
   it("should return TRUE if editor is installed", async () => {
     isDirectoryStub.resolves(true);
     const result = await rider.isEditorInstalled();

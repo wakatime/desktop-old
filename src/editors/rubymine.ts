@@ -19,10 +19,6 @@ export default class RubyMine extends Editor {
     return "";
   }
 
-  public get binaries(): string[] {
-    return ["rubymine"];
-  }
-
   public async isEditorInstalled(): Promise<boolean> {
     return await this.isDirectory(this.appDirectory());
   }

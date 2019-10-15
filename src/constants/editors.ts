@@ -12,6 +12,7 @@ import Eclipse from "../editors/eclipse";
 import Gedit from "../editors/gedit";
 import GoLand from "../editors/goland";
 import IntelliJ from "../editors/intellij";
+import Kakoune from "../editors/Kakoune";
 import Kate from "../editors/Kate";
 import Netbeans from "../editors/netbeans";
 import PhpStorm from "../editors/phpstorm";
@@ -45,6 +46,7 @@ export default {
   Gedit,
   GoLand,
   IntelliJ,
+  Kakoune,
   Kate,
   Netbeans,
   PhpStorm,

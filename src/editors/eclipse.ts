@@ -1,19 +1,19 @@
-import os from "os";
-import path from "path";
+import os from 'os';
+import path from 'path';
 
-import Editor from "./editor";
+import Editor from './editor';
 
 export default class Eclipse extends Editor {
   public static getName(): string {
-    return "Eclipse";
+    return 'Eclipse';
   }
 
   public get name(): string {
-    return "Eclipse";
+    return 'Eclipse';
   }
 
   public get icon(): string {
-    return "";
+    return '';
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -21,27 +21,24 @@ export default class Eclipse extends Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   public async installPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   public async uninstallPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   private appDirectory(): string {
     switch (os.platform()) {
-      case "win32":
-        return "";
-      case "darwin":
+      case 'win32':
+        return '';
+      case 'darwin':
         // find a way of recursively find Eclipse.app folder
-        return path.join(
-          os.homedir(),
-          "eclipse/java-2019-06/Eclipse.app/Contents"
-        );
+        return path.join(os.homedir(), 'eclipse/java-2019-06/Eclipse.app/Contents');
       default:
         return null;
     }

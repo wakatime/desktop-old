@@ -1,33 +1,33 @@
-import GoLand from "../src/editors/goland";
+import GoLand from '../src/editors/goland';
 
-const sinon = require("sinon");
+const sinon = require('sinon');
 
-const chai = require("chai");
-const chaiAsPromised = require("chai-as-promised");
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 
 const { expect } = chai;
 chai.use(chaiAsPromised);
 
-describe("GoLand", () => {
+describe('GoLand', () => {
   let goLand: GoLand;
   let isDirectoryStub: any;
 
   beforeEach(() => {
     goLand = new GoLand();
-    isDirectoryStub = sinon.stub(goLand, "isDirectory");
+    isDirectoryStub = sinon.stub(goLand, 'isDirectory');
   });
   afterEach(() => {
     isDirectoryStub.restore();
   });
-  it("should return the correct key name", () => {
+  it('should return the correct key name', () => {
     const result = goLand.key;
-    expect(result).to.equal("goland");
+    expect(result).to.equal('goland');
   });
-  it("should return the correct editor name", () => {
+  it('should return the correct editor name', () => {
     const result = goLand.name;
-    expect(result).to.equal("GoLand");
+    expect(result).to.equal('GoLand');
   });
-  it("should return TRUE if editor is installed", async () => {
+  it('should return TRUE if editor is installed', async () => {
     isDirectoryStub.resolves(true);
     const result = await goLand.isEditorInstalled();
     expect(result).to.be.true;

@@ -1,33 +1,33 @@
-import PyCharm from "../src/editors/pycharm";
+import PyCharm from '../src/editors/pycharm';
 
-const sinon = require("sinon");
+const sinon = require('sinon');
 
-const chai = require("chai");
-const chaiAsPromised = require("chai-as-promised");
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 
 const { expect } = chai;
 chai.use(chaiAsPromised);
 
-describe("PyCharm", () => {
+describe('PyCharm', () => {
   let pyCharm: PyCharm;
   let isDirectoryStub: any;
 
   beforeEach(() => {
     pyCharm = new PyCharm();
-    isDirectoryStub = sinon.stub(pyCharm, "isDirectory");
+    isDirectoryStub = sinon.stub(pyCharm, 'isDirectory');
   });
   afterEach(() => {
     isDirectoryStub.restore();
   });
-  it("should return the correct key name", () => {
+  it('should return the correct key name', () => {
     const result = pyCharm.key;
-    expect(result).to.equal("pycharm");
+    expect(result).to.equal('pycharm');
   });
-  it("should return the correct editor name", () => {
+  it('should return the correct editor name', () => {
     const result = pyCharm.name;
-    expect(result).to.equal("PyCharm");
+    expect(result).to.equal('PyCharm');
   });
-  it("should return TRUE if editor is installed", async () => {
+  it('should return TRUE if editor is installed', async () => {
     isDirectoryStub.resolves(true);
     const result = await pyCharm.isEditorInstalled();
     expect(result).to.be.true;

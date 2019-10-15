@@ -1,13 +1,13 @@
-import editors from "../constants/editors";
-import imgPathMap from "../config/editorsImgMap";
-import createReducer from "../utils/createReducer";
-import { FSA } from "../actions/fsaAction";
+import editors from '../constants/editors';
+import imgPathMap from '../config/editorsImgMap';
+import createReducer from '../utils/createReducer';
+import { FSA } from '../actions/fsaAction';
 import {
   ENABLE_EDITORS,
   SELECT_EDITOR_TO_INSTALL,
   SET_EDITOR_ENABLED,
-  CLEAR_SELECT_EDITORS
-} from "../constants/rendererActionTypes";
+  CLEAR_SELECT_EDITORS,
+} from '../constants/rendererActionTypes';
 
 const initialState = Object.values(editors).reduce((accum, Val) => {
   const instance = new Val();
@@ -18,7 +18,7 @@ const initialState = Object.values(editors).reduce((accum, Val) => {
     enabled: true, // Enabled by default for now
     img: imgPathMap[instance.name],
     instance,
-    isSelected: false
+    isSelected: false,
   });
   return accum;
 }, []);
@@ -51,7 +51,7 @@ const handlers = {
       newEditor.isSelected = false;
       return newEditor;
     });
-  }
+  },
 };
 
 export default createReducer(initialState, handlers);

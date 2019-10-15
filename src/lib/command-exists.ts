@@ -1,10 +1,10 @@
-import { exec } from "child_process";
+import { exec } from 'child_process';
 
-const path = require("path");
-const fs = require("fs");
+const path = require('path');
+const fs = require('fs');
 
 export class CommandExists {
-  private isWindows = process.platform === "win32";
+  private isWindows = process.platform === 'win32';
 
   private access = fs.access;
 
@@ -24,43 +24,32 @@ export class CommandExists {
     if (/[^A-Za-z0-9_\/:=-]/.test(s)) {
       s = `'${s.replace(/'/g, "'\\''")}'`;
       s = s
-        .replace(/^(?:'')+/g, "") // unduplicate single-quote at the beginning
+        .replace(/^(?:'')+/g, '') // unduplicate single-quote at the beginning
         .replace(/\\'''/g, "\\'"); // remove non-escaped single-quote if there are enclosed between 2 escaped
     }
     return s;
   }
 
-  private fileNotExists(
-    commandName: string,
-    callback: (arg0: boolean) => void
-  ) {
+  private fileNotExists(commandName: string, callback: (arg0: boolean) => void) {
     this.access(commandName, this.constants.F_OK, (err: any) => {
       callback(!err);
     });
   }
 
   private localExecutable(commandName: string, callback): void {
-    this.access(
-      commandName,
-      this.constants.F_OK || this.constants.X_OK,
-      (err: any) => {
-        callback(!err);
-      }
-    );
+    this.access(commandName, this.constants.F_OK || this.constants.X_OK, (err: any) => {
+      callback(!err);
+    });
   }
 
-  private commandExistsUnix(
-    commandName: string,
-    cleanedCommandName: string,
-    callback
-  ): void {
+  private commandExistsUnix(commandName: string, cleanedCommandName: string, callback): void {
     this.fileNotExists(commandName, isFile => {
       if (!isFile) {
         const child = exec(
           `command -v ${cleanedCommandName} 2>/dev/null && { echo >&1 ${cleanedCommandName}; exit 0; }`,
           (_error, stdout, _stderr) => {
             callback(!!stdout);
-          }
+          },
         );
         return;
       }
@@ -69,11 +58,7 @@ export class CommandExists {
     });
   }
 
-  private commandExistsWindows(
-    commandName: string,
-    cleanedCommandName: string,
-    callback
-  ): void {
+  private commandExistsWindows(commandName: string, cleanedCommandName: string, callback): void {
     if (/[\x00-\x1f<>:"\|\?\*]/.test(commandName)) {
       callback(false);
       return;
@@ -90,7 +75,7 @@ export class CommandExists {
   public exists(commandName: string, callback: any = null): Promise<boolean> {
     try {
       const cleanedCommandName = this.cleanInput(commandName);
-      if (!callback && typeof Promise !== "undefined") {
+      if (!callback && typeof Promise !== 'undefined') {
         return new Promise(resolve => {
           this.exists(commandName, (output: boolean) => {
             resolve(output);

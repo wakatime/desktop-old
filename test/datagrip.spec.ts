@@ -1,33 +1,33 @@
-import DataGrip from "../src/editors/datagrip";
+import DataGrip from '../src/editors/datagrip';
 
-const sinon = require("sinon");
+const sinon = require('sinon');
 
-const chai = require("chai");
-const chaiAsPromised = require("chai-as-promised");
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 
 const { expect } = chai;
 chai.use(chaiAsPromised);
 
-describe("DataGrip", () => {
+describe('DataGrip', () => {
   let dataGrip: DataGrip;
   let isDirectoryStub: any;
 
   beforeEach(() => {
     dataGrip = new DataGrip();
-    isDirectoryStub = sinon.stub(dataGrip, "isDirectory");
+    isDirectoryStub = sinon.stub(dataGrip, 'isDirectory');
   });
   afterEach(() => {
     isDirectoryStub.restore();
   });
-  it("should return the correct key name", () => {
+  it('should return the correct key name', () => {
     const result = dataGrip.key;
-    expect(result).to.equal("datagrip");
+    expect(result).to.equal('datagrip');
   });
-  it("should return the correct editor name", () => {
+  it('should return the correct editor name', () => {
     const result = dataGrip.name;
-    expect(result).to.equal("DataGrip");
+    expect(result).to.equal('DataGrip');
   });
-  it("should return TRUE if editor is installed", async () => {
+  it('should return TRUE if editor is installed', async () => {
     isDirectoryStub.resolves(true);
     const result = await dataGrip.isEditorInstalled();
     expect(result).to.be.true;

@@ -1,10 +1,10 @@
-import { Extract } from "unzipper";
-import os from "os";
-import fs from "fs";
-import path from "path";
-import request from "request";
+import { Extract } from 'unzipper';
+import os from 'os';
+import fs from 'fs';
+import path from 'path';
+import request from 'request';
 
-import Editor from "./editor";
+import Editor from './editor';
 
 export default class Processing extends Editor {
   private preferences: { [key: string]: string } = {};
@@ -15,54 +15,52 @@ export default class Processing extends Editor {
   }
 
   public static getName(): string {
-    return "Processing";
+    return 'Processing';
   }
 
   public get name(): string {
-    return "Processing";
+    return 'Processing';
   }
 
   public get icon(): string {
-    return "";
+    return '';
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    if (await this.isDirectory(this.appDirectory())) return true;
+    if (this.isDirectorySync(this.appDirectory())) return true;
 
-    return await this.isDirectory(this.getSketchbookPathThree());
+    return this.isDirectorySync(this.getSketchbookPathThree());
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.isDirectory(
-      path.join(this.pluginsDirectory(), "WakatimeTool")
-    );
+    return await this.isDirectorySync(path.join(this.pluginsDirectory(), 'WakatimeTool'));
   }
 
   public async installPlugin(): Promise<void> {
-    let temp = path.join(os.tmpdir(), "WakaTime", "processing");
+    let temp = path.join(os.tmpdir(), 'WakaTime', 'processing');
 
     // Create the temp folder first if this does not exists yet
     fs.mkdirSync(temp, { recursive: true });
 
-    temp = path.join(temp, "processing-wakatime-deploy.zip");
+    temp = path.join(temp, 'processing-wakatime-deploy.zip');
 
     const file = fs.createWriteStream(temp);
 
     await new Promise((resolve, reject) => {
       request({
         uri:
-          "https://github.com/devgianlu/processing-wakatime/releases/latest/download/processing-wakatime-deploy.zip",
-        gzip: true
+          'https://github.com/devgianlu/processing-wakatime/releases/latest/download/processing-wakatime-deploy.zip',
+        gzip: true,
       })
         .pipe(file)
-        .on("finish", async () => {
+        .on('finish', async () => {
           const pluginsDirectory = this.pluginsDirectory();
           const stream2 = await fs.createReadStream(temp);
           await stream2.pipe(Extract({ path: pluginsDirectory }));
           fs.unlinkSync(temp);
           resolve();
         })
-        .on("error", (err: any) => {
+        .on('error', (err: any) => {
           console.error(err);
           reject(err);
         });
@@ -72,17 +70,17 @@ export default class Processing extends Editor {
   }
 
   public async uninstallPlugin(): Promise<void> {
-    const pluginPath = path.join(this.pluginsDirectory(), "WakatimeTool");
+    const pluginPath = path.join(this.pluginsDirectory(), 'WakatimeTool');
     await fs.rmdirSync(pluginPath);
     return Promise.resolve();
   }
 
   private appDirectory(): string {
     switch (os.platform()) {
-      case "win32":
-        return "";
-      case "darwin":
-        return "/Applications/Processing.app/Contents";
+      case 'win32':
+        return '';
+      case 'darwin':
+        return '/Applications/Processing.app/Contents';
       default:
         return null;
     }
@@ -90,18 +88,15 @@ export default class Processing extends Editor {
 
   private readPreferences(): void {
     switch (os.platform()) {
-      case "win32":
+      case 'win32':
         break;
-      case "darwin": {
-        const file = path.join(
-          os.homedir(),
-          "Library/Processing/preferences.txt"
-        );
+      case 'darwin': {
+        const file = path.join(os.homedir(), 'Library/Processing/preferences.txt');
         if (this.fileExistsSync(file)) {
-          const data = fs.readFileSync(file, { encoding: "utf8" });
+          const data = fs.readFileSync(file, { encoding: 'utf8' });
           if (data) {
             data.split(/\r?\n/).forEach(line => {
-              const split = line.split("=");
+              const split = line.split('=');
               this.preferences[split[0]] = split[1];
             });
           }
@@ -115,15 +110,12 @@ export default class Processing extends Editor {
 
   private getSketchbookPathThree(): string {
     switch (os.platform()) {
-      case "win32":
-        return "";
-      case "darwin": {
-        const defaultDirectory = path.join(
-          os.homedir(),
-          "Documents/Processing"
-        );
-        return this.preferences.hasOwnProperty("sketchbook.path.three")
-          ? this.preferences["sketchbook.path.three"]
+      case 'win32':
+        return '';
+      case 'darwin': {
+        const defaultDirectory = path.join(os.homedir(), 'Documents/Processing');
+        return this.preferences.hasOwnProperty('sketchbook.path.three')
+          ? this.preferences['sketchbook.path.three']
           : defaultDirectory;
       }
       default:
@@ -133,18 +125,17 @@ export default class Processing extends Editor {
 
   private pluginsDirectory(): string {
     switch (os.platform()) {
-      case "win32": {
-        const is64bit =
-          process.arch === "x64" || process.env.PROCESSOR_ARCHITEW6432;
+      case 'win32': {
+        const is64bit = process.arch === 'x64' || process.env.PROCESSOR_ARCHITEW6432;
         if (is64bit) {
-          return "";
+          return '';
         }
-        return "";
+        return '';
       }
-      case "darwin":
-        return path.join(this.getSketchbookPathThree(), "tools");
-      case "linux":
-        return "";
+      case 'darwin':
+        return path.join(this.getSketchbookPathThree(), 'tools');
+      case 'linux':
+        return '';
       default:
         return null;
     }

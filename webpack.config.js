@@ -1,76 +1,76 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const isDev = process.env.NODE_ENV === "development";
+const isDev = process.env.NODE_ENV === 'development';
 const output = {
-  path: path.resolve(__dirname, "./dist"),
-  filename: "[name].js"
+  path: path.resolve(__dirname, './dist'),
+  filename: '[name].js',
 };
-const devtool = isDev ? "source-map" : undefined;
+const devtool = isDev ? 'source-map' : undefined;
 const resolve = {
   // Add `.ts` and `.tsx` as a resolvable extension.
-  extensions: [".ts", ".tsx", ".js", ".json"] // note if using webpack 1 you'd also need a '' in the array as well
+  extensions: ['.ts', '.tsx', '.js', '.json'], // note if using webpack 1 you'd also need a '' in the array as well
 };
 const tsloader = {
   test: /\.tsx?$/,
   exclude: /node_modules/,
   use: [
     {
-      loader: "ts-loader"
-    }
-  ]
+      loader: 'ts-loader',
+    },
+  ],
 };
 if (isDev) {
-  tsloader.use = ["cache-loader", ...tsloader.use];
+  tsloader.use = ['cache-loader', ...tsloader.use];
 }
 const fileLoader = {
   test: /\.(png|jpe?g|gif)$/,
   use: [
     {
-      loader: "file-loader",
+      loader: 'file-loader',
       options: {
         name() {
           if (isDev) {
-            return "[path][name].[ext]";
+            return '[path][name].[ext]';
           }
-          return "assets/[hash].[ext]";
-        }
-      }
-    }
-  ]
+          return 'assets/[hash].[ext]';
+        },
+      },
+    },
+  ],
 };
 if (isDev) {
-  fileLoader.use = ["cache-loader", ...fileLoader.use];
+  fileLoader.use = ['cache-loader', ...fileLoader.use];
 }
 const commonWebpackCfg = {
   devtool,
   output,
   resolve,
   module: {
-    rules: [tsloader, fileLoader]
-  }
+    rules: [tsloader, fileLoader],
+  },
 };
 const mainProcessWebpackCfg = {
   ...commonWebpackCfg,
-  target: "electron-main",
+  target: 'electron-main',
   entry: {
-    app: path.resolve(__dirname, "./src/app.ts")
+    app: path.resolve(__dirname, './src/app.ts'),
   },
   node: {
-    __dirname: isDev
+    __dirname: isDev,
   },
-  plugins: []
+  plugins: [],
 };
 const rendererWebpackCfg = {
   ...commonWebpackCfg,
-  target: "electron-renderer",
+  target: 'electron-renderer',
   entry: {
-    mainUI: path.resolve(__dirname, "./src/containers/index.tsx")
+    mainUI: path.resolve(__dirname, './src/containers/index.tsx'),
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "src", "html", "index.html")
-    })
-  ]
+      template: path.resolve(__dirname, 'src', 'html', 'index.html'),
+    }),
+  ],
 };
 module.exports = [mainProcessWebpackCfg, rendererWebpackCfg];

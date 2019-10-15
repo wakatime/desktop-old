@@ -37,9 +37,9 @@ export default class Notepadpp extends Editor {
     switch (os.platform()) {
       case "win32":
         if (is64bit) {
-          return "C:\\Program Files(x86)\\Notepad++";
+          return "C:\\Program Files\\Notepad++";
         }
-        return "C:\\Program Files\\Notepad++";
+        return "C:\\Program Files(x86)\\Notepad++";
       case "darwin":
         return "";
       case "linux":

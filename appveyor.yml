@@ -16,5 +16,8 @@ test_script:
   # run tests
   - yarn test
 
+# Don't actually build.
+build: off
+
 cache:
  - "%LOCALAPPDATA%\\Yarn"

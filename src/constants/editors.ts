@@ -14,6 +14,7 @@ import GoLand from "../editors/goland";
 import IntelliJ from "../editors/intellij";
 import Kakoune from "../editors/Kakoune";
 import Kate from "../editors/Kate";
+import Notepadpp from "../editors/notepadpp";
 import Netbeans from "../editors/netbeans";
 import PhpStorm from "../editors/phpstorm";
 import Processing from "../editors/processing";
@@ -48,6 +49,7 @@ export default {
   IntelliJ,
   Kakoune,
   Kate,
+  Notepadpp,
   Netbeans,
   PhpStorm,
   Processing,

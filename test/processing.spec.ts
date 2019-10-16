@@ -10,14 +10,14 @@ chai.use(chaiAsPromised);
 
 describe('Processing', () => {
   let processing: Processing;
-  let isDirectoryStub: any;
+  let isDirectorySyncStub: any;
 
   beforeEach(() => {
     processing = new Processing();
-    isDirectoryStub = sinon.stub(processing, 'isDirectory');
+    isDirectorySyncStub = sinon.stub(processing, 'isDirectorySync');
   });
   afterEach(() => {
-    isDirectoryStub.restore();
+    isDirectorySyncStub.restore();
   });
   it('should return the correct key name', () => {
     const result = processing.key;
@@ -28,22 +28,22 @@ describe('Processing', () => {
     expect(result).to.equal('Processing');
   });
   it('should return TRUE if editor is installed', async () => {
-    isDirectoryStub.resolves(true);
+    isDirectorySyncStub.returns(true);
     const result = await processing.isEditorInstalled();
     expect(result).to.be.true;
   });
   it('should return FALSE if editor is not installed', async () => {
-    isDirectoryStub.resolves(false);
+    isDirectorySyncStub.returns(false);
     const result = await processing.isEditorInstalled();
     expect(result).to.be.false;
   });
   it('should return TRUE if plugin is installed', async () => {
-    isDirectoryStub.resolves(true);
+    isDirectorySyncStub.returns(true);
     const result = await processing.isPluginInstalled();
     expect(result).to.be.true;
   });
   it('should return FALSE if plugin is not installed', async () => {
-    isDirectoryStub.resolves(false);
+    isDirectorySyncStub.returns(false);
     const result = await processing.isPluginInstalled();
     expect(result).to.be.false;
   });

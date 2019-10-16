@@ -10,16 +10,16 @@ chai.use(chaiAsPromised);
 
 describe("Kakoune", () => {
   let kakoune: Kakoune;
-  let isDirectoryStub: any;
+  let brewListStub: any;
   let fileExistsSyncStub: any;
 
   beforeEach(() => {
     kakoune = new Kakoune();
-    isDirectoryStub = sinon.stub(kakoune, "isDirectory");
+    brewListStub = sinon.stub(kakoune, "brewList");
     fileExistsSyncStub = sinon.stub(kakoune, "fileExistsSync");
   });
   afterEach(() => {
-    isDirectoryStub.restore();
+    brewListStub.restore();
     fileExistsSyncStub.restore();
   });
   it("should return the correct key name", () => {
@@ -31,15 +31,15 @@ describe("Kakoune", () => {
     expect(result).to.equal("Kakoune");
   });
   it("should return TRUE if editor is installed", async () => {
-    isDirectoryStub.resolves(true);
+    brewListStub.resolves("bla bla kakoune bla bla");
     const result = await kakoune.isEditorInstalled();
     expect(result).to.be.true;
   });
-  //   it("should return FALSE if editor is not installed", async () => {
-  //     isDirectoryStub.resolves(false);
-  //     const result = await kakoune.isEditorInstalled();
-  //     expect(result).to.be.false;
-  //   });
+  it("should return FALSE if editor is not installed", async () => {
+    brewListStub.resolves("");
+    const result = await kakoune.isEditorInstalled();
+    expect(result).to.be.false;
+  });
   it("should return TRUE if plugin is installed", async () => {
     fileExistsSyncStub.resolves(true);
     const result = await kakoune.isPluginInstalled();

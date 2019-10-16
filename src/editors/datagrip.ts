@@ -36,9 +36,21 @@ export default class DataGrip extends Editor {
   }
 
   private appDirectory(): string {
+    let directory = "";
+    let pathsToCheck = ["2019.2", "2019.1", "2018.2", "2018.1"];
     switch (os.platform()) {
       case "win32":
-        return null;
+        pathsToCheck = pathsToCheck.map(
+          check => `%USERPROFILE%\\.DataGrip${check}`
+        );
+        pathsToCheck.some(pluginPath => {
+          if (this.isDirectorySync(pluginPath)) {
+            directory = pluginPath;
+            return true;
+          }
+          return false;
+        });
+        return directory;
       case "darwin":
         return "/Applications/DataGrip.app/Contents";
       case "linux":
@@ -51,9 +63,7 @@ export default class DataGrip extends Editor {
   private pluginsDirectory(): string {
     let directory = "";
     switch (os.platform()) {
-      case "win32": {
-        return "";
-      }
+      case "win32":
       case "darwin":
         this.pluginsDirectories().some(pluginPath => {
           if (this.isDirectorySync(pluginPath)) {
@@ -74,7 +84,9 @@ export default class DataGrip extends Editor {
     const pathsToCheck = ["2019.2", "2019.1", "2018.2", "2018.1"];
     switch (os.platform()) {
       case "win32": {
-        return [""];
+        return pathsToCheck.map(
+          check => `%USERPROFILE%\\.DataGrip${check}\\config\\plugins`
+        );
       }
       case "darwin":
         return pathsToCheck.map(

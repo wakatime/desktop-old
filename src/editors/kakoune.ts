@@ -25,14 +25,8 @@ export default class Kakoune extends Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    if (await this.commandExists.exists("brew")) {
-      const { stdout, stderr } = await exec("brew list");
-      if (stderr) return Promise.reject(new Error(stderr));
-
-      return stdout.includes("kakoune");
-    }
-
-    return false;
+    const list = await this.brewList();
+    return list.includes("kakoune");
   }
 
   public async isPluginInstalled(): Promise<boolean> {
@@ -80,6 +74,17 @@ export default class Kakoune extends Editor {
     const pluginPath = path.join(this.pluginsDirectory(), "wakatime.kak");
     await fs.unlinkSync(pluginPath);
     return Promise.resolve();
+  }
+
+  public async brewList(): Promise<string> {
+    if (await this.commandExists.exists("brew")) {
+      const { stdout, stderr } = await exec("brew list");
+      if (stderr) return Promise.reject(new Error(stderr));
+
+      return stdout;
+    }
+
+    return "";
   }
 
   private pluginsDirectory(): string {

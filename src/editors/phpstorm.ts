@@ -41,7 +41,7 @@ export default class PhpStorm extends Editor {
     switch (os.platform()) {
       case "win32":
         pathsToCheck = pathsToCheck.map(
-          check => `%USERPROFILE%\\.PhpStorm${check}`
+          check => `${os.homedir()}\\.PhpStorm${check}`
         );
         pathsToCheck.some(pluginPath => {
           if (this.isDirectorySync(pluginPath)) {
@@ -85,7 +85,7 @@ export default class PhpStorm extends Editor {
     switch (os.platform()) {
       case "win32": {
         return pathsToCheck.map(
-          check => `%USERPROFILE%\\.PhpStorm${check}\\config\\plugins`
+          check => `${os.homedir()}\\.PhpStorm${check}\\config\\plugins`
         );
       }
       case "darwin":

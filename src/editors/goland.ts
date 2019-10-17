@@ -41,7 +41,7 @@ export default class GoLand extends Editor {
     switch (os.platform()) {
       case "win32":
         pathsToCheck = pathsToCheck.map(
-          check => `%USERPROFILE%\\.GoLand${check}`
+          check => `${os.homedir()}\\.GoLand${check}`
         );
         pathsToCheck.some(pluginPath => {
           if (this.isDirectorySync(pluginPath)) {
@@ -85,7 +85,7 @@ export default class GoLand extends Editor {
     switch (os.platform()) {
       case "win32": {
         return pathsToCheck.map(
-          check => `%USERPROFILE%\\.GoLand${check}\\config\\plugins`
+          check => `${os.homedir()}\\.GoLand${check}\\config\\plugins`
         );
       }
       case "darwin":

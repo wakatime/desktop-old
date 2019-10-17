@@ -41,7 +41,7 @@ export default class Rider extends Editor {
     switch (os.platform()) {
       case "win32":
         pathsToCheck = pathsToCheck.map(
-          check => `%USERPROFILE%\\.Rider${check}`
+          check => `${os.homedir()}\\.Rider${check}`
         );
         pathsToCheck.some(pluginPath => {
           if (this.isDirectorySync(pluginPath)) {
@@ -85,7 +85,7 @@ export default class Rider extends Editor {
     switch (os.platform()) {
       case "win32": {
         return pathsToCheck.map(
-          check => `%USERPROFILE%\\.Rider${check}\\config\\plugins`
+          check => `${os.homedir()}\\.Rider${check}\\config\\plugins`
         );
       }
       case "darwin":

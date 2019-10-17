@@ -41,7 +41,7 @@ export default class RubyMine extends Editor {
     switch (os.platform()) {
       case "win32":
         pathsToCheck = pathsToCheck.map(
-          check => `%USERPROFILE%\\.RubyMine${check}`
+          check => `${os.homedir()}\\.RubyMine${check}`
         );
         pathsToCheck.some(pluginPath => {
           if (this.isDirectorySync(pluginPath)) {
@@ -85,7 +85,7 @@ export default class RubyMine extends Editor {
     switch (os.platform()) {
       case "win32": {
         return pathsToCheck.map(
-          check => `%USERPROFILE%\\.RubyMine${check}\\config\\plugins`
+          check => `${os.homedir()}\\.RubyMine${check}\\config\\plugins`
         );
       }
       case "darwin":

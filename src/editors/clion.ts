@@ -41,7 +41,7 @@ export default class CLion extends Editor {
     switch (os.platform()) {
       case "win32":
         pathsToCheck = pathsToCheck.map(
-          check => `%USERPROFILE%\\.CLion${check}`
+          check => `${os.homedir()}\\.CLion${check}`
         );
         pathsToCheck.some(pluginPath => {
           if (this.isDirectorySync(pluginPath)) {
@@ -85,7 +85,7 @@ export default class CLion extends Editor {
     switch (os.platform()) {
       case "win32": {
         return pathsToCheck.map(
-          check => `%USERPROFILE%\\.CLion${check}\\config\\plugins`
+          check => `${os.homedir()}\\.CLion${check}\\config\\plugins`
         );
       }
       case "darwin":

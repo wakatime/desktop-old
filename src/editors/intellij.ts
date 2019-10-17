@@ -50,9 +50,9 @@ export default class AppCode extends Editor {
     switch (os.platform()) {
       case "win32":
         intelliJIdea = pathsToCheck.map(
-          check => `%USERPROFILE%\\.IntelliJIdea${check}`
+          check => `${os.homedir()}\\.IntelliJIdea${check}`
         );
-        IdeaIC = pathsToCheck.map(check => `%USERPROFILE%\\.IdeaIC${check}`);
+        IdeaIC = pathsToCheck.map(check => `${os.homedir()}\\.IdeaIC${check}`);
         directories.push(this.directory(intelliJIdea));
         directories.push(this.directory(IdeaIC));
         return directories;
@@ -99,10 +99,10 @@ export default class AppCode extends Editor {
     switch (os.platform()) {
       case "win32": {
         intelliJIdea = pathsToCheck.map(
-          path => `%USERPROFILE%\\.IntelliJIdea${path}\\config\\plugins`
+          path => `${os.homedir()}\\.IntelliJIdea${path}\\config\\plugins`
         );
         IdeaIC = pathsToCheck.map(
-          path => `%USERPROFILE%\\.IdeaIC${path}\\config\\plugins`
+          path => `${os.homedir()}\\.IdeaIC${path}\\config\\plugins`
         );
         return intelliJIdea.concat(IdeaIC);
       }

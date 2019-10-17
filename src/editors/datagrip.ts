@@ -41,7 +41,7 @@ export default class DataGrip extends Editor {
     switch (os.platform()) {
       case "win32":
         pathsToCheck = pathsToCheck.map(
-          check => `%USERPROFILE%\\.DataGrip${check}`
+          check => `${os.homedir()}\\.DataGrip${check}`
         );
         pathsToCheck.some(pluginPath => {
           if (this.isDirectorySync(pluginPath)) {
@@ -85,7 +85,7 @@ export default class DataGrip extends Editor {
     switch (os.platform()) {
       case "win32": {
         return pathsToCheck.map(
-          check => `%USERPROFILE%\\.DataGrip${check}\\config\\plugins`
+          check => `${os.homedir()}\\.DataGrip${check}\\config\\plugins`
         );
       }
       case "darwin":

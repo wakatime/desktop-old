@@ -41,7 +41,7 @@ export default class WebStorm extends Editor {
     switch (os.platform()) {
       case "win32":
         pathsToCheck = pathsToCheck.map(
-          check => `%USERPROFILE%\\.WebStorm${check}`
+          check => `${os.homedir()}\\.WebStorm${check}`
         );
         pathsToCheck.some(pluginPath => {
           if (this.isDirectorySync(pluginPath)) {
@@ -85,7 +85,7 @@ export default class WebStorm extends Editor {
     switch (os.platform()) {
       case "win32": {
         return pathsToCheck.map(
-          check => `%USERPROFILE%\\.WebStorm${check}\\config\\plugins`
+          check => `${os.homedir()}\\.WebStorm${check}\\config\\plugins`
         );
       }
       case "darwin":

@@ -1,4 +1,4 @@
-import os from "os";
+import os from 'os';
 
 import Editor from "./editor";
 import {
@@ -8,15 +8,15 @@ import {
 
 export default class GoLand extends Editor {
   public static getName(): string {
-    return "GoLand";
+    return 'GoLand';
   }
 
   public get name(): string {
-    return "GoLand";
+    return 'GoLand';
   }
 
   public get icon(): string {
-    return "";
+    return '';
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -81,20 +81,19 @@ export default class GoLand extends Editor {
   }
 
   private pluginsDirectories(): string[] {
-    const pathsToCheck = ["2019.2", "2019.1", "2018.2", "2018.1"];
+    const pathsToCheck = ['2019.2', '2019.1', '2018.2', '2018.1'];
     switch (os.platform()) {
       case "win32": {
         return pathsToCheck.map(
           check => `${os.homedir()}\\.GoLand${check}\\config\\plugins`
         );
       }
-      case "darwin":
+      case 'darwin':
         return pathsToCheck.map(
-          path =>
-            `${os.homedir()}/Library/Application\ Support/GoLand${path}/WakaTime.jar`
+          path => `${os.homedir()}/Library/Application\ Support/GoLand${path}/WakaTime.jar`,
         );
-      case "linux":
-        return [""];
+      case 'linux':
+        return [''];
       default:
         return null;
     }

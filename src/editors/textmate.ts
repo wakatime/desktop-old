@@ -1,20 +1,20 @@
-import os from "os";
+import os from 'os';
 
-import Editor from "./editor";
+import Editor from './editor';
 
 export default class TextMate extends Editor {
   private preferences: { [key: string]: string } = {};
 
   public static getName(): string {
-    return "TextMate";
+    return 'TextMate';
   }
 
   public get name(): string {
-    return "TextMate";
+    return 'TextMate';
   }
 
   public get icon(): string {
-    return "";
+    return '';
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -22,25 +22,23 @@ export default class TextMate extends Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.isDirectory(
-      `${this.pluginsDirectory()}/WakaTime.tmplugin`
-    );
+    return await this.isDirectory(`${this.pluginsDirectory()}/WakaTime.tmplugin`);
   }
 
   public async installPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   public async uninstallPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   private appDirectory(): string {
     switch (os.platform()) {
-      case "win32":
-        return "";
-      case "darwin":
-        return "/Applications/TextMate.app/Contents";
+      case 'win32':
+        return '';
+      case 'darwin':
+        return '/Applications/TextMate.app/Contents';
       default:
         return null;
     }
@@ -48,13 +46,13 @@ export default class TextMate extends Editor {
 
   private pluginsDirectory(): string {
     switch (os.platform()) {
-      case "win32": {
-        return "";
+      case 'win32': {
+        return '';
       }
-      case "darwin":
+      case 'darwin':
         return `${os.homedir()}/Library/Application\ Support/TextMate/PlugIns`;
-      case "linux":
-        return "";
+      case 'linux':
+        return '';
       default:
         return null;
     }

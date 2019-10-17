@@ -1,37 +1,37 @@
-import IntelliJ from "../src/editors/intellij";
+import IntelliJ from '../src/editors/intellij';
 
-const sinon = require("sinon");
+const sinon = require('sinon');
 
-const chai = require("chai");
-const chaiAsPromised = require("chai-as-promised");
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 
 const { expect } = chai;
 chai.use(chaiAsPromised);
 
-describe("IntelliJ", () => {
+describe('IntelliJ', () => {
   let intelliJ: IntelliJ;
   let isDirectoryStub: any;
 
   beforeEach(() => {
     intelliJ = new IntelliJ();
-    isDirectoryStub = sinon.stub(intelliJ, "isDirectory");
+    isDirectoryStub = sinon.stub(intelliJ, 'isDirectory');
   });
   afterEach(() => {
     isDirectoryStub.restore();
   });
-  it("should return the correct key name", () => {
+  it('should return the correct key name', () => {
     const result = intelliJ.key;
-    expect(result).to.equal("intellijidea");
+    expect(result).to.equal('intellijidea');
   });
-  it("should return the correct editor name", () => {
+  it('should return the correct editor name', () => {
     const result = intelliJ.name;
-    expect(result).to.equal("IntelliJ IDEA");
+    expect(result).to.equal('IntelliJ IDEA');
   });
-  it("should return the correct binary names", () => {
+  it('should return the correct binary names', () => {
     const result = intelliJ.binaries;
-    expect(result).to.deep.equal(["intellij"]);
+    expect(result).to.deep.equal(['intellij']);
   });
-  it("should return TRUE if editor is installed", async () => {
+  it('should return TRUE if editor is installed', async () => {
     isDirectoryStub.resolves(true);
     const result = await intelliJ.isEditorInstalled();
     expect(result).to.be.true;

@@ -1,4 +1,4 @@
-import editors from "../constants/editors";
+import editors from '../constants/editors';
 import {
   androidStudio128Path,
   appcode128Path,
@@ -16,6 +16,7 @@ import {
   intellijIdea128Path,
   kakoune128Path,
   kate128Path,
+  komodo128Path,
   notepad128Path,
   phpstorm128Path,
   processing128Path,
@@ -31,8 +32,8 @@ import {
   vsCode128Path,
   webstorm128Path,
   xcode128Path,
-  netbeans128Path
-} from "../constants/imgPaths";
+  netbeans128Path,
+} from '../constants/imgPaths';
 
 interface EditorImageMap {
   [s: string]: string;
@@ -55,6 +56,7 @@ const imgMap: EditorImageMap = {
   [editors.IntelliJ.getName()]: intellijIdea128Path,
   [editors.Kakoune.getName()]: kakoune128Path,
   [editors.Kate.getName()]: kate128Path,
+  [editors.Komodo.getName()]: komodo128Path,
   [editors.Notepadpp.getName()]: notepad128Path,
   [editors.Netbeans.getName()]: netbeans128Path,
   [editors.PhpStorm.getName()]: phpstorm128Path,
@@ -71,7 +73,7 @@ const imgMap: EditorImageMap = {
   [editors.VisualStudio.getName()]: visualStudio128Path,
   [editors.VSCode.getName()]: vsCode128Path,
   [editors.WebStorm.getName()]: webstorm128Path,
-  [editors.XCode.getName()]: xcode128Path
+  [editors.XCode.getName()]: xcode128Path,
 };
 
 export default imgMap;

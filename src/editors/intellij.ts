@@ -1,26 +1,23 @@
-import os from "os";
+import os from 'os';
 
-import Editor from "./editor";
-import {
-  installJetbrainsPlugin,
-  unInstallJetbrainsPlugin
-} from "../utils/jetbrains";
+import Editor from './editor';
+import { installJetbrainsPlugin, unInstallJetbrainsPlugin } from '../utils/jetbrains';
 
 export default class AppCode extends Editor {
   public static getName(): string {
-    return "IntelliJ IDEA";
+    return 'IntelliJ IDEA';
   }
 
   public get name(): string {
-    return "IntelliJ IDEA";
+    return 'IntelliJ IDEA';
   }
 
   public get icon(): string {
-    return "";
+    return '';
   }
 
   public get binaries(): string[] {
-    return ["intellij"];
+    return ['intellij'];
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -58,13 +55,13 @@ export default class AppCode extends Editor {
         return directories;
       case "darwin":
         return [
-          "/Applications/IntelliJ IDEA CE.app/Contents", // This one is Community edition
-          "/Applications/IntelliJ IDEA.app/Contents" // This one is Ultimate edition
+          '/Applications/IntelliJ IDEA CE.app/Contents', // This one is Community edition
+          '/Applications/IntelliJ IDEA.app/Contents', // This one is Ultimate edition
         ];
-      case "linux":
-        return [""];
+      case 'linux':
+        return [''];
       default:
-        return [""];
+        return [''];
     }
   }
 
@@ -93,7 +90,7 @@ export default class AppCode extends Editor {
   }
 
   private pluginsDirectories(): string[] {
-    const pathsToCheck = ["2019.2", "2019.1", "2018.2", "2018.1"];
+    const pathsToCheck = ['2019.2', '2019.1', '2018.2', '2018.1'];
     let intelliJIdea = [];
     let IdeaIC = [];
     switch (os.platform()) {
@@ -106,18 +103,16 @@ export default class AppCode extends Editor {
         );
         return intelliJIdea.concat(IdeaIC);
       }
-      case "darwin":
+      case 'darwin':
         intelliJIdea = pathsToCheck.map(
-          path =>
-            `${os.homedir()}/Library/Application Support/IntelliJIdea${path}/WakaTime.jar`
+          path => `${os.homedir()}/Library/Application Support/IntelliJIdea${path}/WakaTime.jar`,
         );
         IdeaIC = pathsToCheck.map(
-          path =>
-            `${os.homedir()}/Library/Application Support/IdeaIC${path}/WakaTime.jar`
+          path => `${os.homedir()}/Library/Application Support/IdeaIC${path}/WakaTime.jar`,
         );
         return intelliJIdea.concat(IdeaIC);
-      case "linux":
-        return [""];
+      case 'linux':
+        return [''];
       default:
         return null;
     }

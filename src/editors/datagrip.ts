@@ -1,22 +1,19 @@
-import os from "os";
+import os from 'os';
 
-import Editor from "./editor";
-import {
-  installJetbrainsPlugin,
-  unInstallJetbrainsPlugin
-} from "../utils/jetbrains";
+import Editor from './editor';
+import { installJetbrainsPlugin, unInstallJetbrainsPlugin } from '../utils/jetbrains';
 
 export default class DataGrip extends Editor {
   public static getName(): string {
-    return "DataGrip";
+    return 'DataGrip';
   }
 
   public get name(): string {
-    return "DataGrip";
+    return 'DataGrip';
   }
 
   public get icon(): string {
-    return "";
+    return '';
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -61,7 +58,7 @@ export default class DataGrip extends Editor {
   }
 
   private pluginsDirectory(): string {
-    let directory = "";
+    let directory = '';
     switch (os.platform()) {
       case "win32":
       case "darwin":
@@ -73,28 +70,27 @@ export default class DataGrip extends Editor {
           return false;
         });
         return directory;
-      case "linux":
-        return "";
+      case 'linux':
+        return '';
       default:
         return null;
     }
   }
 
   private pluginsDirectories(): string[] {
-    const pathsToCheck = ["2019.2", "2019.1", "2018.2", "2018.1"];
+    const pathsToCheck = ['2019.2', '2019.1', '2018.2', '2018.1'];
     switch (os.platform()) {
       case "win32": {
         return pathsToCheck.map(
           check => `${os.homedir()}\\.DataGrip${check}\\config\\plugins`
         );
       }
-      case "darwin":
+      case 'darwin':
         return pathsToCheck.map(
-          check =>
-            `${os.homedir()}/Library/Application\ Support/DataGrip${check}`
+          check => `${os.homedir()}/Library/Application\ Support/DataGrip${check}`,
         );
-      case "linux":
-        return [""];
+      case 'linux':
+        return [''];
       default:
         return null;
     }

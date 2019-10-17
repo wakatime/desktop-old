@@ -1,18 +1,18 @@
-import os from "os";
+import os from 'os';
 
-import Editor from "./editor";
+import Editor from './editor';
 
 export default class Brackets extends Editor {
   public static getName(): string {
-    return "Brackets";
+    return 'Brackets';
   }
 
   public get name(): string {
-    return "Brackets";
+    return 'Brackets';
   }
 
   public get icon(): string {
-    return "";
+    return '';
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -24,20 +24,20 @@ export default class Brackets extends Editor {
   }
 
   public async installPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   public async uninstallPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   private appDirectory(): string {
     switch (os.platform()) {
-      case "win32":
-        return "C:\\Program Files (x86)\\Brackets";
-      case "darwin":
-        return "/Applications/Brackets.app/Contents";
-      case "linux":
+      case 'win32':
+        return 'C:\\Program Files (x86)\\Brackets';
+      case 'darwin':
+        return '/Applications/Brackets.app/Contents';
+      case 'linux':
         return null;
       default:
         return null;

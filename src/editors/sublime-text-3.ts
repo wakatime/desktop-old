@@ -1,19 +1,19 @@
-import os from "os";
-import path from "path";
+import os from 'os';
+import path from 'path';
 
-import Editor from "./editor";
+import Editor from './editor';
 
 export default class SublimeText3 extends Editor {
   public static getName(): string {
-    return "Sublime Text 3";
+    return 'Sublime Text 3';
   }
 
   public get name(): string {
-    return "Sublime Text 3";
+    return 'Sublime Text 3';
   }
 
   public get icon(): string {
-    return "";
+    return '';
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -21,27 +21,25 @@ export default class SublimeText3 extends Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    const val = await this.isDirectory(
-      path.join(this.pluginsDirectory(), "WakaTime")
-    );
+    const val = await this.isDirectory(path.join(this.pluginsDirectory(), 'WakaTime'));
     return val;
   }
 
   public async installPlugin(): Promise<void> {
-    return Promise.reject(new Error("method not implemented"));
+    return Promise.reject(new Error('method not implemented'));
   }
 
   public async uninstallPlugin(): Promise<void> {
-    return Promise.reject(new Error("method not implemented"));
+    return Promise.reject(new Error('method not implemented'));
   }
 
   private appDirectory(): string {
     let dir: string;
     switch (os.platform()) {
-      case "win32":
-        return "";
-      case "darwin":
-        return "/Applications/Sublime Text.app/Contents";
+      case 'win32':
+        return '';
+      case 'darwin':
+        return '/Applications/Sublime Text.app/Contents';
       default:
         return null;
     }
@@ -49,20 +47,16 @@ export default class SublimeText3 extends Editor {
 
   private pluginsDirectory(): string {
     switch (os.platform()) {
-      case "win32": {
-        const is64bit =
-          process.arch === "x64" || process.env.PROCESSOR_ARCHITEW6432;
-        if (is64bit) return "";
-        return "";
+      case 'win32': {
+        const is64bit = process.arch === 'x64' || process.env.PROCESSOR_ARCHITEW6432;
+        if (is64bit) return '';
+        return '';
       }
-      case "darwin":
-        return path.join(
-          os.homedir(),
-          "Library/Application Support/Sublime Text 3/Packages"
-        );
-      case "linux":
+      case 'darwin':
+        return path.join(os.homedir(), 'Library/Application Support/Sublime Text 3/Packages');
+      case 'linux':
       default:
-        return "";
+        return '';
     }
   }
 }

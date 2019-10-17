@@ -1,18 +1,18 @@
-import os from "os";
+import os from 'os';
 
-import Editor from "./editor";
+import Editor from './editor';
 
 export default class Coda extends Editor {
   public static getName(): string {
-    return "Coda";
+    return 'Coda';
   }
 
   public get name(): string {
-    return "Coda";
+    return 'Coda';
   }
 
   public get icon(): string {
-    return "";
+    return '';
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -44,23 +44,20 @@ export default class Coda extends Editor {
   }
 
   public async installPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   public async uninstallPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   private appDirectory(): string[] {
     switch (os.platform()) {
-      case "win32":
+      case 'win32':
         return [];
-      case "darwin":
-        return [
-          "/Applications/Coda.app/Contents",
-          "/Applications/Coda 2.app/Contents"
-        ];
-      case "linux":
+      case 'darwin':
+        return ['/Applications/Coda.app/Contents', '/Applications/Coda 2.app/Contents'];
+      case 'linux':
         return [];
       default:
         return [];
@@ -69,15 +66,15 @@ export default class Coda extends Editor {
 
   private pluginsDirectory(): string[] {
     switch (os.platform()) {
-      case "win32": {
+      case 'win32': {
         return [];
       }
-      case "darwin":
+      case 'darwin':
         return [
-          "~/Library/Application Support/Coda/Plug-ins/WakaTime.codaplugin",
-          "~/Library/Application Support/Coda 2/Plug-ins/WakaTime.codaplugin"
+          '~/Library/Application Support/Coda/Plug-ins/WakaTime.codaplugin',
+          '~/Library/Application Support/Coda 2/Plug-ins/WakaTime.codaplugin',
         ];
-      case "linux":
+      case 'linux':
         return [];
       default:
         return [];

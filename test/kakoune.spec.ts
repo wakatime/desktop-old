@@ -1,14 +1,14 @@
-import Kakoune from "../src/editors/kakoune";
+import Kakoune from '../src/editors/kakoune';
 
-const sinon = require("sinon");
+const sinon = require('sinon');
 
-const chai = require("chai");
-const chaiAsPromised = require("chai-as-promised");
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 
 const { expect } = chai;
 chai.use(chaiAsPromised);
 
-describe("Kakoune", () => {
+describe('Kakoune', () => {
   let kakoune: Kakoune;
   let brewListStub: any;
   let fileExistsSyncStub: any;
@@ -22,13 +22,13 @@ describe("Kakoune", () => {
     brewListStub.restore();
     fileExistsSyncStub.restore();
   });
-  it("should return the correct key name", () => {
+  it('should return the correct key name', () => {
     const result = kakoune.key;
-    expect(result).to.equal("kakoune");
+    expect(result).to.equal('kakoune');
   });
-  it("should return the correct editor name", () => {
+  it('should return the correct editor name', () => {
     const result = kakoune.name;
-    expect(result).to.equal("Kakoune");
+    expect(result).to.equal('Kakoune');
   });
   it("should return TRUE if editor is installed", async () => {
     brewListStub.resolves("bla bla kakoune bla bla");
@@ -45,7 +45,7 @@ describe("Kakoune", () => {
     const result = await kakoune.isPluginInstalled();
     expect(result).to.be.true;
   });
-  it("should return FALSE if plugin is not installed", async () => {
+  it('should return FALSE if plugin is not installed', async () => {
     fileExistsSyncStub.resolves(false);
     const result = await kakoune.isPluginInstalled();
     expect(result).to.be.false;

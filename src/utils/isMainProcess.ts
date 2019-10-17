@@ -1,4 +1,4 @@
-import isRendererProcess from "./isRendererProcess";
+import isRendererProcess from './isRendererProcess';
 
 const isMainProcess: boolean = !isRendererProcess;
 

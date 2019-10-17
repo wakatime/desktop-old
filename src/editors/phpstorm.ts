@@ -33,12 +33,24 @@ export default class PhpStorm extends Editor {
   }
 
   private appDirectory(): string {
+    let directory = "";
+    let pathsToCheck = ["2019.2", "2019.1", "2018.2", "2018.1"];
     switch (os.platform()) {
-      case 'win32':
-        return null;
-      case 'darwin':
-        return '/Applications/PhpStorm.app/Contents';
-      case 'linux':
+      case "win32":
+        pathsToCheck = pathsToCheck.map(
+          check => `${os.homedir()}\\.PhpStorm${check}`
+        );
+        pathsToCheck.some(pluginPath => {
+          if (this.isDirectorySync(pluginPath)) {
+            directory = pluginPath;
+            return true;
+          }
+          return false;
+        });
+        return directory;
+      case "darwin":
+        return "/Applications/PhpStorm.app/Contents";
+      case "linux":
         return null;
       default:
         return null;
@@ -48,10 +60,8 @@ export default class PhpStorm extends Editor {
   private pluginsDirectory(): string {
     let directory = '';
     switch (os.platform()) {
-      case 'win32': {
-        return '';
-      }
-      case 'darwin':
+      case "win32":
+      case "darwin":
         this.pluginsDirectories().some(pluginPath => {
           if (this.isDirectorySync(pluginPath)) {
             directory = pluginPath;
@@ -70,8 +80,10 @@ export default class PhpStorm extends Editor {
   private pluginsDirectories(): string[] {
     const pathsToCheck = ['2019.2', '2019.1', '2018.2', '2018.1'];
     switch (os.platform()) {
-      case 'win32': {
-        return [''];
+      case "win32": {
+        return pathsToCheck.map(
+          check => `${os.homedir()}\\.PhpStorm${check}\\config\\plugins`
+        );
       }
       case 'darwin':
         return pathsToCheck.map(

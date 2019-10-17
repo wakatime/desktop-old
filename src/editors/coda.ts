@@ -31,12 +31,11 @@ export default class Coda extends Editor {
 
   public async isPluginInstalled(): Promise<boolean> {
     try {
-      this.pluginsDirectory().some(async directory => {
+      return this.pluginsDirectory().some(async directory => {
         if (await this.isFile(directory)) {
           return true;
         }
       });
-      return false;
     } catch (err) {
       console.error(err);
       return false;

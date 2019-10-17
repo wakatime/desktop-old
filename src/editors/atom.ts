@@ -1,29 +1,29 @@
-import os from "os";
-import path from "path";
+import os from 'os';
+import path from 'path';
 
-import { CommandExists } from "../lib/command-exists";
-import Editor from "./editor";
+import { CommandExists } from '../lib/command-exists';
+import Editor from './editor';
 
-const util = require("util");
-const exec = util.promisify(require("child_process").exec);
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
 
 export default class Atom extends Editor {
   private commandExists = new CommandExists();
 
   public static getName(): string {
-    return "Atom";
+    return 'Atom';
   }
 
   public get name(): string {
-    return "Atom";
+    return 'Atom';
   }
 
   public get icon(): string {
-    return "";
+    return '';
   }
 
   public get binaries(): string[] {
-    return ["atom"];
+    return ['atom'];
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -40,8 +40,7 @@ export default class Atom extends Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    if (await this.isDirectory(path.join(this.pluginsDirectory(), "wakatime")))
-      return true;
+    if (await this.isDirectory(path.join(this.pluginsDirectory(), 'wakatime'))) return true;
 
     try {
       return await this.apm();
@@ -52,38 +51,38 @@ export default class Atom extends Editor {
   }
 
   public async installPlugin(): Promise<void> {
-    return Promise.reject(new Error("method not implemented"));
+    return Promise.reject(new Error('method not implemented'));
   }
 
   public async uninstallPlugin(): Promise<void> {
-    return Promise.reject(new Error("method not implemented"));
+    return Promise.reject(new Error('method not implemented'));
   }
 
   public pluginsDirectory(): string {
     switch (os.platform()) {
-      case "win32": {
+      case 'win32': {
         const is64bit: string | boolean =
-          process.arch === "x64" || process.env.PROCESSOR_ARCHITEW6432;
+          process.arch === 'x64' || process.env.PROCESSOR_ARCHITEW6432;
         if (is64bit) {
-          return "";
+          return '';
         }
-        return "";
+        return '';
       }
-      case "darwin":
-        return path.join(os.homedir(), ".atom/packages");
-      case "linux":
-        return "";
+      case 'darwin':
+        return path.join(os.homedir(), '.atom/packages');
+      case 'linux':
+        return '';
       default:
         return null;
     }
   }
 
   public async apm(): Promise<boolean> {
-    const { stdout, stderr } = await exec("apm list -p -i -j");
+    const { stdout, stderr } = await exec('apm list -p -i -j');
     if (stderr) return Promise.reject(new Error(stderr));
 
     const json = JSON.parse(stdout);
-    const obj = json.user.find(n => n.name === "wakatime");
+    const obj = json.user.find(n => n.name === 'wakatime');
     return Promise.resolve(obj !== undefined);
   }
 }

@@ -1,15 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "../themes";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '../themes';
 
 const EditorIcon = ({ enabled, img, name, styles, css }) => {
   return (
     <div {...css(styles.wrapper)}>
-      <img
-        {...css(styles.img, enabled ? styles.enabled : styles.disabled)}
-        alt={name}
-        src={img}
-      />
+      <img {...css(styles.img, enabled ? styles.enabled : styles.disabled)} alt={name} src={img} />
     </div>
   );
 };
@@ -22,31 +18,31 @@ EditorIcon.propTypes = {
   width: PropTypes.oneOf([PropTypes.number, PropTypes.string]),
   maxHeight: PropTypes.oneOf([PropTypes.number, PropTypes.string]),
   styles: PropTypes.object,
-  css: PropTypes.func
+  css: PropTypes.func,
 };
 EditorIcon.defaultProps = {
-  height: "20vw",
-  width: "auto",
+  height: '20vw',
+  width: 'auto',
   maxHeight: 100,
   styles: {},
-  css: () => {}
+  css: () => {},
 };
 export default withStyles(() => ({
   wrapper: {
-    textAlign: "center"
+    textAlign: 'center',
   },
   img: {
-    width: "auto",
-    height: "20vw",
+    width: 'auto',
+    height: '20vw',
     maxHeight: 128,
     minHeight: 48,
-    margin: ".5rem"
+    margin: '.5rem',
   },
   enabled: {
-    opacity: 1
+    opacity: 1,
   },
   disabled: {
     opacity: 0.6,
-    filter: "grayscale(100%)"
-  }
+    filter: 'grayscale(100%)',
+  },
 }))(EditorIcon);

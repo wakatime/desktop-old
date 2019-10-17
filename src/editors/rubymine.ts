@@ -1,22 +1,19 @@
-import os from "os";
+import os from 'os';
 
-import Editor from "./editor";
-import {
-  installJetbrainsPlugin,
-  unInstallJetbrainsPlugin
-} from "../utils/jetbrains";
+import Editor from './editor';
+import { installJetbrainsPlugin, unInstallJetbrainsPlugin } from '../utils/jetbrains';
 
 export default class RubyMine extends Editor {
   public static getName(): string {
-    return "RubyMine";
+    return 'RubyMine';
   }
 
   public get name(): string {
-    return "RubyMine";
+    return 'RubyMine';
   }
 
   public get icon(): string {
-    return "";
+    return '';
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -37,11 +34,11 @@ export default class RubyMine extends Editor {
 
   private appDirectory(): string {
     switch (os.platform()) {
-      case "win32":
+      case 'win32':
         return null;
-      case "darwin":
-        return "/Applications/RubyMine.app/Contents";
-      case "linux":
+      case 'darwin':
+        return '/Applications/RubyMine.app/Contents';
+      case 'linux':
         return null;
       default:
         return null;
@@ -49,12 +46,12 @@ export default class RubyMine extends Editor {
   }
 
   private pluginsDirectory(): string {
-    let directory = "";
+    let directory = '';
     switch (os.platform()) {
-      case "win32": {
-        return "";
+      case 'win32': {
+        return '';
       }
-      case "darwin":
+      case 'darwin':
         this.pluginsDirectories().some(pluginPath => {
           if (this.isDirectorySync(pluginPath)) {
             directory = pluginPath;
@@ -63,26 +60,25 @@ export default class RubyMine extends Editor {
           return false;
         });
         return directory;
-      case "linux":
-        return "";
+      case 'linux':
+        return '';
       default:
         return null;
     }
   }
 
   private pluginsDirectories(): string[] {
-    const pathsToCheck = ["2019.2", "2019.1", "2018.2", "2018.1"];
+    const pathsToCheck = ['2019.2', '2019.1', '2018.2', '2018.1'];
     switch (os.platform()) {
-      case "win32": {
-        return [""];
+      case 'win32': {
+        return [''];
       }
-      case "darwin":
+      case 'darwin':
         return pathsToCheck.map(
-          check =>
-            `${os.homedir()}/Library/Application\ Support/RubyMine${check}`
+          check => `${os.homedir()}/Library/Application\ Support/RubyMine${check}`,
         );
-      case "linux":
-        return [""];
+      case 'linux':
+        return [''];
       default:
         return null;
     }

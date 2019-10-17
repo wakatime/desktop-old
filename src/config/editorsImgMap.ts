@@ -1,4 +1,4 @@
-import editors from "../constants/editors";
+import editors from '../constants/editors';
 import {
   androidStudio128Path,
   appcode128Path,
@@ -32,8 +32,8 @@ import {
   vsCode128Path,
   webstorm128Path,
   xcode128Path,
-  netbeans128Path
-} from "../constants/imgPaths";
+  netbeans128Path,
+} from '../constants/imgPaths';
 
 interface EditorImageMap {
   [s: string]: string;
@@ -73,7 +73,7 @@ const imgMap: EditorImageMap = {
   [editors.VisualStudio.getName()]: visualStudio128Path,
   [editors.VSCode.getName()]: vsCode128Path,
   [editors.WebStorm.getName()]: webstorm128Path,
-  [editors.XCode.getName()]: xcode128Path
+  [editors.XCode.getName()]: xcode128Path,
 };
 
 export default imgMap;

@@ -1,18 +1,18 @@
-import os from "os";
+import os from 'os';
 
-import Editor from "./editor";
+import Editor from './editor';
 
 export default class Kate extends Editor {
   public static getName(): string {
-    return "Kate";
+    return 'Kate';
   }
 
   public get name(): string {
-    return "Kate";
+    return 'Kate';
   }
 
   public get icon(): string {
-    return "";
+    return '';
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -24,20 +24,20 @@ export default class Kate extends Editor {
   }
 
   public async installPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   public async uninstallPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   private appDirectory(): string {
     switch (os.platform()) {
-      case "win32":
+      case 'win32':
         return null;
-      case "darwin":
-        return "/Applications/Kate.app/Contents";
-      case "linux":
+      case 'darwin':
+        return '/Applications/Kate.app/Contents';
+      case 'linux':
         return null;
       default:
         return null;
@@ -46,14 +46,14 @@ export default class Kate extends Editor {
 
   private pluginsDirectory(): string {
     switch (os.platform()) {
-      case "win32": {
-        return "";
+      case 'win32': {
+        return '';
       }
-      case "darwin":
+      case 'darwin':
         // return "/Applications/kate.app/Contents/PlugIns";
-        return "/opt/local/lib/plugins/ktexteditor/ktexteditor_wakatime.so";
-      case "linux":
-        return "";
+        return '/opt/local/lib/plugins/ktexteditor/ktexteditor_wakatime.so';
+      case 'linux':
+        return '';
       default:
         return null;
     }

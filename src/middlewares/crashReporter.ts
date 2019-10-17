@@ -1,20 +1,18 @@
-import { Store, Dispatch, Action } from "redux";
+import { Store, Dispatch, Action } from 'redux';
 
-const crashReporter = (store: Store) => (next: Dispatch) => (
-  action: Action
-) => {
+const crashReporter = (store: Store) => (next: Dispatch) => (action: Action) => {
   let result;
   try {
     result = next(action);
   } catch (err) {
     // This will not trigger when the chrome redux extension takes control
     console.error(
-      "Uncaught exception:",
+      'Uncaught exception:',
       err,
-      "/naction:",
+      '/naction:',
       JSON.stringify(action, null, 2),
-      "/nstate",
-      JSON.stringify(store.getState(), null, 2)
+      '/nstate',
+      JSON.stringify(store.getState(), null, 2),
     );
     // clear out action
     result = {};

@@ -1,11 +1,11 @@
-import os from "os";
-import fs from "fs";
-import path from "path";
+import os from 'os';
+import fs from 'fs';
+import path from 'path';
 
-import { CommandExists } from "../lib/command-exists";
-import Editor from "./editor";
+import { CommandExists } from '../lib/command-exists';
+import Editor from './editor';
 
-const plist = require("plist");
+const plist = require('plist');
 
 export default class AndroidStudio extends Editor {
   private plistObj;
@@ -18,19 +18,19 @@ export default class AndroidStudio extends Editor {
   }
 
   public static getName(): string {
-    return "Android Studio";
+    return 'Android Studio';
   }
 
   public get name(): string {
-    return "Android Studio";
+    return 'Android Studio';
   }
 
   public get icon(): string {
-    return "";
+    return '';
   }
 
   public get binaries(): string[] {
-    return ["editor"];
+    return ['editor'];
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -50,41 +50,35 @@ export default class AndroidStudio extends Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return this.fileExistsSync(
-      path.join(this.pluginsDirectory(), "WakaTime.jar")
-    );
+    return this.fileExistsSync(path.join(this.pluginsDirectory(), 'WakaTime.jar'));
   }
 
   public async installPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   public async uninstallPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   public pluginsDirectory(): string {
     switch (os.platform()) {
-      case "win32": {
-        const is64bit =
-          process.arch === "x64" || process.env.PROCESSOR_ARCHITEW6432;
+      case 'win32': {
+        const is64bit = process.arch === 'x64' || process.env.PROCESSOR_ARCHITEW6432;
         if (is64bit) {
-          return "";
+          return '';
         }
-        return "";
+        return '';
       }
-      case "darwin": {
+      case 'darwin': {
         if (this.plistObj) {
           const version = this.plistObj.CFBundleShortVersionString;
-          return path.join(
-            os.homedir(),
-            `Library/Application Support/AndroidStudio${version}`
-          );
+          return path.join(os.homedir(), `Library/Application Support/AndroidStudio${version}`);
         }
-        return "";
+        return '';
       }
-      case "linux":
-        return "";
+      case 'linux':
+        return '';
       default:
         return null;
     }
@@ -92,12 +86,12 @@ export default class AndroidStudio extends Editor {
 
   private readPreferences(): void {
     switch (os.platform()) {
-      case "win32":
+      case 'win32':
         break;
-      case "darwin": {
+      case 'darwin': {
         if (this.isDirectorySync(this.appDirectory())) {
-          const plistFile = path.join(this.appDirectory(), "Info.plist");
-          this.plistObj = plist.parse(fs.readFileSync(plistFile, "utf8"));
+          const plistFile = path.join(this.appDirectory(), 'Info.plist');
+          this.plistObj = plist.parse(fs.readFileSync(plistFile, 'utf8'));
         }
         break;
       }
@@ -108,10 +102,10 @@ export default class AndroidStudio extends Editor {
 
   private appDirectory(): string {
     switch (os.platform()) {
-      case "win32":
-        return "";
-      case "darwin":
-        return "/Applications/Android Studio.app/Contents";
+      case 'win32':
+        return '';
+      case 'darwin':
+        return '/Applications/Android Studio.app/Contents';
       default:
         return null;
     }

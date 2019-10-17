@@ -1,18 +1,18 @@
-import os from "os";
+import os from 'os';
 
-import Editor from "./editor";
+import Editor from './editor';
 
 export default class Brackets extends Editor {
   public static getName(): string {
-    return "Brackets";
+    return 'Brackets';
   }
 
   public get name(): string {
-    return "Brackets";
+    return 'Brackets';
   }
 
   public get icon(): string {
-    return "";
+    return '';
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -24,20 +24,20 @@ export default class Brackets extends Editor {
   }
 
   public async installPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   public async uninstallPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   private appDirectory(): string {
     switch (os.platform()) {
-      case "win32":
-        return "C:\\Program Files (x86)\\Brackets";
-      case "darwin":
-        return "/Applications/Brackets.app/Contents";
-      case "linux":
+      case 'win32':
+        return 'C:\\Program Files (x86)\\Brackets';
+      case 'darwin':
+        return '/Applications/Brackets.app/Contents';
+      case 'linux':
         return null;
       default:
         return null;
@@ -46,12 +46,12 @@ export default class Brackets extends Editor {
 
   private pluginsDirectory(): string {
     switch (os.platform()) {
-      case "win32":
-        return "%USERPROFILE\\AppData\\Roaming\\Brackets\\extensions\\user\\brackets-wakatime";
-      case "darwin":
-        return "~/Library/Application Support/Brackets/extensions/user/brackets-wakatime";
-      case "linux":
-        return "~/.config/brackets/extensions/user/brackets-wakatime";
+      case 'win32':
+        return '%USERPROFILE\\AppData\\Roaming\\Brackets\\extensions\\user\\brackets-wakatime';
+      case 'darwin':
+        return '~/Library/Application Support/Brackets/extensions/user/brackets-wakatime';
+      case 'linux':
+        return '~/.config/brackets/extensions/user/brackets-wakatime';
       default:
         return null;
     }

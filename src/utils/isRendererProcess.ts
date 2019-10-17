@@ -1,2 +1,2 @@
-const isRenderProcess: boolean = process.type === "renderer";
+const isRenderProcess: boolean = process.type === 'renderer';
 export default isRenderProcess;

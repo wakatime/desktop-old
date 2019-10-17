@@ -1,37 +1,37 @@
-import Xcode from "../src/editors/xcode";
+import Xcode from '../src/editors/xcode';
 
-const sinon = require("sinon");
+const sinon = require('sinon');
 
-const chai = require("chai");
-const chaiAsPromised = require("chai-as-promised");
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 
 const { expect } = chai;
 chai.use(chaiAsPromised);
 
-describe("Xcode", () => {
+describe('Xcode', () => {
   let xcode: Xcode;
   let isDirectoryStub: any;
 
   beforeEach(() => {
     xcode = new Xcode();
-    isDirectoryStub = sinon.stub(xcode, "isDirectory");
+    isDirectoryStub = sinon.stub(xcode, 'isDirectory');
   });
   afterEach(() => {
     isDirectoryStub.restore();
   });
-  it("should return the correct key name", () => {
+  it('should return the correct key name', () => {
     const result = xcode.key;
-    expect(result).to.equal("xcode");
+    expect(result).to.equal('xcode');
   });
-  it("should return the correct editor name", () => {
+  it('should return the correct editor name', () => {
     const result = xcode.name;
-    expect(result).to.equal("Xcode");
+    expect(result).to.equal('Xcode');
   });
-  it("should return the correct binary names", () => {
+  it('should return the correct binary names', () => {
     const result = xcode.binaries;
-    expect(result).to.deep.equal(["xed"]);
+    expect(result).to.deep.equal(['xed']);
   });
-  it("should return TRUE if editor is installed", async () => {
+  it('should return TRUE if editor is installed', async () => {
     isDirectoryStub.resolves(true);
     const result = await xcode.isEditorInstalled();
     expect(result).to.be.true;
@@ -41,12 +41,12 @@ describe("Xcode", () => {
   //     const result = await xcode.isEditorInstalled();
   //     expect(result).to.be.false;
   // });
-  it("should return TRUE if plugin is installed", async () => {
+  it('should return TRUE if plugin is installed', async () => {
     isDirectoryStub.resolves(true);
     const result = await xcode.isPluginInstalled();
     expect(result).to.be.true;
   });
-  it("should return FALSE if plugin is n ot installed", async () => {
+  it('should return FALSE if plugin is n ot installed', async () => {
     isDirectoryStub.resolves(false);
     const result = await xcode.isPluginInstalled();
     expect(result).to.be.false;

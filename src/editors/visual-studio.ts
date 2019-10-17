@@ -1,9 +1,9 @@
-import os from "os";
+import os from 'os';
 
-import Editor from "./editor";
+import Editor from './editor';
 
-const Registry = require("winreg");
-const readdirp = require("readdirp");
+const Registry = require('winreg');
+const readdirp = require('readdirp');
 
 export default class VisualStudio extends Editor {
   private versions: { [id: number]: number } = {
@@ -12,28 +12,28 @@ export default class VisualStudio extends Editor {
     12: 2013,
     14: 2015,
     15: 2017,
-    16: 2019
+    16: 2019,
   };
 
   public static getName(): string {
-    return "Visual Studio";
+    return 'Visual Studio';
   }
 
   public get name(): string {
-    return "Visual Studio";
+    return 'Visual Studio';
   }
 
   public get icon(): string {
-    return "";
+    return '';
   }
 
   public async isEditorInstalled(): Promise<boolean> {
     switch (os.platform()) {
-      case "win32":
+      case 'win32':
         return this.getInstalledVersions().length > 0;
-      case "darwin":
+      case 'darwin':
         return await this.isDirectory(this.appDirectory());
-      case "linux":
+      case 'linux':
         return true; // TODO: implement this
       default:
         return false;
@@ -42,13 +42,13 @@ export default class VisualStudio extends Editor {
 
   private getInstalledVersions(): number[] {
     switch (os.platform()) {
-      case "win32": {
+      case 'win32': {
         const installedVersions: number[] = [];
         Object.keys(this.versions).forEach(v => {
           const key = `\\VisualStudio.DTE.${v}.0`;
           const regkey = new Registry({
             hive: Registry.HKCR,
-            key
+            key,
           });
           regkey.values(function(err, items) {
             if (err) {
@@ -62,8 +62,8 @@ export default class VisualStudio extends Editor {
 
         return installedVersions;
       }
-      case "darwin":
-      case "linux":
+      case 'darwin':
+      case 'linux':
       default:
         return [];
     }
@@ -71,12 +71,12 @@ export default class VisualStudio extends Editor {
 
   public async isPluginInstalled(): Promise<boolean> {
     switch (os.platform()) {
-      case "win32": {
+      case 'win32': {
         const filePaths: string[] = [];
         const settings = {
-          root: "%LocalAppData%\\Microsoft\\VisualStudio",
-          type: "files",
-          fileFilter: ["WakaTime.dll"]
+          root: '%LocalAppData%\\Microsoft\\VisualStudio',
+          type: 'files',
+          fileFilter: ['WakaTime.dll'],
         };
 
         readdirp(
@@ -86,13 +86,13 @@ export default class VisualStudio extends Editor {
           },
           function(err, _res) {
             if (err) return false;
-          }
+          },
         );
 
         return filePaths.length > 0;
       }
-      case "darwin":
-      case "linux":
+      case 'darwin':
+      case 'linux':
       default:
         return false;
     }
@@ -100,19 +100,19 @@ export default class VisualStudio extends Editor {
 
   public async installPlugin(): Promise<void> {
     // https://stackoverflow.com/questions/28652798/install-vs-net-extension-from-command-line
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   public async uninstallPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   private appDirectory(): string {
     switch (os.platform()) {
-      case "win32":
-        return "";
-      case "darwin":
-        return "/Applications/Visual Studio.app/Contents";
+      case 'win32':
+        return '';
+      case 'darwin':
+        return '/Applications/Visual Studio.app/Contents';
       default:
         return null;
     }

@@ -1,27 +1,27 @@
-import os from "os";
-import path from "path";
-import fsSync from "fs";
+import os from 'os';
+import path from 'path';
+import fsSync from 'fs';
 
-import Editor from "./editor";
-import CommandExists from "../lib/command-exists";
+import Editor from './editor';
+import CommandExists from '../lib/command-exists';
 
 export default class Blender extends Editor {
   private commandExists = new CommandExists();
 
   public static getName(): string {
-    return "Blender";
+    return 'Blender';
   }
 
   public get name(): string {
-    return "Blender";
+    return 'Blender';
   }
 
   public get icon(): string {
-    return "";
+    return '';
   }
 
   public get binaries(): string[] {
-    return ["blender"];
+    return ['blender'];
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -38,11 +38,11 @@ export default class Blender extends Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   public async installPlugin(): Promise<void> {
-    const temp = path.join(os.tmpdir(), "WakaTime", "blender", "WakaTime.py");
+    const temp = path.join(os.tmpdir(), 'WakaTime', 'blender', 'WakaTime.py');
     const file = fsSync.createWriteStream(temp);
     /*
      * Might use bpy from pip
@@ -53,6 +53,6 @@ export default class Blender extends Editor {
   }
 
   public async uninstallPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 }

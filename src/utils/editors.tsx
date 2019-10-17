@@ -16,8 +16,8 @@ export const getEditorsState = async editors => {
       return {
         ...editor,
         installed: await editor.instance.isEditorInstalled(),
-        enabled
+        enabled,
       };
-    })
+    }),
   );
 };

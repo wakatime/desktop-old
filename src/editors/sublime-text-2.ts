@@ -1,19 +1,19 @@
-import os from "os";
-import path from "path";
+import os from 'os';
+import path from 'path';
 
-import Editor from "./editor";
+import Editor from './editor';
 
 export default class SublimeText2 extends Editor {
   public static getName(): string {
-    return "Sublime Text 2";
+    return 'Sublime Text 2';
   }
 
   public get name(): string {
-    return "Sublime Text 2";
+    return 'Sublime Text 2';
   }
 
   public get icon(): string {
-    return "";
+    return '';
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -21,25 +21,23 @@ export default class SublimeText2 extends Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.isDirectory(
-      path.join(this.pluginsDirectory(), "WakaTime")
-    );
+    return await this.isDirectory(path.join(this.pluginsDirectory(), 'WakaTime'));
   }
 
   public async installPlugin(): Promise<void> {
-    return Promise.reject(new Error("method not implemented"));
+    return Promise.reject(new Error('method not implemented'));
   }
 
   public async uninstallPlugin(): Promise<void> {
-    return Promise.reject(new Error("method not implemented"));
+    return Promise.reject(new Error('method not implemented'));
   }
 
   private appDirectory(): string {
     switch (os.platform()) {
-      case "win32":
-        return "";
-      case "darwin":
-        return "/Applications/Sublime Text 2.app/Contents";
+      case 'win32':
+        return '';
+      case 'darwin':
+        return '/Applications/Sublime Text 2.app/Contents';
       default:
         return null;
     }
@@ -47,20 +45,16 @@ export default class SublimeText2 extends Editor {
 
   private pluginsDirectory(): string {
     switch (os.platform()) {
-      case "win32": {
+      case 'win32': {
         const is64bit =
-          process.arch === "x64" ||
-          process.env.hasOwnProperty("PROCESSOR_ARCHITEW6432");
-        if (is64bit) return "";
-        return "";
+          process.arch === 'x64' || process.env.hasOwnProperty('PROCESSOR_ARCHITEW6432');
+        if (is64bit) return '';
+        return '';
       }
-      case "darwin":
-        return path.join(
-          os.homedir(),
-          "Library/Application Support/Sublime Text 2/Packages"
-        );
-      case "linux":
-        return "";
+      case 'darwin':
+        return path.join(os.homedir(), 'Library/Application Support/Sublime Text 2/Packages');
+      case 'linux':
+        return '';
       default:
         return null;
     }

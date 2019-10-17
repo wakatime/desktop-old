@@ -1,28 +1,28 @@
-import os from "os";
+import os from 'os';
 
-import { CommandExists } from "../lib/command-exists";
-import Editor from "./editor";
+import { CommandExists } from '../lib/command-exists';
+import Editor from './editor';
 
-const util = require("util");
-const exec = util.promisify(require("child_process").exec);
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
 
 export default class VsCode extends Editor {
   private commandExists = new CommandExists();
 
   public static getName(): string {
-    return "Visual Studio Code";
+    return 'Visual Studio Code';
   }
 
   public get name(): string {
-    return "Visual Studio Code";
+    return 'Visual Studio Code';
   }
 
   public get icon(): string {
-    return "";
+    return '';
   }
 
   public get binaries(): string[] {
-    return ["code"];
+    return ['code'];
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -42,26 +42,22 @@ export default class VsCode extends Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    const val = await this.listExtensions("wakatime");
+    const val = await this.listExtensions('wakatime');
     return val;
   }
 
   public async installPlugin(): Promise<void> {
-    const { stdout, stderr } = await exec(
-      "code --install-extension wakatime.vscode-wakatime"
-    );
+    const { stdout, stderr } = await exec('code --install-extension wakatime.vscode-wakatime');
     if (stderr) return Promise.reject(new Error(stderr));
   }
 
   public async uninstallPlugin(): Promise<void> {
-    const { stdout, stderr } = await exec(
-      "code --uninstall-extension wakatime.vscode-wakatime"
-    );
+    const { stdout, stderr } = await exec('code --uninstall-extension wakatime.vscode-wakatime');
     if (stderr) return Promise.reject(new Error(stderr));
   }
 
   public async listExtensions(filter: string): Promise<boolean> {
-    const { stdout, stderr } = await exec("code --list-extensions");
+    const { stdout, stderr } = await exec('code --list-extensions');
     if (stderr) return Promise.reject(new Error(stderr));
 
     return stdout.includes(filter);
@@ -69,10 +65,10 @@ export default class VsCode extends Editor {
 
   private appDirectory(): string {
     switch (os.platform()) {
-      case "win32":
-        return "%USERPROFILE\\AppData\\Local\\Programs\\Microsoft VS Code";
-      case "darwin":
-        return "/Applications/Visual Studio Code.app/Contents";
+      case 'win32':
+        return '%USERPROFILE\\AppData\\Local\\Programs\\Microsoft VS Code';
+      case 'darwin':
+        return '/Applications/Visual Studio Code.app/Contents';
       default:
         return null;
     }

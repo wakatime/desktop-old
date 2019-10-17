@@ -1,5 +1,5 @@
-import fs from "fs";
-import util from "util";
+import fs from 'fs';
+import util from 'util';
 
 const stat = util.promisify(fs.stat);
 
@@ -9,7 +9,7 @@ export default abstract class Editor implements EditorInterface {
   abstract icon: string;
 
   get key(): string {
-    return this.name.replace(/\s/g, "").toLowerCase();
+    return this.name.replace(/\s/g, '').toLowerCase();
   }
 
   public async isDirectory(directory: string): Promise<boolean> {

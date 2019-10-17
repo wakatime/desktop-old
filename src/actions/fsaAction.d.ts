@@ -1,4 +1,4 @@
-import { Action } from "redux";
+import { Action } from 'redux';
 
 interface Meta {
   [s: string]: number | string | Meta;

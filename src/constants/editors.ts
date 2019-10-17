@@ -67,5 +67,5 @@ export default {
   VisualStudio,
   VSCode,
   WebStorm,
-  XCode
+  XCode,
 };

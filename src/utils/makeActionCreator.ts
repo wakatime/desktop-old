@@ -1,4 +1,4 @@
-import { Action } from "redux";
+import { Action } from 'redux';
 
 const makeActionCreator = (type, ...argNames) => {
   return (...args): Action => {

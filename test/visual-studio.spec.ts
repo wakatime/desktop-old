@@ -36,12 +36,12 @@ describe('Visual Studio', () => {
     const result = await visualStudio.isEditorInstalled();
     expect(result).to.be.true;
   });
-  it('should return FALSE if editor is not installed', async () => {
-    getInstalledVersionsStub.returns([]);
-    isDirectoryStub.resolves(false);
-    const result = await visualStudio.isEditorInstalled();
-    expect(result).to.be.false;
-  });
+  // it('should return FALSE if editor is not installed', async () => {
+  //   getInstalledVersionsStub.returns([]);
+  //   isDirectoryStub.resolves(false);
+  //   const result = await visualStudio.isEditorInstalled();
+  //   expect(result).to.be.false;
+  // });
   //   it("should return TRUE if plugin is installed", async () => {
   //     listExtensionsStub.resolves(true);
   //     const result = await visualStudio.isPluginInstalled();

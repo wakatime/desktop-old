@@ -35,11 +35,11 @@ export default class AppCode extends Editor {
   }
 
   public async installPlugin(): Promise<void> {
-    installJetbrainsPlugin(this.pluginsDirectory()[0]);
+    installJetbrainsPlugin(this.pluginsDirectory());
   }
 
   public async uninstallPlugin(): Promise<void> {
-    unInstallJetbrainsPlugin(this.pluginsDirectory()[0]);
+    unInstallJetbrainsPlugin(this.pluginsDirectory());
   }
 
   private appDirectory(): string[] {

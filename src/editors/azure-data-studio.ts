@@ -40,7 +40,7 @@ export default class AzureDataStudio extends Editor {
   private appDirectory(): string {
     switch (os.platform()) {
       case "win32":
-        return "%USERPROFILE\\AppData\\Local\\Programs\\Azure Data Studio";
+        return `${os.homedir()}\\AppData\\Local\\Programs\\Azure Data Studio`;
       case "darwin":
         return "/Applications/Azure Data Studio.app/Contents";
       default:

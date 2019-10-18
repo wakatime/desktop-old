@@ -34,7 +34,7 @@ export default class AndroidStudio extends Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    try {      
+    try {
       const ret = await this.isBinary(this.binary);
       if (ret) return true;
       return this.isDirectorySync(this.appDirectory());

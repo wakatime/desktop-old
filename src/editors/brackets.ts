@@ -46,12 +46,12 @@ export default class Brackets extends Editor {
 
   private pluginsDirectory(): string {
     switch (os.platform()) {
-      case "win32":
+      case 'win32':
         return `${os.homedir()}\\AppData\\Roaming\\Brackets\\extensions\\user\\brackets-wakatime`;
-      case "darwin":
-        return "~/Library/Application Support/Brackets/extensions/user/brackets-wakatime";
-      case "linux":
-        return "~/.config/brackets/extensions/user/brackets-wakatime";
+      case 'darwin':
+        return '~/Library/Application Support/Brackets/extensions/user/brackets-wakatime';
+      case 'linux':
+        return '~/.config/brackets/extensions/user/brackets-wakatime';
       default:
         return null;
     }

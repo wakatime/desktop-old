@@ -1,19 +1,19 @@
-import os from "os";
-import path from "path";
+import os from 'os';
+import path from 'path';
 
-import Editor from "./editor";
+import Editor from './editor';
 
 export default class Komodo extends Editor {
   public static getName(): string {
-    return "Komodo";
+    return 'Komodo';
   }
 
   public get name(): string {
-    return "Komodo";
+    return 'Komodo';
   }
 
   public get icon(): string {
-    return "";
+    return '';
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -25,31 +25,30 @@ export default class Komodo extends Editor {
   }
 
   public async installPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   public async uninstallPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   public pluginsDirectory(): string {
     switch (os.platform()) {
-      case "win32": {
-        const is64bit =
-          process.arch === "x64" || process.env.PROCESSOR_ARCHITEW6432;
+      case 'win32': {
+        const is64bit = process.arch === 'x64' || process.env.PROCESSOR_ARCHITEW6432;
         if (is64bit) {
-          return "";
+          return '';
         }
-        return "";
+        return '';
       }
-      case "darwin": {
+      case 'darwin': {
         return path.join(
           os.homedir(),
-          "Library/Application Support/KomodoEdit/11.1/XRE/extensions/wakatime@wakatime.com"
+          'Library/Application Support/KomodoEdit/11.1/XRE/extensions/wakatime@wakatime.com',
         );
       }
-      case "linux":
-        return "";
+      case 'linux':
+        return '';
       default:
         return null;
     }
@@ -57,10 +56,10 @@ export default class Komodo extends Editor {
 
   public appDirectory(): string {
     switch (os.platform()) {
-      case "win32":
-        return "";
-      case "darwin":
-        return "/Applications/Komodo Edit 11.app/Contents";
+      case 'win32':
+        return '';
+      case 'darwin':
+        return '/Applications/Komodo Edit 11.app/Contents';
       default:
         return null;
     }

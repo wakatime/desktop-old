@@ -15,8 +15,8 @@ describe('GoLand', () => {
 
   beforeEach(() => {
     goLand = new GoLand();
-    isDirectoryStub = sinon.stub(goLand, "isDirectory");
-    isFileSyncStub = sinon.stub(goLand, "isFileSync");
+    isDirectoryStub = sinon.stub(goLand, 'isDirectory');
+    isFileSyncStub = sinon.stub(goLand, 'isFileSync');
   });
   afterEach(() => {
     isDirectoryStub.restore();
@@ -35,17 +35,17 @@ describe('GoLand', () => {
     const result = await goLand.isEditorInstalled();
     expect(result).to.be.true;
   });
-  it("should return FALSE if editor is not installed", async () => {
+  it('should return FALSE if editor is not installed', async () => {
     isDirectoryStub.resolves(false);
     const result = await goLand.isEditorInstalled();
     expect(result).to.be.false;
   });
-  it("should return TRUE if plugin is installed", async () => {
+  it('should return TRUE if plugin is installed', async () => {
     isFileSyncStub.returns(true);
     const result = await goLand.isPluginInstalled();
     expect(result).to.be.true;
   });
-  it("should return FALSE if plugin is n ot installed", async () => {
+  it('should return FALSE if plugin is n ot installed', async () => {
     isFileSyncStub.returns(false);
     const result = await goLand.isPluginInstalled();
     expect(result).to.be.false;

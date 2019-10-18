@@ -56,7 +56,7 @@ const ActiveEditors = ({ editors, enableEditors: ee, selectEditorToInstall: seti
         >
           <EditorIcon {...editor} />
           <div {...css(styles.editorName)}>
-            {editor.name} :{editor.enabled ? "true" : "false"}
+            {editor.name} :{editor.enabled ? 'true' : 'false'}
           </div>
           <input
             type="checkbox"

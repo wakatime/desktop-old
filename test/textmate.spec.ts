@@ -14,7 +14,7 @@ describe('TextMate', () => {
 
   beforeEach(() => {
     textMate = new TextMate();
-    isDirectoryStub = sinon.stub(textMate, "isDirectory");
+    isDirectoryStub = sinon.stub(textMate, 'isDirectory');
   });
   afterEach(() => {
     isDirectoryStub.restore();

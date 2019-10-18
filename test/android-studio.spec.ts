@@ -36,9 +36,9 @@ describe('Android Studio', () => {
     const result = androidStudio.name;
     expect(result).to.equal('Android Studio');
   });
-  it('should return the correct binary names', () => {
-    const result = androidStudio.binaries;
-    expect(result).to.deep.equal('editor');
+  it('should return the correct binary name', () => {
+    const result = androidStudio.binary;
+    expect(result).to.equal('editor');
   });
   it('should return TRUE if editor is installed', async () => {
     isBinaryStub.resolves(true);

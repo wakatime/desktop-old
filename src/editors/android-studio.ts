@@ -29,24 +29,23 @@ export default class AndroidStudio extends Editor {
     return '';
   }
 
-  public get binaries(): string[] {
-    return ['editor'];
+  public get binary(): string {
+    return 'editor';
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    try {
-      let ret = false;
-      ret = this.binaries.some(async binary => {
-        if (await this.commandExists.exists(binary)) {
-          return true;
-        }
-      });
+    try {      
+      const ret = await this.isBinary(this.binary);
       if (ret) return true;
-      return await this.isDirectory(this.appDirectory());
+      return this.isDirectorySync(this.appDirectory());
     } catch (err) {
       console.error(err);
       return false;
     }
+  }
+
+  public async isBinary(binary: string): Promise<boolean> {
+    return await this.commandExists.exists(binary);
   }
 
   public async isPluginInstalled(): Promise<boolean> {

@@ -10,23 +10,17 @@ chai.use(chaiAsPromised);
 
 describe('Coda', () => {
   let coda: Coda;
-  let isEditorInstalledStub: any;
-  let isPluginInstalledStub: any;
-  let isDirectoryStub: any;
-  let isFileStub: any;
+  let isDirectorySyncStub: any;
+  let fileExistsSyncStub: any;
 
   beforeEach(() => {
     coda = new Coda();
-    isEditorInstalledStub = sinon.stub(coda, 'isEditorInstalled');
-    isPluginInstalledStub = sinon.stub(coda, 'isPluginInstalled');
-    isDirectoryStub = sinon.stub(coda, 'isDirectory');
-    isFileStub = sinon.stub(coda, 'isFile');
+    isDirectorySyncStub = sinon.stub(coda, "isDirectorySync");
+    fileExistsSyncStub = sinon.stub(coda, "fileExistsSync");
   });
   afterEach(() => {
-    isEditorInstalledStub.restore();
-    isPluginInstalledStub.restore();
-    isDirectoryStub.restore();
-    isFileStub.restore();
+    isDirectorySyncStub.restore();
+    fileExistsSyncStub.restore();
   });
   it('should return the correct key name', () => {
     const result = coda.key;
@@ -36,27 +30,23 @@ describe('Coda', () => {
     const result = coda.name;
     expect(result).to.equal('Coda');
   });
-  it('should return TRUE if editor is installed', async () => {
-    isDirectoryStub.resolves(true);
-    isEditorInstalledStub.resolves(true);
+  it("should return TRUE if editor is installed", async () => {
+    isDirectorySyncStub.returns(true);
     const result = await coda.isEditorInstalled();
     expect(result).to.be.true;
   });
-  it('should return FALSE if editor is not installed', async () => {
-    isDirectoryStub.resolves(false);
-    isEditorInstalledStub.resolves(false);
+  it("should return FALSE if editor is not installed", async () => {
+    isDirectorySyncStub.returns(false);
     const result = await coda.isEditorInstalled();
     expect(result).to.be.false;
   });
-  it('should return TRUE if plugin is installed', async () => {
-    isPluginInstalledStub.resolves(true);
-    isFileStub.resolves(true);
+  it("should return TRUE if plugin is installed", async () => {
+    fileExistsSyncStub.returns(true);
     const result = await coda.isPluginInstalled();
     expect(result).to.be.true;
   });
-  it('should return FALSE if plugin is not installed', async () => {
-    isPluginInstalledStub.resolves(false);
-    isFileStub.resolves(false);
+  it("should return FALSE if plugin is not installed", async () => {
+    fileExistsSyncStub.returns(false);
     const result = await coda.isPluginInstalled();
     expect(result).to.be.false;
   });

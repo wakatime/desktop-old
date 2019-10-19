@@ -10,17 +10,14 @@ chai.use(chaiAsPromised);
 
 describe('Sublime Text 2', () => {
   let sublimeText2: SublimeText2;
-  let isEditorInstalledStub: any;
-  let isDirectoryStub: any;
+  let isDirectorySyncStub: any;
 
   beforeEach(() => {
     sublimeText2 = new SublimeText2();
-    isEditorInstalledStub = sinon.stub(sublimeText2, 'isEditorInstalled');
-    isDirectoryStub = sinon.stub(sublimeText2, 'isDirectory');
+    isDirectorySyncStub = sinon.stub(sublimeText2, 'isDirectorySync');
   });
   afterEach(() => {
-    isEditorInstalledStub.restore();
-    isDirectoryStub.restore();
+    isDirectorySyncStub.restore();
   });
   it('should return the correct key name', () => {
     const result = sublimeText2.key;
@@ -31,22 +28,22 @@ describe('Sublime Text 2', () => {
     expect(result).to.equal('Sublime Text 2');
   });
   it('should return TRUE if editor is installed', async () => {
-    isEditorInstalledStub.resolves(true);
+    isDirectorySyncStub.returns(true);
     const result = await sublimeText2.isEditorInstalled();
-    expect(result).to.be.true;
-  });
-  it('should return TRUE if plugin is installed', async () => {
-    isDirectoryStub.resolves(true);
-    const result = await sublimeText2.isPluginInstalled();
     expect(result).to.be.true;
   });
   it('should return FALSE if editor is not installed', async () => {
-    isEditorInstalledStub.resolves(false);
+    isDirectorySyncStub.returns(false);
     const result = await sublimeText2.isEditorInstalled();
     expect(result).to.be.false;
   });
+  it('should return TRUE if plugin is installed', async () => {
+    isDirectorySyncStub.returns(true);
+    const result = await sublimeText2.isPluginInstalled();
+    expect(result).to.be.true;
+  });
   it('should return FALSE if plugin is not installed', async () => {
-    isDirectoryStub.resolves(false);
+    isDirectorySyncStub.returns(false);
     const result = await sublimeText2.isPluginInstalled();
     expect(result).to.be.false;
   });

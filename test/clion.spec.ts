@@ -10,14 +10,17 @@ chai.use(chaiAsPromised);
 
 describe('CLion', () => {
   let cLion: CLion;
-  let isDirectoryStub: any;
+  let isDirectorySyncStub: any;
+  let isFileSyncStub: any;
 
   beforeEach(() => {
     cLion = new CLion();
-    isDirectoryStub = sinon.stub(cLion, 'isDirectory');
+    isDirectorySyncStub = sinon.stub(cLion, 'isDirectorySync');
+    isFileSyncStub = sinon.stub(cLion, 'isFileSync');
   });
   afterEach(() => {
-    isDirectoryStub.restore();
+    isDirectorySyncStub.restore();
+    isFileSyncStub.restore();
   });
   it('should return the correct key name', () => {
     const result = cLion.key;
@@ -28,19 +31,23 @@ describe('CLion', () => {
     expect(result).to.equal('CLion');
   });
   it('should return TRUE if editor is installed', async () => {
-    isDirectoryStub.resolves(true);
+    isDirectorySyncStub.returns(true);
     const result = await cLion.isEditorInstalled();
     expect(result).to.be.true;
   });
-
-  // it("should return TRUE if plugin is installed", async () => {
-  //   listExtensionsStub.resolves(true);
-  //   const result = await vscode.isPluginInstalled();
-  //   expect(result).to.be.true;
-  // });
-  // it("should return FALSE if plugin is n ot installed", async () => {
-  //   listExtensionsStub.resolves(false);
-  //   const result = await vscode.isPluginInstalled();
-  //   expect(result).to.be.false;
-  // });
+  it('should return FALSE if editor is not installed', async () => {
+    isDirectorySyncStub.returns(false);
+    const result = await cLion.isEditorInstalled();
+    expect(result).to.be.false;
+  });
+  it('should return TRUE if plugin is installed', async () => {
+    isFileSyncStub.returns(true);
+    const result = await cLion.isPluginInstalled();
+    expect(result).to.be.true;
+  });
+  it('should return FALSE if plugin is not installed', async () => {
+    isFileSyncStub.returns(false);
+    const result = await cLion.isPluginInstalled();
+    expect(result).to.be.false;
+  });
 });

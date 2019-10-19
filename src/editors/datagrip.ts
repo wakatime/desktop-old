@@ -17,7 +17,7 @@ export default class DataGrip extends Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    return await this.isDirectory(this.appDirectory());
+    return await this.isDirectorySync(this.appDirectory());
   }
 
   public async isPluginInstalled(): Promise<boolean> {

@@ -10,16 +10,16 @@ chai.use(chaiAsPromised);
 
 describe('RubyMine', () => {
   let rubyMine: RubyMine;
-  let isDirectoryStub: any;
+  let isDirectorySyncStub: any;
   let isFileSyncStub: any;
 
   beforeEach(() => {
     rubyMine = new RubyMine();
-    isDirectoryStub = sinon.stub(rubyMine, 'isDirectory');
+    isDirectorySyncStub = sinon.stub(rubyMine, 'isDirectorySync');
     isFileSyncStub = sinon.stub(rubyMine, 'isFileSync');
   });
   afterEach(() => {
-    isDirectoryStub.restore();
+    isDirectorySyncStub.restore();
   });
   it('should return the correct key name', () => {
     const result = rubyMine.key;
@@ -30,16 +30,21 @@ describe('RubyMine', () => {
     expect(result).to.equal('RubyMine');
   });
   it('should return TRUE if editor is installed', async () => {
-    isDirectoryStub.resolves(true);
+    isDirectorySyncStub.returns(true);
     const result = await rubyMine.isEditorInstalled();
     expect(result).to.be.true;
+  });
+  it('should return FALSE if editor is not installed', async () => {
+    isDirectorySyncStub.returns(false);
+    const result = await rubyMine.isEditorInstalled();
+    expect(result).to.be.false;
   });
   it('should return TRUE if plugin is installed', async () => {
     isFileSyncStub.returns(true);
     const result = await rubyMine.isPluginInstalled();
     expect(result).to.be.true;
   });
-  it('should return FALSE if plugin is n ot installed', async () => {
+  it('should return FALSE if plugin is not installed', async () => {
     isFileSyncStub.returns(false);
     const result = await rubyMine.isPluginInstalled();
     expect(result).to.be.false;

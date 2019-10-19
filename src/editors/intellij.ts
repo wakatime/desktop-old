@@ -21,14 +21,18 @@ export default class AppCode extends Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    return (
-      (await this.isDirectory(this.appDirectory()[0])) ||
-      (await this.isDirectory(this.appDirectory()[1]))
-    );
+    try {
+      return this.appDirectory().some(directory => {
+        return this.isDirectorySync(directory);
+      });
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.isFileSync(`${this.pluginsDirectory()}/WakaTime.jar`);
+    return this.isFileSync(`${this.pluginsDirectory()}/WakaTime.jar`);
   }
 
   public async installPlugin(): Promise<void> {

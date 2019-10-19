@@ -10,17 +10,14 @@ chai.use(chaiAsPromised);
 
 describe('Sublime Text 3', () => {
   let sublimeText3: SublimeText3;
-  let isEditorInstalledStub: any;
-  let isDirectoryStub: any;
+  let isDirectorySyncStub: any;
 
   beforeEach(() => {
     sublimeText3 = new SublimeText3();
-    isEditorInstalledStub = sinon.stub(sublimeText3, 'isEditorInstalled');
-    isDirectoryStub = sinon.stub(sublimeText3, 'isDirectory');
+    isDirectorySyncStub = sinon.stub(sublimeText3, 'isDirectorySync');
   });
   afterEach(() => {
-    isEditorInstalledStub.restore();
-    isDirectoryStub.restore();
+    isDirectorySyncStub.restore();
   });
   it('should return the correct key name', () => {
     const result = sublimeText3.key;
@@ -31,22 +28,22 @@ describe('Sublime Text 3', () => {
     expect(result).to.equal('Sublime Text 3');
   });
   it('should return TRUE if editor is installed', async () => {
-    isEditorInstalledStub.resolves(true);
+    isDirectorySyncStub.returns(true);
     const result = await sublimeText3.isEditorInstalled();
-    expect(result).to.be.true;
-  });
-  it('should return TRUE if plugin is installed', async () => {
-    isDirectoryStub.resolves(true);
-    const result = await sublimeText3.isPluginInstalled();
     expect(result).to.be.true;
   });
   it('should return FALSE if editor is not installed', async () => {
-    isEditorInstalledStub.resolves(false);
+    isDirectorySyncStub.returns(false);
     const result = await sublimeText3.isEditorInstalled();
     expect(result).to.be.false;
   });
+  it('should return TRUE if plugin is installed', async () => {
+    isDirectorySyncStub.returns(true);
+    const result = await sublimeText3.isPluginInstalled();
+    expect(result).to.be.true;
+  });
   it('should return FALSE if plugin is not installed', async () => {
-    isDirectoryStub.resolves(false);
+    isDirectorySyncStub.returns(false);
     const result = await sublimeText3.isPluginInstalled();
     expect(result).to.be.false;
   });

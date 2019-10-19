@@ -6,7 +6,7 @@ import installExtension, {
 import isMainProcess from './utils/isMainProcess';
 import { registerWindow, unRegisterWindow } from './middlewares/forwardToRenderer';
 import './stores/mainProcStore';
-import wakatimeIcon from "./imgs/wakatime-16x16.png";
+import wakatimeIcon from './imgs/wakatime-16x16.png';
 
 console.log('isMainProcess', isMainProcess);
 const isDev = process.env.NODE_ENV === 'development';
@@ -100,10 +100,10 @@ if (!gotTheLock) {
   app.on('ready', () => {
     appIcon = new Tray(wakatimeIcon);
     const contextMenu = Menu.buildFromTemplate([
-      {label: 'Item1', type: 'radio'},
-      {label: 'Item2', type: 'radio'},
-      {label: 'Item3', type: 'radio', checked: true},
-      {label: 'Item4', type: 'radio'}
+      { label: 'Item1', type: 'radio' },
+      { label: 'Item2', type: 'radio' },
+      { label: 'Item3', type: 'radio', checked: true },
+      { label: 'Item4', type: 'radio' },
     ]);
     appIcon.setToolTip('This is my application.');
     appIcon.setContextMenu(contextMenu);

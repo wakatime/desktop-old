@@ -19,7 +19,7 @@ const initialState = Object.values(editors).reduce((accum, val) => {
 const handlers = {
   [SYNC_EDITORS_STATE]: (state: [], action: FSA<any>) => {
     return action.payload || state;
-  }
+  },
 };
 
 export default createReducer(initialState, handlers);

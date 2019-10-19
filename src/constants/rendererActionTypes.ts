@@ -5,3 +5,4 @@ export const ENABLE_EDITORS = `${prefix} ENABLE_EDITORS`;
 export const SELECT_EDITOR_TO_INSTALL = `${prefix} SELECT_EDITOR_TO_INSTALL`;
 export const SET_EDITOR_ENABLED = `${prefix} SET_EDITOR_ENABLED`;
 export const CLEAR_SELECT_EDITORS = `${prefix} CLEAR_SELECT_EDITORS`;
+export const SYNC_EDITORS_STATE = `${prefix} SYNC_EDITORS_STATE`;

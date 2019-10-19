@@ -6,19 +6,19 @@ import installExtension, {
 import isMainProcess from './utils/isMainProcess';
 import { registerWindow, unRegisterWindow } from './middlewares/forwardToRenderer';
 import './stores/mainProcStore';
-// import wakatimeIcon from "./imgs/wakatime-16x16.png";
+import wakatimeIcon from "./imgs/wakatime-16x16.png";
 
 console.log('isMainProcess', isMainProcess);
 const isDev = process.env.NODE_ENV === 'development';
 // Module to control application life.
-const { app } = electron;
+const { app, Tray, Menu } = electron;
 // Module to create native browser window.
 const { BrowserWindow } = electron;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
-// let appIcon = null;
+let appIcon = null;
 
 const createWindow = async () => {
   // Create the browser window.
@@ -98,7 +98,7 @@ if (!gotTheLock) {
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
   app.on('ready', () => {
-    /* appIcon = new Tray(wakatimeIcon);
+    appIcon = new Tray(wakatimeIcon);
     const contextMenu = Menu.buildFromTemplate([
       {label: 'Item1', type: 'radio'},
       {label: 'Item2', type: 'radio'},
@@ -106,7 +106,7 @@ if (!gotTheLock) {
       {label: 'Item4', type: 'radio'}
     ]);
     appIcon.setToolTip('This is my application.');
-    appIcon.setContextMenu(contextMenu); */
+    appIcon.setContextMenu(contextMenu);
     createWindow();
   });
 

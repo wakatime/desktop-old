@@ -5,6 +5,7 @@ import {
   SELECT_EDITOR_TO_INSTALL,
   SET_EDITOR_ENABLED,
   CLEAR_SELECT_EDITORS,
+  SYNC_EDITORS_STATE
 } from '../constants/rendererActionTypes';
 import makeActionCreator, { makeActionWithMeta } from '../utils/makeActionCreator';
 
@@ -21,3 +22,7 @@ export const selectEditorToInstall = makeActionCreator(SELECT_EDITOR_TO_INSTALL,
 export const setEditorEnabled = makeActionCreator(SET_EDITOR_ENABLED, 'payload');
 
 export const clearSelectEditors = makeActionCreator(CLEAR_SELECT_EDITORS, 'payload');
+
+export const syncEditorsState = makeActionWithMeta({
+  forwardToMain: true
+})(SYNC_EDITORS_STATE, 'payload');

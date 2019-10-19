@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import EditorIcon from './EditorIcon';
-import { enableEditors, selectEditorToInstall } from '../actions/rendererActions';
+import { enableEditors, selectEditorToInstall, syncEditorsState } from '../actions/rendererActions';
 import { useStyles } from '../themes';
 import { getEditorsState } from '../utils/editors';
 
@@ -30,13 +30,16 @@ const stylesFn = () => {
   };
 };
 
-const ActiveEditors = ({ editors, enableEditors: ee, selectEditorToInstall: seti }) => {
+const ActiveEditors = ({ editors, enableEditors: ee, selectEditorToInstall: seti, syncEditorsState: ses }) => {
   const { css, styles } = useStyles({ stylesFn });
 
   useEffect(() => {
     const fetchData = async () => {
       const enabledEditors = await getEditorsState(editors);
+      // Set enabled editors to FE reducer
       ee(enabledEditors);
+      // Set enabled editors to BE reducer
+      ses(enabledEditors);
     };
     fetchData();
   }, []); // eslint-disable-line
@@ -74,11 +77,13 @@ ActiveEditors.propTypes = {
   editors: PropTypes.array,
   enableEditors: PropTypes.func,
   selectEditorToInstall: PropTypes.func,
+  syncEditorsState: PropTypes.func,
 };
 ActiveEditors.defaultProps = {
   editors: [],
   enableEditors: null,
   selectEditorToInstall: null,
+  syncEditorsState: null,
 };
 
 const mapStateToProps = ({ editors = [] }) => ({
@@ -90,6 +95,7 @@ const mapDispatchToProps = dispatch => {
     {
       enableEditors,
       selectEditorToInstall,
+      syncEditorsState,
     },
     dispatch,
   );

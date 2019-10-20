@@ -40,6 +40,10 @@ export default class Terminal extends Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
+    return this.isAnyTerminalAvailable();
+  }
+
+  public isAnyTerminalAvailable(): boolean {
     return Object.keys(this.availableTerminals)
       .map(key => this.availableTerminals[key])
       .some(el => el.exists);
@@ -83,14 +87,18 @@ export default class Terminal extends Editor {
             }
           }),
         );
-        return Object.keys(this.availableTerminals)
-          .map(key => this.availableTerminals[key])
-          .some(x => x.pluginInstalled);
+        return this.isAnyTerminalInstalled();
       }
       case 'linux':
       default:
         return false;
     }
+  }
+
+  public isAnyTerminalInstalled(): boolean {
+    return Object.keys(this.availableTerminals)
+      .map(key => this.availableTerminals[key])
+      .some(x => x.pluginInstalled);
   }
 
   private async isPluginInstalledForZsh(): Promise<boolean> {

@@ -29,8 +29,9 @@ export default class VisualStudio extends Editor {
 
   public async isEditorInstalled(): Promise<boolean> {
     switch (os.platform()) {
-      case 'win32':
+      case 'win32': {
         return this.getInstalledVersions().length > 0;
+      }
       case 'darwin':
         return await this.isDirectory(this.appDirectory());
       case 'linux':
@@ -46,20 +47,10 @@ export default class VisualStudio extends Editor {
         const installedVersions: number[] = [];
         Object.keys(this.versions).forEach(v => {
           const key = `\\VisualStudio.DTE.${v}.0`;
-          const regkey = new Registry({
-            hive: Registry.HKCR,
-            key,
-          });
-          regkey.values(function(err, items) {
-            if (err) {
-              console.log(err);
-              return [];
-            }
-
-            if (items.length > 0) installedVersions.push(this.versions[v]);
-          });
+          if (this.isRegKey(key)) {
+            installedVersions.push(this.versions[v]);
+          }
         });
-
         return installedVersions;
       }
       case 'darwin':
@@ -72,24 +63,12 @@ export default class VisualStudio extends Editor {
   public async isPluginInstalled(): Promise<boolean> {
     switch (os.platform()) {
       case 'win32': {
-        const filePaths: string[] = [];
         const settings = {
           root: '%LocalAppData%\\Microsoft\\VisualStudio',
           type: 'files',
           fileFilter: ['WakaTime.dll'],
         };
-
-        readdirp(
-          settings,
-          function(fileInfo) {
-            filePaths.push(fileInfo.fullPath);
-          },
-          function(err, _res) {
-            if (err) return false;
-          },
-        );
-
-        return filePaths.length > 0;
+        return this.isFileWindows(settings);
       }
       case 'darwin':
       case 'linux':
@@ -105,6 +84,36 @@ export default class VisualStudio extends Editor {
 
   public async uninstallPlugin(): Promise<void> {
     throw new Error('Method not implemented.');
+  }
+
+  private isFileWindows(settings: { root: string; type: string; fileFilter: string[] }): boolean {
+    const filePaths: string[] = [];
+    readdirp(
+      settings,
+      function(fileInfo) {
+        filePaths.push(fileInfo.fullPath);
+      },
+      function(err, _res) {
+        if (err) return false;
+      },
+    );
+    return filePaths.length > 0;
+  }
+
+  private isRegKey(key: string): boolean {
+    const regkey = new Registry({
+      hive: Registry.HKCR,
+      key,
+    });
+    let exist = false;
+    regkey.values(function(err, items) {
+      if (err) {
+        console.log(err);
+        return [];
+      }
+      exist = items.length > 0;
+    });
+    return exist;
   }
 
   private appDirectory(): string {

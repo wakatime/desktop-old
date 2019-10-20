@@ -21,7 +21,7 @@ export default class WebStorm extends Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.isFileSync(`${this.pluginsDirectory()}/WakaTime.jar`);
+    return this.isFileSync(`${this.pluginsDirectory()}/WakaTime.jar`);
   }
 
   public async installPlugin(): Promise<void> {

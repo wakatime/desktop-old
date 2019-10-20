@@ -22,11 +22,15 @@ export default class Vim extends Editor {
 
   public async isEditorInstalled(): Promise<boolean> {
     try {
-      return this.binaries.some(async binary => {
-        if (await this.commandExists.exists(binary)) {
-          return true;
-        }
-      });
+      let exists = false;
+      await Promise.all(
+        Object.keys(this.binaries).map(async binary => {
+          if (await this.isBinary(binary)) {
+            exists = true;
+          }
+        }),
+      );
+      return exists;
     } catch (err) {
       console.error(err);
       return false;
@@ -43,5 +47,9 @@ export default class Vim extends Editor {
 
   public async uninstallPlugin(): Promise<void> {
     throw new Error('Method not implemented.');
+  }
+
+  public async isBinary(binary: string): Promise<boolean> {
+    return await this.commandExists.exists(binary);
   }
 }

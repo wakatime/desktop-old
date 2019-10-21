@@ -23,7 +23,7 @@ export default class Eclipse extends Editor {
   }
 
   public get pluginVersion(): string {
-    return 'com.wakatime.eclipse.plugin_3.0.3.jar'
+    return 'com.wakatime.eclipse.plugin_3.0.3.jar';
   }
 
   public async isEditorInstalled(): Promise<boolean> {

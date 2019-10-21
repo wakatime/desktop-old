@@ -26,7 +26,7 @@ export default class Kakoune extends Editor {
 
   public async isEditorInstalled(): Promise<boolean> {
     const list = await this.brewList();
-    return list.includes("kakoune");
+    return list.includes('kakoune');
   }
 
   public async isPluginInstalled(): Promise<boolean> {
@@ -72,18 +72,18 @@ export default class Kakoune extends Editor {
   }
 
   public async isHomebrewInstalled(): Promise<boolean> {
-    return await this.commandExists.exists("brew");
+    return await this.commandExists.exists('brew');
   }
 
   public async brewList(): Promise<string> {
     if (await this.isHomebrewInstalled()) {
-      const { stdout, stderr } = await exec("brew list");
+      const { stdout, stderr } = await exec('brew list');
       if (stderr) return Promise.reject(new Error(stderr));
 
       return stdout;
     }
 
-    return "";
+    return '';
   }
 
   private pluginsDirectory(): string {

@@ -34,6 +34,11 @@ describe('WebStorm', () => {
     const result = await webStorm.isEditorInstalled();
     expect(result).to.be.true;
   });
+  it('should return FALSE if editor is installed', async () => {
+    isDirectoryStub.resolves(false);
+    const result = await webStorm.isEditorInstalled();
+    expect(result).to.be.false;
+  });
   it('should return TRUE if plugin is installed', async () => {
     isFileSyncStub.returns(true);
     const result = await webStorm.isPluginInstalled();

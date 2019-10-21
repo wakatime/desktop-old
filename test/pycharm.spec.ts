@@ -10,14 +10,17 @@ chai.use(chaiAsPromised);
 
 describe('PyCharm', () => {
   let pyCharm: PyCharm;
-  let isDirectoryStub: any;
+  let isDirectorySyncStub: any;
+  let isFileSyncStub: any;
 
   beforeEach(() => {
     pyCharm = new PyCharm();
-    isDirectoryStub = sinon.stub(pyCharm, 'isDirectory');
+    isDirectorySyncStub = sinon.stub(pyCharm, 'isDirectorySync');
+    isFileSyncStub = sinon.stub(pyCharm, 'isFileSync');
   });
   afterEach(() => {
-    isDirectoryStub.restore();
+    isDirectorySyncStub.restore();
+    isFileSyncStub.restore();
   });
   it('should return the correct key name', () => {
     const result = pyCharm.key;
@@ -28,18 +31,28 @@ describe('PyCharm', () => {
     expect(result).to.equal('PyCharm');
   });
   it('should return TRUE if editor is installed', async () => {
-    isDirectoryStub.resolves(true);
+    isDirectorySyncStub.resolves(true);
     const result = await pyCharm.isEditorInstalled();
     expect(result).to.be.true;
   });
-  // it("should return TRUE if plugin is installed", async () => {
-  //   listExtensionsStub.resolves(true);
-  //   const result = await vscode.isPluginInstalled();
-  //   expect(result).to.be.true;
-  // });
-  // it("should return FALSE if plugin is n ot installed", async () => {
-  //   listExtensionsStub.resolves(false);
-  //   const result = await vscode.isPluginInstalled();
-  //   expect(result).to.be.false;
-  // });
+  it('should return TRUE if editor is installed', async () => {
+    isDirectorySyncStub.returns(true);
+    const result = await pyCharm.isEditorInstalled();
+    expect(result).to.be.true;
+  });
+  it('should return FALSE if editor is not installed', async () => {
+    isDirectorySyncStub.returns(false);
+    const result = await pyCharm.isEditorInstalled();
+    expect(result).to.be.false;
+  });
+  it('should return TRUE if plugin is installed', async () => {
+    isFileSyncStub.returns(true);
+    const result = await pyCharm.isPluginInstalled();
+    expect(result).to.be.true;
+  });
+  it('should return FALSE if plugin is n ot installed', async () => {
+    isFileSyncStub.returns(false);
+    const result = await pyCharm.isPluginInstalled();
+    expect(result).to.be.false;
+  });
 });

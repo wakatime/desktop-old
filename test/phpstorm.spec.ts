@@ -10,14 +10,17 @@ chai.use(chaiAsPromised);
 
 describe('PhpStorm', () => {
   let phpStorm: PhpStorm;
-  let isDirectoryStub: any;
+  let isDirectorySyncStub: any;
+  let isFileSyncStub: any;
 
   beforeEach(() => {
     phpStorm = new PhpStorm();
-    isDirectoryStub = sinon.stub(phpStorm, 'isDirectory');
+    isDirectorySyncStub = sinon.stub(phpStorm, 'isDirectorySync');
+    isFileSyncStub = sinon.stub(phpStorm, 'isFileSync');
   });
   afterEach(() => {
-    isDirectoryStub.restore();
+    isDirectorySyncStub.restore();
+    isFileSyncStub.restore();
   });
   it('should return the correct key name', () => {
     const result = phpStorm.key;
@@ -28,18 +31,23 @@ describe('PhpStorm', () => {
     expect(result).to.equal('PhpStorm');
   });
   it('should return TRUE if editor is installed', async () => {
-    isDirectoryStub.resolves(true);
+    isDirectorySyncStub.returns(true);
     const result = await phpStorm.isEditorInstalled();
     expect(result).to.be.true;
   });
-  // it("should return TRUE if plugin is installed", async () => {
-  //   listExtensionsStub.resolves(true);
-  //   const result = await vscode.isPluginInstalled();
-  //   expect(result).to.be.true;
-  // });
-  // it("should return FALSE if plugin is n ot installed", async () => {
-  //   listExtensionsStub.resolves(false);
-  //   const result = await vscode.isPluginInstalled();
-  //   expect(result).to.be.false;
-  // });
+  it('should return TRUE if editor is not installed', async () => {
+    isDirectorySyncStub.returns(false);
+    const result = await phpStorm.isEditorInstalled();
+    expect(result).to.be.false;
+  });
+  it('should return TRUE if plugin is installed', async () => {
+    isFileSyncStub.returns(true);
+    const result = await phpStorm.isPluginInstalled();
+    expect(result).to.be.true;
+  });
+  it('should return FALSE if plugin is not installed', async () => {
+    isFileSyncStub.returns(false);
+    const result = await phpStorm.isPluginInstalled();
+    expect(result).to.be.false;
+  });
 });

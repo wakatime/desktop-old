@@ -10,20 +10,23 @@ chai.use(chaiAsPromised);
 
 describe('Android Studio', () => {
   let androidStudio: AndroidStudio;
-  let isEditorInstalledStub: any;
   let fileExistsSyncStub: any;
   let pluginsDirectoryStub: any;
+  let isDirectorySyncStub: any;
+  let isBinaryStub: any;
 
   beforeEach(() => {
     androidStudio = new AndroidStudio();
-    isEditorInstalledStub = sinon.stub(androidStudio, 'isEditorInstalled');
     fileExistsSyncStub = sinon.stub(androidStudio, 'fileExistsSync');
     pluginsDirectoryStub = sinon.stub(androidStudio, 'pluginsDirectory');
+    isDirectorySyncStub = sinon.stub(androidStudio, 'isDirectorySync');
+    isBinaryStub = sinon.stub(androidStudio, 'isBinary');
   });
   afterEach(() => {
-    isEditorInstalledStub.restore();
     fileExistsSyncStub.restore();
     pluginsDirectoryStub.restore();
+    isDirectorySyncStub.restore();
+    isBinaryStub.restore();
   });
   it('should return the correct key name', () => {
     const result = androidStudio.key;
@@ -33,17 +36,25 @@ describe('Android Studio', () => {
     const result = androidStudio.name;
     expect(result).to.equal('Android Studio');
   });
-  it('should return the correct binary names', () => {
-    const result = androidStudio.binaries;
-    expect(result).to.deep.equal(['editor']);
+  it('should return the correct binary name', () => {
+    const result = androidStudio.binary;
+    expect(result).to.equal('editor');
   });
   it('should return TRUE if editor is installed', async () => {
-    isEditorInstalledStub.resolves(true);
+    isBinaryStub.resolves(true);
+    isDirectorySyncStub.returns(true);
+    const result = await androidStudio.isEditorInstalled();
+    expect(result).to.be.true;
+  });
+  it('should return TRUE if editor is installed by directory', async () => {
+    isBinaryStub.resolves(false);
+    isDirectorySyncStub.returns(true);
     const result = await androidStudio.isEditorInstalled();
     expect(result).to.be.true;
   });
   it('should return FALSE if editor is not installed', async () => {
-    isEditorInstalledStub.resolves(false);
+    isBinaryStub.resolves(false);
+    isDirectorySyncStub.returns(false);
     const result = await androidStudio.isEditorInstalled();
     expect(result).to.be.false;
   });

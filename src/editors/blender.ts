@@ -20,17 +20,13 @@ export default class Blender extends Editor {
     return '';
   }
 
-  public get binaries(): string[] {
-    return ['blender'];
+  public get binary(): string {
+    return 'blender';
   }
 
   public async isEditorInstalled(): Promise<boolean> {
     try {
-      return this.binaries.some(async binary => {
-        if (await this.commandExists.exists(binary)) {
-          return true;
-        }
-      });
+      return await this.isBinary(this.binary);
     } catch (err) {
       console.error(err);
       return false;
@@ -54,5 +50,9 @@ export default class Blender extends Editor {
 
   public async uninstallPlugin(): Promise<void> {
     throw new Error('Method not implemented.');
+  }
+
+  public async isBinary(binary: string): Promise<boolean> {
+    return await this.commandExists.exists(binary);
   }
 }

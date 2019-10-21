@@ -27,13 +27,15 @@ export default class VsCode extends Editor {
 
   public async isEditorInstalled(): Promise<boolean> {
     try {
-      let ret = false;
-      ret = this.binaries.some(async binary => {
-        if (await this.commandExists.exists(binary)) {
-          return true;
-        }
-      });
-      if (ret) return true;
+      let exists = false;
+      await Promise.all(
+        Object.keys(this.binaries).map(async binary => {
+          if (await this.isBinary(binary)) {
+            exists = true;
+          }
+        }),
+      );
+      if (exists) return true;
       return await this.isDirectory(this.appDirectory());
     } catch (err) {
       console.error(err);
@@ -42,8 +44,7 @@ export default class VsCode extends Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    const val = await this.listExtensions('wakatime');
-    return val;
+    return await this.listExtensions('wakatime');
   }
 
   public async installPlugin(): Promise<void> {
@@ -63,12 +64,16 @@ export default class VsCode extends Editor {
     return stdout.includes(filter);
   }
 
+  public async isBinary(binary: string): Promise<boolean> {
+    return await this.commandExists.exists(binary);
+  }
+
   private appDirectory(): string {
     switch (os.platform()) {
-      case "win32":
+      case 'win32':
         return `${os.homedir()}\\AppData\\Local\\Programs\\Microsoft VS Code`;
-      case "darwin":
-        return "/Applications/Visual Studio Code.app/Contents";
+      case 'darwin':
+        return '/Applications/Visual Studio Code.app/Contents';
       default:
         return null;
     }

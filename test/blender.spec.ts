@@ -10,14 +10,14 @@ chai.use(chaiAsPromised);
 
 describe('Blender', () => {
   let blender: Blender;
-  let isEditorInstalledStub: any;
+  let isBinaryStub: any;
 
   beforeEach(() => {
     blender = new Blender();
-    isEditorInstalledStub = sinon.stub(blender, 'isEditorInstalled');
+    isBinaryStub = sinon.stub(blender, 'isBinary');
   });
   afterEach(() => {
-    isEditorInstalledStub.restore();
+    isBinaryStub.restore();
   });
   it('should return the correct key name', () => {
     const result = blender.key;
@@ -28,16 +28,16 @@ describe('Blender', () => {
     expect(result).to.equal('Blender');
   });
   it('should return the correct binary names', () => {
-    const result = blender.binaries;
-    expect(result).to.deep.equal(['blender']);
+    const result = blender.binary;
+    expect(result).to.equal('blender');
   });
   it('should return TRUE if editor is installed', async () => {
-    isEditorInstalledStub.resolves(true);
+    isBinaryStub.resolves(true);
     const result = await blender.isEditorInstalled();
     expect(result).to.be.true;
   });
   it('should return FALSE if editor is not installed', async () => {
-    isEditorInstalledStub.resolves(false);
+    isBinaryStub.resolves(false);
     const result = await blender.isEditorInstalled();
     expect(result).to.be.false;
   });

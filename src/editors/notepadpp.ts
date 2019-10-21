@@ -1,18 +1,18 @@
-import os from "os";
+import os from 'os';
 
-import Editor from "./editor";
+import Editor from './editor';
 
 export default class Notepadpp extends Editor {
   public static getName(): string {
-    return "Notepadpp";
+    return 'Notepadpp';
   }
 
   public get name(): string {
-    return "Notepadpp";
+    return 'Notepadpp';
   }
 
   public get icon(): string {
-    return "";
+    return '';
   }
 
   public async isEditorInstalled(): Promise<boolean> {
@@ -24,26 +24,25 @@ export default class Notepadpp extends Editor {
   }
 
   public async installPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   public async uninstallPlugin(): Promise<void> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   private appDirectory(): string {
-    const is64bit: string | boolean =
-      process.arch === "x64" || process.env.PROCESSOR_ARCHITEW6432;
+    const is64bit: string | boolean = process.arch === 'x64' || process.env.PROCESSOR_ARCHITEW6432;
     switch (os.platform()) {
-      case "win32":
+      case 'win32':
         if (is64bit) {
-          return "C:\\Program Files\\Notepad++";
+          return 'C:\\Program Files\\Notepad++';
         }
-        return "C:\\Program Files(x86)\\Notepad++";
-      case "darwin":
-        return "";
-      case "linux":
-        return "";
+        return 'C:\\Program Files(x86)\\Notepad++';
+      case 'darwin':
+        return '';
+      case 'linux':
+        return '';
       default:
         return null;
     }
@@ -51,13 +50,13 @@ export default class Notepadpp extends Editor {
 
   private pluginsDirectory(): string {
     switch (os.platform()) {
-      case "win32": {
-        return "";
+      case 'win32': {
+        return '';
       }
-      case "darwin":
-        return "";
-      case "linux":
-        return "";
+      case 'darwin':
+        return '';
+      case 'linux':
+        return '';
       default:
         return null;
     }

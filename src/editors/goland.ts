@@ -1,10 +1,7 @@
 import os from 'os';
 
-import Editor from "./editor";
-import {
-  installJetbrainsPlugin,
-  unInstallJetbrainsPlugin
-} from "../utils/jetbrains";
+import Editor from './editor';
+import { installJetbrainsPlugin, unInstallJetbrainsPlugin } from '../utils/jetbrains';
 
 export default class GoLand extends Editor {
   public static getName(): string {
@@ -36,13 +33,11 @@ export default class GoLand extends Editor {
   }
 
   private appDirectory(): string {
-    let directory = "";
-    let pathsToCheck = ["2019.2", "2019.1", "2018.2", "2018.1"];
+    let directory = '';
+    let pathsToCheck = ['2019.2', '2019.1', '2018.2', '2018.1'];
     switch (os.platform()) {
-      case "win32":
-        pathsToCheck = pathsToCheck.map(
-          check => `${os.homedir()}\\.GoLand${check}`
-        );
+      case 'win32':
+        pathsToCheck = pathsToCheck.map(check => `${os.homedir()}\\.GoLand${check}`);
         pathsToCheck.some(pluginPath => {
           if (this.isDirectorySync(pluginPath)) {
             directory = pluginPath;
@@ -51,9 +46,9 @@ export default class GoLand extends Editor {
           return false;
         });
         return directory;
-      case "darwin":
-        return "/Applications/GoLand.app/Contents";
-      case "linux":
+      case 'darwin':
+        return '/Applications/GoLand.app/Contents';
+      case 'linux':
         return null;
       default:
         return null;
@@ -61,10 +56,10 @@ export default class GoLand extends Editor {
   }
 
   private pluginsDirectory(): string {
-    let directory = "";
+    let directory = '';
     switch (os.platform()) {
-      case "win32":
-      case "darwin":
+      case 'win32':
+      case 'darwin':
         this.pluginsDirectories().some(pluginPath => {
           if (this.isDirectorySync(pluginPath)) {
             directory = pluginPath;
@@ -73,8 +68,8 @@ export default class GoLand extends Editor {
           return false;
         });
         return directory;
-      case "linux":
-        return "";
+      case 'linux':
+        return '';
       default:
         return null;
     }
@@ -83,10 +78,8 @@ export default class GoLand extends Editor {
   private pluginsDirectories(): string[] {
     const pathsToCheck = ['2019.2', '2019.1', '2018.2', '2018.1'];
     switch (os.platform()) {
-      case "win32": {
-        return pathsToCheck.map(
-          check => `${os.homedir()}\\.GoLand${check}\\config\\plugins`
-        );
+      case 'win32': {
+        return pathsToCheck.map(check => `${os.homedir()}\\.GoLand${check}\\config\\plugins`);
       }
       case 'darwin':
         return pathsToCheck.map(

@@ -16,8 +16,7 @@ export default class AzureDataStudio extends Editor {
 
   public async isEditorInstalled(): Promise<boolean> {
     try {
-      const installed = await this.isDirectory(this.appDirectory());
-      return installed;
+      return this.isDirectorySync(this.appDirectory());
     } catch (err) {
       console.error(err);
       return false;
@@ -39,10 +38,10 @@ export default class AzureDataStudio extends Editor {
 
   private appDirectory(): string {
     switch (os.platform()) {
-      case "win32":
+      case 'win32':
         return `${os.homedir()}\\AppData\\Local\\Programs\\Azure Data Studio`;
-      case "darwin":
-        return "/Applications/Azure Data Studio.app/Contents";
+      case 'darwin':
+        return '/Applications/Azure Data Studio.app/Contents';
       default:
         return null;
     }

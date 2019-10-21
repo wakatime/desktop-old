@@ -17,11 +17,11 @@ export default class SublimeText2 extends Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    return await this.isDirectory(this.appDirectory());
+    return this.isDirectorySync(this.appDirectory());
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.isDirectory(path.join(this.pluginsDirectory(), 'WakaTime'));
+    return this.isDirectorySync(path.join(this.pluginsDirectory(), 'WakaTime'));
   }
 
   public async installPlugin(): Promise<void> {

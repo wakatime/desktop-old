@@ -21,14 +21,18 @@ export default class AppCode extends Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    return (
-      (await this.isDirectory(this.appDirectory()[0])) ||
-      (await this.isDirectory(this.appDirectory()[1]))
-    );
+    try {
+      return this.appDirectory().some(directory => {
+        return this.isDirectorySync(directory);
+      });
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.isFileSync(`${this.pluginsDirectory()}/WakaTime.jar`);
+    return this.isFileSync(`${this.pluginsDirectory()}/WakaTime.jar`);
   }
 
   public async installPlugin(): Promise<void> {
@@ -41,19 +45,17 @@ export default class AppCode extends Editor {
 
   private appDirectory(): string[] {
     const directories = [];
-    const pathsToCheck = ["2019.2", "2019.1", "2018.2", "2018.1"];
+    const pathsToCheck = ['2019.2', '2019.1', '2018.2', '2018.1'];
     let intelliJIdea = [];
     let IdeaIC = [];
     switch (os.platform()) {
-      case "win32":
-        intelliJIdea = pathsToCheck.map(
-          check => `${os.homedir()}\\.IntelliJIdea${check}`
-        );
+      case 'win32':
+        intelliJIdea = pathsToCheck.map(check => `${os.homedir()}\\.IntelliJIdea${check}`);
         IdeaIC = pathsToCheck.map(check => `${os.homedir()}\\.IdeaIC${check}`);
         directories.push(this.directory(intelliJIdea));
         directories.push(this.directory(IdeaIC));
         return directories;
-      case "darwin":
+      case 'darwin':
         return [
           '/Applications/IntelliJ IDEA CE.app/Contents', // This one is Community edition
           '/Applications/IntelliJ IDEA.app/Contents', // This one is Ultimate edition
@@ -67,18 +69,18 @@ export default class AppCode extends Editor {
 
   private pluginsDirectory(): string {
     switch (os.platform()) {
-      case "win32":
-      case "darwin":
+      case 'win32':
+      case 'darwin':
         return this.directory(this.pluginsDirectories());
-      case "linux":
-        return "";
+      case 'linux':
+        return '';
       default:
         return null;
     }
   }
 
   private directory(directories: Array<string>): string {
-    let directory = "";
+    let directory = '';
     directories.some(pluginPath => {
       if (this.isDirectorySync(pluginPath)) {
         directory = pluginPath;
@@ -94,13 +96,11 @@ export default class AppCode extends Editor {
     let intelliJIdea = [];
     let IdeaIC = [];
     switch (os.platform()) {
-      case "win32": {
+      case 'win32': {
         intelliJIdea = pathsToCheck.map(
-          path => `${os.homedir()}\\.IntelliJIdea${path}\\config\\plugins`
+          path => `${os.homedir()}\\.IntelliJIdea${path}\\config\\plugins`,
         );
-        IdeaIC = pathsToCheck.map(
-          path => `${os.homedir()}\\.IdeaIC${path}\\config\\plugins`
-        );
+        IdeaIC = pathsToCheck.map(path => `${os.homedir()}\\.IdeaIC${path}\\config\\plugins`);
         return intelliJIdea.concat(IdeaIC);
       }
       case 'darwin':

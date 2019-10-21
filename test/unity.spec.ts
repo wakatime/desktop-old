@@ -10,14 +10,14 @@ chai.use(chaiAsPromised);
 
 describe('Unity', () => {
   let unity: Unity;
-  let isEditorInstalledStub: any;
+  let isDirectoryStub: any;
 
   beforeEach(() => {
     unity = new Unity();
-    isEditorInstalledStub = sinon.stub(unity, 'isEditorInstalled');
+    isDirectoryStub = sinon.stub(unity, 'isDirectory');
   });
   afterEach(() => {
-    isEditorInstalledStub.restore();
+    isDirectoryStub.restore();
   });
   it('should return the correct key name', () => {
     const result = unity.key;
@@ -28,12 +28,12 @@ describe('Unity', () => {
     expect(result).to.equal('Unity');
   });
   it('should return TRUE if editor is installed', async () => {
-    isEditorInstalledStub.resolves(true);
+    isDirectoryStub.resolves(true);
     const result = await unity.isEditorInstalled();
     expect(result).to.be.true;
   });
   it('should return FALSE if editor is not installed', async () => {
-    isEditorInstalledStub.resolves(false);
+    isDirectoryStub.resolves(false);
     const result = await unity.isEditorInstalled();
     expect(result).to.be.false;
   });

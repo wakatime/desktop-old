@@ -16,9 +16,9 @@ describe('Kakoune', () => {
 
   beforeEach(() => {
     kakoune = new Kakoune();
-    brewListStub = sinon.stub(kakoune, "brewList");
-    isHomebrewInstalledStub = sinon.stub(kakoune, "isHomebrewInstalled");
-    fileExistsSyncStub = sinon.stub(kakoune, "fileExistsSync");
+    brewListStub = sinon.stub(kakoune, 'brewList');
+    isHomebrewInstalledStub = sinon.stub(kakoune, 'isHomebrewInstalled');
+    fileExistsSyncStub = sinon.stub(kakoune, 'fileExistsSync');
   });
   afterEach(() => {
     brewListStub.restore();
@@ -33,19 +33,19 @@ describe('Kakoune', () => {
     const result = kakoune.name;
     expect(result).to.equal('Kakoune');
   });
-  it("should return TRUE if editor is installed", async () => {
+  it('should return TRUE if editor is installed', async () => {
     isHomebrewInstalledStub.resolves(true);
-    brewListStub.resolves("bla bla kakoune bla bla");
+    brewListStub.resolves('bla bla kakoune bla bla');
     const result = await kakoune.isEditorInstalled();
     expect(result).to.be.true;
   });
-  it("should return FALSE if editor is not installed", async () => {
+  it('should return FALSE if editor is not installed', async () => {
     isHomebrewInstalledStub.resolves(true);
-    brewListStub.resolves("");
+    brewListStub.resolves('');
     const result = await kakoune.isEditorInstalled();
     expect(result).to.be.false;
   });
-  it("should return TRUE if plugin is installed", async () => {
+  it('should return TRUE if plugin is installed', async () => {
     fileExistsSyncStub.resolves(true);
     const result = await kakoune.isPluginInstalled();
     expect(result).to.be.true;

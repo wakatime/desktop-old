@@ -10,14 +10,14 @@ chai.use(chaiAsPromised);
 
 describe('Azure Data Studio', () => {
   let azureDataStudio: AzureDataStudio;
-  let isDirectoryStub: any;
+  let isDirectorySyncStub: any;
 
   beforeEach(() => {
     azureDataStudio = new AzureDataStudio();
-    isDirectoryStub = sinon.stub(azureDataStudio, 'isDirectory');
+    isDirectorySyncStub = sinon.stub(azureDataStudio, 'isDirectorySync');
   });
   afterEach(() => {
-    isDirectoryStub.restore();
+    isDirectorySyncStub.restore();
   });
   it('should return the correct key name', () => {
     const result = azureDataStudio.key;
@@ -28,13 +28,13 @@ describe('Azure Data Studio', () => {
     expect(result).to.equal('Azure Data Studio');
   });
   it('should return TRUE if editor is installed', async () => {
-    isDirectoryStub.resolves(true);
+    isDirectorySyncStub.resolves(true);
     const result = await azureDataStudio.isEditorInstalled();
     expect(result).to.be.true;
   });
-  // it('should return FALSE if editor is not installed', async () => {
-  //     isDirectoryStub.resolves(false);
-  //     const result = await vscode.isEditorInstalled();
-  //     expect(result).to.be.false;
-  // });
+  it('should return FALSE if editor is not installed', async () => {
+    isDirectorySyncStub.resolves(false);
+    const result = await azureDataStudio.isEditorInstalled();
+    expect(result).to.be.false;
+  });
 });

@@ -10,14 +10,14 @@ chai.use(chaiAsPromised);
 
 describe('Vim', () => {
   let vim: Vim;
-  let isEditorInstalledStub: any;
+  let isBinaryStub: any;
 
   beforeEach(() => {
     vim = new Vim();
-    isEditorInstalledStub = sinon.stub(vim, 'isEditorInstalled');
+    isBinaryStub = sinon.stub(vim, 'isBinary');
   });
   afterEach(() => {
-    isEditorInstalledStub.restore();
+    isBinaryStub.restore();
   });
   it('should return the correct key name', () => {
     const result = vim.key;
@@ -32,12 +32,12 @@ describe('Vim', () => {
     expect(result).to.deep.equal(['vi', 'vim']);
   });
   it('should return TRUE if editor is installed', async () => {
-    isEditorInstalledStub.resolves(true);
+    isBinaryStub.resolves(true);
     const result = await vim.isEditorInstalled();
     expect(result).to.be.true;
   });
   it('should return FALSE if editor is not installed', async () => {
-    isEditorInstalledStub.resolves(false);
+    isBinaryStub.resolves(false);
     const result = await vim.isEditorInstalled();
     expect(result).to.be.false;
   });

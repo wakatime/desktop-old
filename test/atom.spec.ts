@@ -10,18 +10,18 @@ chai.use(chaiAsPromised);
 
 describe('Atom', () => {
   let atom: Atom;
-  let isEditorInstalledStub: any;
+  let isBinaryStub: any;
   let isDirectoryStub: any;
   let apmStub: any;
 
   beforeEach(() => {
     atom = new Atom();
-    isEditorInstalledStub = sinon.stub(atom, 'isEditorInstalled');
+    isBinaryStub = sinon.stub(atom, 'isBinary');
     isDirectoryStub = sinon.stub(atom, 'isDirectory');
     apmStub = sinon.stub(atom, 'apm');
   });
   afterEach(() => {
-    isEditorInstalledStub.restore();
+    isBinaryStub.restore();
     isDirectoryStub.restore();
     apmStub.restore();
   });
@@ -33,17 +33,17 @@ describe('Atom', () => {
     const result = atom.name;
     expect(result).to.equal('Atom');
   });
-  it('should return the correct binary names', () => {
-    const result = atom.binaries;
-    expect(result).to.deep.equal(['atom']);
+  it('should return the correct binary name', () => {
+    const result = atom.binary;
+    expect(result).to.equal('atom');
   });
   it('should return TRUE if editor is installed', async () => {
-    isEditorInstalledStub.resolves(true);
+    isBinaryStub.resolves(true);
     const result = await atom.isEditorInstalled();
     expect(result).to.be.true;
   });
   it('should return FALSE if editor is not installed', async () => {
-    isEditorInstalledStub.resolves(false);
+    isBinaryStub.resolves(false);
     const result = await atom.isEditorInstalled();
     expect(result).to.be.false;
   });

@@ -17,7 +17,7 @@ export default class DataGrip extends Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    return await this.isDirectory(this.appDirectory());
+    return await this.isDirectorySync(this.appDirectory());
   }
 
   public async isPluginInstalled(): Promise<boolean> {
@@ -33,13 +33,11 @@ export default class DataGrip extends Editor {
   }
 
   private appDirectory(): string {
-    let directory = "";
-    let pathsToCheck = ["2019.2", "2019.1", "2018.2", "2018.1"];
+    let directory = '';
+    let pathsToCheck = ['2019.2', '2019.1', '2018.2', '2018.1'];
     switch (os.platform()) {
-      case "win32":
-        pathsToCheck = pathsToCheck.map(
-          check => `${os.homedir()}\\.DataGrip${check}`
-        );
+      case 'win32':
+        pathsToCheck = pathsToCheck.map(check => `${os.homedir()}\\.DataGrip${check}`);
         pathsToCheck.some(pluginPath => {
           if (this.isDirectorySync(pluginPath)) {
             directory = pluginPath;
@@ -48,9 +46,9 @@ export default class DataGrip extends Editor {
           return false;
         });
         return directory;
-      case "darwin":
-        return "/Applications/DataGrip.app/Contents";
-      case "linux":
+      case 'darwin':
+        return '/Applications/DataGrip.app/Contents';
+      case 'linux':
         return null;
       default:
         return null;
@@ -60,8 +58,8 @@ export default class DataGrip extends Editor {
   private pluginsDirectory(): string {
     let directory = '';
     switch (os.platform()) {
-      case "win32":
-      case "darwin":
+      case 'win32':
+      case 'darwin':
         this.pluginsDirectories().some(pluginPath => {
           if (this.isDirectorySync(pluginPath)) {
             directory = pluginPath;
@@ -80,10 +78,8 @@ export default class DataGrip extends Editor {
   private pluginsDirectories(): string[] {
     const pathsToCheck = ['2019.2', '2019.1', '2018.2', '2018.1'];
     switch (os.platform()) {
-      case "win32": {
-        return pathsToCheck.map(
-          check => `${os.homedir()}\\.DataGrip${check}\\config\\plugins`
-        );
+      case 'win32': {
+        return pathsToCheck.map(check => `${os.homedir()}\\.DataGrip${check}\\config\\plugins`);
       }
       case 'darwin':
         return pathsToCheck.map(

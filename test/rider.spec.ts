@@ -10,14 +10,17 @@ chai.use(chaiAsPromised);
 
 describe('Rider', () => {
   let rider: Rider;
-  let isDirectoryStub: any;
+  let isDirectorySyncStub: any;
+  let isFileSyncStub: any;
 
   beforeEach(() => {
     rider = new Rider();
-    isDirectoryStub = sinon.stub(rider, 'isDirectory');
+    isDirectorySyncStub = sinon.stub(rider, 'isDirectorySync');
+    isFileSyncStub = sinon.stub(rider, 'isFileSync');
   });
   afterEach(() => {
-    isDirectoryStub.restore();
+    isDirectorySyncStub.restore();
+    isFileSyncStub.restore();
   });
   it('should return the correct key name', () => {
     const result = rider.key;
@@ -28,18 +31,23 @@ describe('Rider', () => {
     expect(result).to.equal('Rider');
   });
   it('should return TRUE if editor is installed', async () => {
-    isDirectoryStub.resolves(true);
+    isDirectorySyncStub.resolves(true);
     const result = await rider.isEditorInstalled();
     expect(result).to.be.true;
   });
-  // it("should return TRUE if plugin is installed", async () => {
-  //   listExtensionsStub.resolves(true);
-  //   const result = await vscode.isPluginInstalled();
-  //   expect(result).to.be.true;
-  // });
-  // it("should return FALSE if plugin is n ot installed", async () => {
-  //   listExtensionsStub.resolves(false);
-  //   const result = await vscode.isPluginInstalled();
-  //   expect(result).to.be.false;
-  // });
+  it('should return FALSE if editor is not installed', async () => {
+    isDirectorySyncStub.returns(false);
+    const result = await rider.isEditorInstalled();
+    expect(result).to.be.false;
+  });
+  it('should return TRUE if plugin is installed', async () => {
+    isFileSyncStub.returns(true);
+    const result = await rider.isPluginInstalled();
+    expect(result).to.be.true;
+  });
+  it('should return FALSE if plugin is n ot installed', async () => {
+    isFileSyncStub.returns(false);
+    const result = await rider.isPluginInstalled();
+    expect(result).to.be.false;
+  });
 });

@@ -10,14 +10,17 @@ chai.use(chaiAsPromised);
 
 describe('Terminal', () => {
   let terminal: Terminal;
-  let isEditorInstalledStub: any;
+  let isAnyTerminalAvailableStub: any;
+  let isAnyTerminalInstalledStub: any;
 
   beforeEach(() => {
     terminal = new Terminal();
-    isEditorInstalledStub = sinon.stub(terminal, 'isEditorInstalled');
+    isAnyTerminalAvailableStub = sinon.stub(terminal, 'isAnyTerminalAvailable');
+    isAnyTerminalInstalledStub = sinon.stub(terminal, 'isAnyTerminalInstalled');
   });
   afterEach(() => {
-    isEditorInstalledStub.restore();
+    isAnyTerminalAvailableStub.restore();
+    isAnyTerminalInstalledStub.restore();
   });
   it('should return the correct key name', () => {
     const result = terminal.key;
@@ -32,13 +35,23 @@ describe('Terminal', () => {
     expect(result).to.deep.equal(['bash', 'zsh', 'iterm', 'fish']);
   });
   it('should return TRUE if editor is installed', async () => {
-    isEditorInstalledStub.resolves(true);
+    isAnyTerminalAvailableStub.returns(true);
     const result = await terminal.isEditorInstalled();
     expect(result).to.be.true;
   });
   it('should return FALSE if editor is not installed', async () => {
-    isEditorInstalledStub.resolves(false);
+    isAnyTerminalAvailableStub.returns(false);
     const result = await terminal.isEditorInstalled();
+    expect(result).to.be.false;
+  });
+  it('should return TRUE if plugin is installed', async () => {
+    isAnyTerminalInstalledStub.returns(true);
+    const result = await terminal.isPluginInstalled();
+    expect(result).to.be.true;
+  });
+  it('should return FALSE if plugin is not installed', async () => {
+    isAnyTerminalInstalledStub.returns(false);
+    const result = await terminal.isPluginInstalled();
     expect(result).to.be.false;
   });
 });

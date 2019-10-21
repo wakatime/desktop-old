@@ -25,8 +25,12 @@ export default class Eric extends Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    const list = await this.pipList();
-    return list.includes('eric-ide');
+    try {
+      const list = await this.pipList();
+      return list.includes('eric-ide');
+    } catch (err) {
+      return false;
+    }
   }
 
   public async isPluginInstalled(): Promise<boolean> {

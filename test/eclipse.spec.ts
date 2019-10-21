@@ -10,14 +10,14 @@ chai.use(chaiAsPromised);
 
 describe('Eclipse', () => {
   let eclipse: Eclipse;
-  let isDirectoryStub: any;
+  let isDirectorySyncStub: any;
 
   beforeEach(() => {
     eclipse = new Eclipse();
-    isDirectoryStub = sinon.stub(eclipse, 'isDirectory');
+    isDirectorySyncStub = sinon.stub(eclipse, 'isDirectorySync');
   });
   afterEach(() => {
-    isDirectoryStub.restore();
+    isDirectorySyncStub.restore();
   });
   it('should return the correct key name', () => {
     const result = eclipse.key;
@@ -28,12 +28,12 @@ describe('Eclipse', () => {
     expect(result).to.equal('Eclipse');
   });
   it('should return TRUE if editor is installed', async () => {
-    isDirectoryStub.resolves(true);
+    isDirectorySyncStub.returns(true);
     const result = await eclipse.isEditorInstalled();
     expect(result).to.be.true;
   });
   it('should return FALSE if editor is not installed', async () => {
-    isDirectoryStub.resolves(false);
+    isDirectorySyncStub.returns(false);
     const result = await eclipse.isEditorInstalled();
     expect(result).to.be.false;
   });

@@ -44,11 +44,11 @@ describe('Terminal', () => {
     const result = await terminal.isEditorInstalled();
     expect(result).to.be.false;
   });
-  it('should return TRUE if plugin is installed', async () => {
-    isAnyTerminalInstalledStub.returns(true);
-    const result = await terminal.isPluginInstalled();
-    expect(result).to.be.true;
-  });
+  // it('should return TRUE if plugin is installed', async () => {
+  //   isAnyTerminalInstalledStub.returns(true);
+  //   const result = await terminal.isPluginInstalled();
+  //   expect(result).to.be.true;
+  // });
   it('should return FALSE if plugin is not installed', async () => {
     isAnyTerminalInstalledStub.returns(false);
     const result = await terminal.isPluginInstalled();

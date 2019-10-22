@@ -25,14 +25,8 @@ export default class Gedit extends Editor {
   public async isEditorInstalled(): Promise<boolean> {
     if (await this.isDirectory(this.appDirectory())) return true;
 
-    if (await this.commandExists.exists('brew')) {
-      const { stdout, stderr } = await exec('brew list');
-      if (stderr) return Promise.reject(new Error(stderr));
-
-      return stdout.includes('gedit');
-    }
-
-    return false;
+    const list = await this.brewList();
+    return list.includes('gedit');
   }
 
   public async isPluginInstalled(): Promise<boolean> {
@@ -45,6 +39,21 @@ export default class Gedit extends Editor {
 
   public async uninstallPlugin(): Promise<void> {
     throw new Error('Method not implemented.');
+  }
+
+  public async isHomebrewInstalled(): Promise<boolean> {
+    return await this.commandExists.exists('brew');
+  }
+
+  public async brewList(): Promise<string> {
+    if (await this.isHomebrewInstalled()) {
+      const { stdout, stderr } = await exec('brew list');
+      if (stderr) return Promise.reject(new Error(stderr));
+
+      return stdout;
+    }
+
+    return '';
   }
 
   public pluginsDirectory(): string {

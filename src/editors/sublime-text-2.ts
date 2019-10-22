@@ -1,5 +1,8 @@
+import { Extract } from 'unzipper';
 import os from 'os';
 import path from 'path';
+import fs from 'fs';
+import request from 'request';
 
 import Editor from './editor';
 
@@ -25,11 +28,44 @@ export default class SublimeText2 extends Editor {
   }
 
   public async installPlugin(): Promise<void> {
-    return Promise.reject(new Error('method not implemented'));
+    let temp = path.join(os.tmpdir(), 'WakaTime', 'sublime');
+
+    // Create the temp folder first if this does not exists yet
+    fs.mkdirSync(temp, { recursive: true });
+
+    temp = path.join(temp, 'sublime-wakatime-master.zip');
+
+    const file = fs.createWriteStream(temp);
+
+    await new Promise((resolve, reject) => {
+      request({
+        uri:
+          'https://codeload.github.com/wakatime/sublime-wakatime/zip/master',
+        gzip: true,
+      })
+        .pipe(file)
+        .on('finish', async () => {
+          const pluginsDirectory = this.pluginsDirectory();
+          const stream2 = await fs.createReadStream(temp);
+          const extracted = path.join(os.tmpdir(), 'WakaTime', 'sublime', 'zip');
+          await stream2.pipe(Extract({ path: extracted }));
+          fs.renameSync(path.join(extracted, 'sublime-wakatime-master'), path.join(pluginsDirectory, 'WakaTime'))
+          fs.unlinkSync(temp);
+          resolve();
+        })
+        .on('error', (err: any) => {
+          console.error(err);
+          reject(err);
+        });
+    }).catch(err => {
+      console.error(err);
+    });
   }
 
   public async uninstallPlugin(): Promise<void> {
-    return Promise.reject(new Error('method not implemented'));
+    const pluginPath = path.join(this.pluginsDirectory(), 'WakaTime');
+    await fs.rmdirSync(pluginPath);
+    return Promise.resolve();
   }
 
   private appDirectory(): string {

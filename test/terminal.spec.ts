@@ -1,3 +1,4 @@
+import os from 'os';
 import Terminal from '../src/editors/terminal';
 
 const sinon = require('sinon');
@@ -12,11 +13,13 @@ describe('Terminal', () => {
   let terminal: Terminal;
   let isAnyTerminalAvailableStub: any;
   let isAnyTerminalInstalledStub: any;
+  let osPlatformDarwinFake: any;
 
   beforeEach(() => {
     terminal = new Terminal();
     isAnyTerminalAvailableStub = sinon.stub(terminal, 'isAnyTerminalAvailable');
     isAnyTerminalInstalledStub = sinon.stub(terminal, 'isAnyTerminalInstalled');
+    osPlatformDarwinFake = sinon.fake.returns('darwin');
   });
   afterEach(() => {
     isAnyTerminalAvailableStub.restore();
@@ -44,12 +47,13 @@ describe('Terminal', () => {
     const result = await terminal.isEditorInstalled();
     expect(result).to.be.false;
   });
-  // it('should return TRUE if plugin is installed', async () => {
-  //   isAnyTerminalInstalledStub.returns(true);
-  //   const result = await terminal.isPluginInstalled();
-  //   expect(result).to.be.true;
-  // });
+  it('should return TRUE if plugin is installed', async () => {
+    isAnyTerminalInstalledStub.returns(true);
+    const result = await terminal.isPluginInstalled();
+    expect(result).to.be.true;
+  });
   it('should return FALSE if plugin is not installed', async () => {
+    sinon.replace(os, 'platform', osPlatformDarwinFake);
     isAnyTerminalInstalledStub.returns(false);
     const result = await terminal.isPluginInstalled();
     expect(result).to.be.false;

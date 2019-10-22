@@ -48,20 +48,20 @@ export default class Coda extends Editor {
   private appDirectory(): string[] {
     switch (os.platform()) {
       case 'win32':
-        return [];
+        return [''];
       case 'darwin':
         return ['/Applications/Coda.app/Contents', '/Applications/Coda 2.app/Contents'];
       case 'linux':
-        return [];
+        return [''];
       default:
-        return [];
+        return [''];
     }
   }
 
   private pluginsDirectory(): string[] {
     switch (os.platform()) {
       case 'win32': {
-        return [];
+        return [''];
       }
       case 'darwin':
         return [
@@ -69,9 +69,9 @@ export default class Coda extends Editor {
           '~/Library/Application Support/Coda 2/Plug-ins/WakaTime.codaplugin',
         ];
       case 'linux':
-        return [];
+        return [''];
       default:
-        return [];
+        return [''];
     }
   }
 }

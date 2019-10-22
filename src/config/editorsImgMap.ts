@@ -2,6 +2,7 @@ import editors from '../constants/editors';
 import {
   androidStudio128Path,
   appcode128Path,
+  aptana128Path,
   atom128Path,
   azureDataStudio128Path,
   blender128Path,
@@ -43,6 +44,7 @@ interface EditorImageMap {
 const imgMap: EditorImageMap = {
   [editors.AndroidStudio.getName()]: androidStudio128Path,
   [editors.AppCode.getName()]: appcode128Path,
+  [editors.Aptana.getName()]: aptana128Path,
   [editors.Atom.getName()]: atom128Path,
   [editors.AzureDataStudio.getName()]: azureDataStudio128Path,
   [editors.Blender.getName()]: blender128Path,
@@ -52,7 +54,7 @@ const imgMap: EditorImageMap = {
   [editors.Coda.getName()]: coda128Path,
   [editors.DataGrip.getName()]: datagrip128Path,
   [editors.Eclipse.getName()]: eclipse128Path,
-  [editors.Eric.getName()]: eclipse128Path,
+  [editors.Eric.getName()]: eric128Path,
   [editors.Gedit.getName()]: gedit128Path,
   [editors.GoLand.getName()]: goland128Path,
   [editors.IntelliJ.getName()]: intellijIdea128Path,

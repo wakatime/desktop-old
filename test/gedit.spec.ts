@@ -10,23 +10,16 @@ chai.use(chaiAsPromised);
 
 describe('Gedit', () => {
   let gedit: Gedit;
-  let isEditorInstalledStub: any;
   let isDirectoryStub: any;
-  let pluginsDirectoryStub: any;
-  let appDirectoryStub: any;
+  let brewListStub: any;
 
   beforeEach(() => {
     gedit = new Gedit();
-    isEditorInstalledStub = sinon.stub(gedit, 'isEditorInstalled');
     isDirectoryStub = sinon.stub(gedit, 'isDirectory');
-    pluginsDirectoryStub = sinon.stub(gedit, 'pluginsDirectory');
-    appDirectoryStub = sinon.stub(gedit, 'appDirectory');
+    brewListStub = sinon.stub(gedit, 'brewList');
   });
   afterEach(() => {
-    isEditorInstalledStub.restore();
-    isDirectoryStub.restore();
-    pluginsDirectoryStub.restore();
-    appDirectoryStub.restore();
+    sinon.restore();
   });
   it('should return the correct key name', () => {
     const result = gedit.key;
@@ -37,24 +30,29 @@ describe('Gedit', () => {
     expect(result).to.equal('Gedit');
   });
   it('should return TRUE if editor is installed', async () => {
-    isEditorInstalledStub.resolves(true);
+    isDirectoryStub.resolves(true);
+    const result = await gedit.isEditorInstalled();
+    expect(result).to.be.true;
+  });
+  it('should return TRUE if editor is installed (Homebrew)', async () => {
+    isDirectoryStub.resolves(false);
+    brewListStub.resolves('bla bla gedit bla bla');
     const result = await gedit.isEditorInstalled();
     expect(result).to.be.true;
   });
   it('should return FALSE if editor is not installed', async () => {
-    isEditorInstalledStub.resolves(false);
+    isDirectoryStub.resolves(false);
+    brewListStub.resolves('');
     const result = await gedit.isEditorInstalled();
     expect(result).to.be.false;
   });
   it('should return TRUE if plugin is installed', async () => {
-    isDirectoryStub.returns(true);
-    pluginsDirectoryStub.returns('');
+    isDirectoryStub.resolves(true);
     const result = await gedit.isPluginInstalled();
     expect(result).to.be.true;
   });
   it('should return FALSE if plugin is not installed', async () => {
-    isDirectoryStub.returns(false);
-    pluginsDirectoryStub.returns('');
+    isDirectoryStub.resolves(false);
     const result = await gedit.isPluginInstalled();
     expect(result).to.be.false;
   });

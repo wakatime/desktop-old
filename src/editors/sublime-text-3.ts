@@ -39,8 +39,7 @@ export default class SublimeText3 extends Editor {
 
     await new Promise((resolve, reject) => {
       request({
-        uri:
-          'https://codeload.github.com/wakatime/sublime-wakatime/zip/master',
+        uri: 'https://codeload.github.com/wakatime/sublime-wakatime/zip/master',
         gzip: true,
       })
         .pipe(file)
@@ -49,7 +48,10 @@ export default class SublimeText3 extends Editor {
           const stream2 = await fs.createReadStream(temp);
           const extracted = path.join(os.tmpdir(), 'WakaTime', 'sublime', 'zip');
           await stream2.pipe(Extract({ path: extracted }));
-          fs.renameSync(path.join(extracted, 'sublime-wakatime-master'), path.join(pluginsDirectory, 'WakaTime'))
+          fs.renameSync(
+            path.join(extracted, 'sublime-wakatime-master'),
+            path.join(pluginsDirectory, 'WakaTime'),
+          );
           fs.unlinkSync(temp);
           resolve();
         })

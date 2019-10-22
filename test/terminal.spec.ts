@@ -22,8 +22,7 @@ describe('Terminal', () => {
     osPlatformDarwinFake = sinon.fake.returns('darwin');
   });
   afterEach(() => {
-    isAnyTerminalAvailableStub.restore();
-    isAnyTerminalInstalledStub.restore();
+    sinon.restore();
   });
   it('should return the correct key name', () => {
     const result = terminal.key;

@@ -48,6 +48,7 @@ describe('Terminal', () => {
     expect(result).to.be.false;
   });
   it('should return TRUE if plugin is installed', async () => {
+    sinon.replace(os, 'platform', osPlatformDarwinFake);
     isAnyTerminalInstalledStub.returns(true);
     const result = await terminal.isPluginInstalled();
     expect(result).to.be.true;

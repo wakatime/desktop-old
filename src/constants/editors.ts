@@ -1,5 +1,6 @@
 import AndroidStudio from '../editors/android-studio';
 import AppCode from '../editors/appcode';
+import Aptana from '../editors/aptana';
 import Atom from '../editors/atom';
 import AzureDataStudio from '../editors/azure-data-studio';
 import Blender from '../editors/blender';
@@ -37,6 +38,7 @@ import XCode from '../editors/xcode';
 export default {
   AndroidStudio,
   AppCode,
+  Aptana,
   Atom,
   AzureDataStudio,
   Blender,

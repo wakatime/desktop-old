@@ -3,6 +3,7 @@ import os from 'os';
 import Editor from './editor';
 
 const Registry = require('winreg');
+const Registry2 = require('registry-js');
 const readdirp = require('readdirp');
 
 export default class VisualStudio extends Editor {
@@ -105,6 +106,15 @@ export default class VisualStudio extends Editor {
       hive: Registry.HKCR,
       key,
     });
+    console.log('=============================1');
+    console.log(regkey);
+    console.log('=============================');
+    const { enumerateValues, HKEY } = Registry2;
+    const regkey2 = enumerateValues(HKEY.HKCR, key);
+    console.log('=============================2');
+    console.log(regkey2);
+    console.log('=============================');
+
     let exist = false;
     regkey.values(function(err, items) {
       if (err) {

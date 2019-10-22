@@ -52,7 +52,7 @@ const imgMap: EditorImageMap = {
   [editors.Coda.getName()]: coda128Path,
   [editors.DataGrip.getName()]: datagrip128Path,
   [editors.Eclipse.getName()]: eclipse128Path,
-  [editors.Eric.getName()]: eclipse128Path,
+  [editors.Eric.getName()]: eric128Path,
   [editors.Gedit.getName()]: gedit128Path,
   [editors.GoLand.getName()]: goland128Path,
   [editors.IntelliJ.getName()]: intellijIdea128Path,

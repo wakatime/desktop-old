@@ -31,7 +31,7 @@ export default class Atom extends Editor {
 
   public async isEditorInstalled(): Promise<boolean> {
     try {
-      return await this.isBinary(this.binary) || this.isDirectorySync(this.appDirectory());
+      return (await this.isBinary(this.binary)) || this.isDirectorySync(this.appDirectory());
     } catch (err) {
       console.error(err);
       return false;

@@ -1,5 +1,8 @@
+import { Extract } from 'unzipper';
 import os from 'os';
 import path from 'path';
+import fs from 'fs';
+import request from 'request';
 
 import { CommandExists } from '../lib/command-exists';
 import Editor from './editor';
@@ -28,7 +31,7 @@ export default class Atom extends Editor {
 
   public async isEditorInstalled(): Promise<boolean> {
     try {
-      return await this.isBinary(this.binary);
+      return await this.isBinary(this.binary) || this.isDirectorySync(this.appDirectory());
     } catch (err) {
       console.error(err);
       return false;
@@ -47,15 +50,70 @@ export default class Atom extends Editor {
   }
 
   public async installPlugin(): Promise<void> {
-    return Promise.reject(new Error('method not implemented'));
+    let temp = path.join(os.tmpdir(), 'WakaTime', 'atom');
+
+    // Create the temp folder first if this does not exists yet
+    fs.mkdirSync(temp, { recursive: true });
+
+    temp = path.join(temp, 'atom-wakatime-master.zip');
+
+    const file = fs.createWriteStream(temp);
+
+    await new Promise((resolve, reject) => {
+      request({
+        uri: 'https://github.com/wakatime/atom-wakatime/archive/v7.1.1.zip',
+        gzip: true,
+      })
+        .pipe(file)
+        .on('finish', async () => {
+          // temp directory where the pluging content is going to be extracted
+          const extracted = path.join(os.tmpdir(), 'WakaTime', 'atom', 'zip');
+          fs.mkdirSync(extracted, { recursive: true });
+
+          const pluginsDirectory = this.pluginsDirectory();
+          const stream2 = await fs.createReadStream(temp);
+          await stream2.pipe(Extract({ path: extracted }));
+          fs.renameSync(
+            path.join(extracted, 'atom-wakatime-7.1.1'),
+            path.join(pluginsDirectory, 'wakatime'),
+          );
+
+          // Run the packages installation
+          await exec(`npm i --prefix ${path.join(pluginsDirectory, 'wakatime')}`);
+
+          fs.unlinkSync(temp);
+          resolve();
+        })
+        .on('error', (err: any) => {
+          console.error(err);
+          reject(err);
+        });
+    }).catch(err => {
+      console.error(err);
+    });
   }
 
   public async uninstallPlugin(): Promise<void> {
-    return Promise.reject(new Error('method not implemented'));
+    const pluginPath = path.join(this.pluginsDirectory(), 'wakatime');
+    await fs.rmdirSync(pluginPath);
+    return Promise.resolve();
   }
 
   public async isBinary(binary: string): Promise<boolean> {
     return await this.commandExists.exists(binary);
+  }
+
+  private appDirectory(): string {
+    switch (os.platform()) {
+      case 'win32':
+        return null;
+      case 'darwin':
+        return '/Applications/Atom.app/Contents';
+      case 'linux':
+        return null;
+      default:
+        return null;
+    }
   }
 
   public pluginsDirectory(): string {

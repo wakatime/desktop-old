@@ -12,17 +12,20 @@ describe('Atom', () => {
   let atom: Atom;
   let isBinaryStub: any;
   let isDirectoryStub: any;
+  let isDirectorySyncStub: any;
   let apmStub: any;
 
   beforeEach(() => {
     atom = new Atom();
     isBinaryStub = sinon.stub(atom, 'isBinary');
     isDirectoryStub = sinon.stub(atom, 'isDirectory');
+    isDirectorySyncStub = sinon.stub(atom, 'isDirectorySync');
     apmStub = sinon.stub(atom, 'apm');
   });
   afterEach(() => {
     isBinaryStub.restore();
     isDirectoryStub.restore();
+    isDirectorySyncStub.restore();
     apmStub.restore();
   });
   it('should return the correct key name', () => {
@@ -44,6 +47,7 @@ describe('Atom', () => {
   });
   it('should return FALSE if editor is not installed', async () => {
     isBinaryStub.resolves(false);
+    isDirectorySyncStub.returns(false);
     const result = await atom.isEditorInstalled();
     expect(result).to.be.false;
   });

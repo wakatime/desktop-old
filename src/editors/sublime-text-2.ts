@@ -47,6 +47,7 @@ export default class SublimeText2 extends Editor {
           const pluginsDirectory = this.pluginsDirectory();
           const stream2 = await fs.createReadStream(temp);
           const extracted = path.join(os.tmpdir(), 'WakaTime', 'sublime', 'zip');
+          fs.mkdirSync(extracted, { recursive: true });
           await stream2.pipe(Extract({ path: extracted }));
           fs.renameSync(
             path.join(extracted, 'sublime-wakatime-master'),

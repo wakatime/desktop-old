@@ -1,8 +1,7 @@
 import os from 'os';
+import path from 'path';
 
 import Editor from './editor';
-
-const readdirp = require('readdirp');
 
 export default class SqlServerManagementStudio extends Editor {
   private versions: { [id: number]: number } = {
@@ -34,20 +33,9 @@ export default class SqlServerManagementStudio extends Editor {
   public async isPluginInstalled(): Promise<boolean> {
     switch (os.platform()) {
       case 'win32': {
-        return Object.keys(this.versions)
-          .map(v => this.versions[v])
-          .map(
-            check =>
-              `C:\\Program Files (x86)\\Microsoft SQL Server\\${check}\\Tools\\Binn\\ManagementStudio`,
-          )
-          .some(directory => {
-            const settings = {
-              root: directory,
-              type: 'files',
-              fileFilter: ['WakaTime.dll'],
-            };
-            return this.isFileWindows(settings);
-          });
+        return this.pluginsDirectory().some(directory => {
+          return this.isDirectorySync(path.join(directory, 'WakaTime'));
+        });
       }
       case 'darwin':
       case 'linux':
@@ -64,30 +52,28 @@ export default class SqlServerManagementStudio extends Editor {
     throw new Error('Method not implemented.');
   }
 
-  private isFileWindows(settings: { root: string; type: string; fileFilter: string[] }): boolean {
-    const filePaths: string[] = [];
-    readdirp(
-      settings,
-      function(fileInfo) {
-        filePaths.push(fileInfo.fullPath);
-      },
-      function(err, _res) {
-        if (err) return false;
-      },
-    );
-    return filePaths.length > 0;
-  }
-
   private appDirectory(): string[] {
     let directories: string[];
     switch (os.platform()) {
       case 'win32':
-        directories = Object.keys(this.versions)
-          .map(v => this.versions[v])
-          .map(
-            check =>
-              `C:\\Program Files (x86)\\Microsoft SQL Server\\${check}\\Tools\\Binn\\ManagementStudio`,
-          );
+        directories = Object.keys(this.versions).map(
+          check =>
+            `C:\\Program Files (x86)\\Microsoft SQL Server\\${check}\\Tools\\Binn\\ManagementStudio`,
+        );
+        return directories;
+      default:
+        return [''];
+    }
+  }
+
+  private pluginsDirectory(): string[] {
+    let directories: string[];
+    switch (os.platform()) {
+      case 'win32':
+        directories = Object.keys(this.versions).map(
+          check =>
+            `C:\\Program Files (x86)\\Microsoft SQL Server\\${check}\\Tools\\Binn\\ManagementStudio\\Extensions`,
+        );
         return directories;
       default:
         return [''];

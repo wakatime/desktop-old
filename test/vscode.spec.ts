@@ -11,13 +11,13 @@ chai.use(chaiAsPromised);
 describe('Visual Studio Code', () => {
   let vscode: VsCode;
   let listExtensionsStub: any;
-  let isDirectoryStub: any;
+  let isDirectorySyncStub: any;
   let isBinaryStub: any;
 
   beforeEach(() => {
     vscode = new VsCode();
     listExtensionsStub = sinon.stub(vscode, 'listExtensions');
-    isDirectoryStub = sinon.stub(vscode, 'isDirectory');
+    isDirectorySyncStub = sinon.stub(vscode, 'isDirectorySync');
     isBinaryStub = sinon.stub(vscode, 'isBinary');
   });
   afterEach(() => {
@@ -42,13 +42,13 @@ describe('Visual Studio Code', () => {
   });
   it('should return TRUE if editor is installed', async () => {
     isBinaryStub.resolves(false);
-    isDirectoryStub.resolves(true);
+    isDirectorySyncStub.returns(true);
     const result = await vscode.isEditorInstalled();
     expect(result).to.be.true;
   });
   it('should return FALSE if editor is not installed', async () => {
     isBinaryStub.resolves(false);
-    isDirectoryStub.resolves(false);
+    isDirectorySyncStub.returns(false);
     const result = await vscode.isEditorInstalled();
     expect(result).to.be.false;
   });

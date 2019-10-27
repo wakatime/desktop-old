@@ -27,6 +27,7 @@ import {
   rubymine128Path,
   sublimeText128Path,
   terminal128Path,
+  texstudio128Path,
   textmate128Path,
   unity128Path,
   vim128Path,
@@ -71,6 +72,7 @@ const imgMap: EditorImageMap = {
   [editors.SublimeText2.getName()]: sublimeText128Path,
   [editors.SublimeText3.getName()]: sublimeText128Path, // Should this be a different image?
   [editors.Terminal.getName()]: terminal128Path,
+  [editors.TexStudio.getName()]: texstudio128Path,
   [editors.TextMate.getName()]: textmate128Path,
   [editors.Unity.getName()]: unity128Path,
   [editors.Vim.getName()]: vim128Path,

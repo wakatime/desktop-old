@@ -24,6 +24,7 @@ import Processing from '../editors/processing';
 import PyCharm from '../editors/pycharm';
 import Rider from '../editors/rider';
 import RubyMine from '../editors/rubymine';
+import SqlServerManagementStudio from '../editors/sql-server-management-studio';
 import SublimeText2 from '../editors/sublime-text-2';
 import SublimeText3 from '../editors/sublime-text-3';
 import Terminal from '../editors/terminal';
@@ -63,6 +64,7 @@ export default {
   PyCharm,
   Rider,
   RubyMine,
+  SqlServerManagementStudio,
   SublimeText2,
   SublimeText3,
   Terminal,

@@ -25,6 +25,7 @@ import {
   pycharm128Path,
   rider128LightPath,
   rubymine128Path,
+  sqlServerManagementStudio128Path,
   sublimeText128Path,
   terminal128Path,
   texstudio128Path,
@@ -69,6 +70,7 @@ const imgMap: EditorImageMap = {
   [editors.PyCharm.getName()]: pycharm128Path,
   [editors.Rider.getName()]: rider128LightPath,
   [editors.RubyMine.getName()]: rubymine128Path,
+  [editors.SqlServerManagementStudio.getName()]: sqlServerManagementStudio128Path,
   [editors.SublimeText2.getName()]: sublimeText128Path,
   [editors.SublimeText3.getName()]: sublimeText128Path, // Should this be a different image?
   [editors.Terminal.getName()]: terminal128Path,

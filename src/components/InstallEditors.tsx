@@ -31,7 +31,7 @@ const InstallEditors = ({ editors, setEditorEnabled: see, clearSelectEditors: cs
    */
   const installAllEditors = async () => {
     // TODO: @alanhamlett do we want this confirm here? i think is good but you have the last word on this
-    const confirmation = confirm('Do you want to install Wakatime on all the editors?');
+    const confirmation = window.confirm('Do you want to install Wakatime on all the editors?');
     if (confirmation) {
       setInstalling(true);
       const editorsToInstall = [];

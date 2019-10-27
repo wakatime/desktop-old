@@ -57,7 +57,7 @@ describe('Visual Studio Code', () => {
     const result = await vscode.isPluginInstalled();
     expect(result).to.be.true;
   });
-  it('should return FALSE if plugin is n ot installed', async () => {
+  it('should return FALSE if plugin is not installed', async () => {
     listExtensionsStub.resolves(false);
     const result = await vscode.isPluginInstalled();
     expect(result).to.be.false;

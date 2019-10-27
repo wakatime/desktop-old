@@ -55,7 +55,7 @@ describe('Xcode', () => {
     const result = await xcode.isPluginInstalled();
     expect(result).to.be.true;
   });
-  it('should return FALSE if plugin is n ot installed', async () => {
+  it('should return FALSE if plugin is not installed', async () => {
     isDirectoryStub.resolves(false);
     const result = await xcode.isPluginInstalled();
     expect(result).to.be.false;

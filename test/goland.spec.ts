@@ -45,7 +45,7 @@ describe('GoLand', () => {
     const result = await goLand.isPluginInstalled();
     expect(result).to.be.true;
   });
-  it('should return FALSE if plugin is n ot installed', async () => {
+  it('should return FALSE if plugin is not installed', async () => {
     isFileSyncStub.returns(false);
     const result = await goLand.isPluginInstalled();
     expect(result).to.be.false;

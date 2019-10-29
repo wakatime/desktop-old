@@ -36,7 +36,9 @@ export default class VsCode extends Editor {
         }),
       );
       if (exists) return true;
-      return await this.isDirectory(this.appDirectory());
+      return this.appDirectory().some(directory => {
+        return this.isDirectorySync(directory);
+      });
     } catch (err) {
       console.error(err);
       return false;
@@ -68,14 +70,17 @@ export default class VsCode extends Editor {
     return await this.commandExists.exists(binary);
   }
 
-  private appDirectory(): string {
+  private appDirectory(): string[] {
     switch (os.platform()) {
       case 'win32':
-        return `${os.homedir()}\\AppData\\Local\\Programs\\Microsoft VS Code`;
+        return [
+          'C:\\Program Files\\Microsoft VS Code',
+          `${os.homedir()}\\AppData\\Local\\Programs\\Microsoft VS Code`,
+        ];
       case 'darwin':
-        return '/Applications/Visual Studio Code.app/Contents';
+        return ['/Applications/Visual Studio Code.app/Contents'];
       default:
-        return null;
+        return [''];
     }
   }
 }

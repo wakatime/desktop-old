@@ -11,21 +11,17 @@ chai.use(chaiAsPromised);
 
 describe('Visual Studio', () => {
   let visualStudio: VisualStudio;
-  let getInstalledVersionsStub: any;
-  let isDirectoryStub: any;
+  let isDirectorySyncStub: any;
   let osPlatformWin32Fake: any;
   let osPlatformDarwinFake: any;
-  let isRegKeyStub: any;
-  let isFileWindowsStub: any;
+  let findFilesRecuriveStub: any;
 
   beforeEach(() => {
     visualStudio = new VisualStudio();
-    getInstalledVersionsStub = sinon.stub(visualStudio, 'getInstalledVersions');
-    isDirectoryStub = sinon.stub(visualStudio, 'isDirectory');
+    isDirectorySyncStub = sinon.stub(visualStudio, 'isDirectorySync');
     osPlatformWin32Fake = sinon.fake.returns('win32');
     osPlatformDarwinFake = sinon.fake.returns('darwin');
-    isRegKeyStub = sinon.stub(visualStudio, 'isRegKey');
-    isFileWindowsStub = sinon.stub(visualStudio, 'isFileWindows');
+    findFilesRecuriveStub = sinon.stub(visualStudio, 'findFilesRecurive');
   });
   afterEach(() => {
     sinon.restore();
@@ -40,37 +36,37 @@ describe('Visual Studio', () => {
   });
   it('should return TRUE if editor is installed on Windows', async () => {
     sinon.replace(os, 'platform', osPlatformWin32Fake);
-    getInstalledVersionsStub.returns([2010, 2012]);
+    isDirectorySyncStub.returns(true);
     const result = await visualStudio.isEditorInstalled();
     expect(result).to.be.true;
   });
   it('should return TRUE if editor is installed on Mac', async () => {
     sinon.replace(os, 'platform', osPlatformDarwinFake);
-    isDirectoryStub.resolves(true);
+    isDirectorySyncStub.returns(true);
     const result = await visualStudio.isEditorInstalled();
     expect(result).to.be.true;
   });
   it('should return FALSE if editor is not installed on Windows', async () => {
     sinon.replace(os, 'platform', osPlatformWin32Fake);
-    getInstalledVersionsStub.returns([]);
+    isDirectorySyncStub.returns(false);
     const result = await visualStudio.isEditorInstalled();
     expect(result).to.be.false;
   });
   it('should return FALSE if editor is not installed on Mac', async () => {
     sinon.replace(os, 'platform', osPlatformDarwinFake);
-    isDirectoryStub.resolves(false);
+    isDirectorySyncStub.returns(false);
     const result = await visualStudio.isEditorInstalled();
     expect(result).to.be.false;
   });
   it('should return TRUE if plugin is installed on Windows', async () => {
     sinon.replace(os, 'platform', osPlatformWin32Fake);
-    isFileWindowsStub.returns(true);
+    findFilesRecuriveStub.returns(['WakaTime.dll']);
     const result = await visualStudio.isPluginInstalled();
     expect(result).to.be.true;
   });
   it('should return FALSE if plugin is not installed on Windows', async () => {
     sinon.replace(os, 'platform', osPlatformWin32Fake);
-    isFileWindowsStub.returns(false);
+    findFilesRecuriveStub.returns([]);
     const result = await visualStudio.isPluginInstalled();
     expect(result).to.be.false;
   });

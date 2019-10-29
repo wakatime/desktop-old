@@ -31,17 +31,9 @@ export default class SqlServerManagementStudio extends Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    switch (os.platform()) {
-      case 'win32': {
-        return this.pluginsDirectory().some(directory => {
-          return this.isDirectorySync(path.join(directory, 'WakaTime'));
-        });
-      }
-      case 'darwin':
-      case 'linux':
-      default:
-        return false;
-    }
+    return this.pluginsDirectory().some(directory => {
+      return this.isDirectorySync(path.join(directory, 'WakaTime'));
+    });
   }
 
   public async installPlugin(): Promise<void> {

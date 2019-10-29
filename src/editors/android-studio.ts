@@ -4,6 +4,7 @@ import path from 'path';
 
 import { CommandExists } from '../lib/command-exists';
 import Editor from './editor';
+import { installJetbrainsPlugin, unInstallJetbrainsPlugin } from '../utils/jetbrains';
 
 const plist = require('plist');
 
@@ -53,11 +54,11 @@ export default class AndroidStudio extends Editor {
   }
 
   public async installPlugin(): Promise<void> {
-    throw new Error('Method not implemented.');
+    installJetbrainsPlugin(this.pluginsDirectory());
   }
 
   public async uninstallPlugin(): Promise<void> {
-    throw new Error('Method not implemented.');
+    unInstallJetbrainsPlugin(this.pluginsDirectory());
   }
 
   public pluginsDirectory(): string {

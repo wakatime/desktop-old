@@ -1,4 +1,5 @@
-import Gedit from '../../src/editors/gedit';
+import os from 'os';
+import Gedit from '../src/editors/gedit';
 
 const sinon = require('sinon');
 
@@ -12,11 +13,13 @@ describe('Gedit', () => {
   let gedit: Gedit;
   let isDirectoryStub: any;
   let brewListStub: any;
+  let osPlatformDarwinFake: any;
 
   beforeEach(() => {
     gedit = new Gedit();
     isDirectoryStub = sinon.stub(gedit, 'isDirectory');
     brewListStub = sinon.stub(gedit, 'brewList');
+    osPlatformDarwinFake = sinon.fake.returns('darwin');
   });
   afterEach(() => {
     sinon.restore();
@@ -35,12 +38,14 @@ describe('Gedit', () => {
     expect(result).to.be.true;
   });
   it('should return TRUE if editor is installed (Homebrew)', async () => {
+    sinon.replace(os, 'platform', osPlatformDarwinFake);
     isDirectoryStub.resolves(false);
     brewListStub.resolves('bla bla gedit bla bla');
     const result = await gedit.isEditorInstalled();
     expect(result).to.be.true;
   });
   it('should return FALSE if editor is not installed', async () => {
+    sinon.replace(os, 'platform', osPlatformDarwinFake);
     isDirectoryStub.resolves(false);
     brewListStub.resolves('');
     const result = await gedit.isEditorInstalled();

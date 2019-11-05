@@ -25,8 +25,12 @@ export default class Gedit extends Editor {
   public async isEditorInstalled(): Promise<boolean> {
     if (await this.isDirectory(this.appDirectory())) return true;
 
-    const list = await this.brewList();
-    return list.includes('gedit');
+    if (os.platform() === 'darwin') {
+      const list = await this.brewList();
+      return list.includes('gedit');
+    }
+
+    return false;
   }
 
   public async isPluginInstalled(): Promise<boolean> {

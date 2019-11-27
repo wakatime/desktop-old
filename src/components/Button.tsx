@@ -48,7 +48,7 @@ const Button = ({ enabled, text, onClick, loading }) => {
 
   return (
     <div
-      onClick={() => (enabled ? onClick() : console.log('disabled'))}
+      onClick={() => (enabled ? onClick() : '')}
       {...css(styles.wrapper, enabled ? styles.enabled : styles.disabled)}
     >
       <span {...css(loading ? styles.textLoading : styles.text)}>{text}</span>

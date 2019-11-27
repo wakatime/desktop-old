@@ -27,7 +27,7 @@ const InstallEditors = ({ editors, setEditorEnabled: see, clearSelectEditors: cs
     const editorInstalled = await editor.instance.isPluginInstalled();
     see({
       name: editor.name,
-      enabled: editorInstalled
+      enabled: editorInstalled,
     });
   };
 

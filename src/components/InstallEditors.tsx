@@ -22,8 +22,13 @@ const InstallEditors = ({ editors, setEditorEnabled: see, clearSelectEditors: cs
   const { css, styles } = useStyles({ stylesFn });
 
   const installPlugin = async editor => {
+    // try to install the plugin and check if it was installed or not
     await editor.instance.installPlugin();
-    see({ name: editor.name });
+    const editorInstalled = await editor.instance.isPluginInstalled();
+    see({
+      name: editor.name,
+      enabled: editorInstalled
+    });
   };
 
   /**

@@ -2,7 +2,7 @@
  * Sorts the editors by the ones with the plugin installed first
  * @param editors 
  */
-const orderByInstalledPlugin = (editors) => {
+export const orderByInstalledPlugin = (editors) => {
   return editors.sort((x, y) => {
     return (x.enabled === y.enabled)? 0 : x.enabled? -1 : 1;
   })

@@ -16,11 +16,11 @@ export default class Netbeans extends Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    return await this.isDirectory(this.appDirectory());
+    return this.isDirectory(this.appDirectory());
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.isFileSync(`${this.pluginsDirectory()}/org-wakatime-netbeans-plugin.jar`);
+    return this.isFileSync(`${this.pluginsDirectory()}/org-wakatime-netbeans-plugin.jar`);
   }
 
   public async installPlugin(): Promise<void> {
@@ -74,7 +74,7 @@ export default class Netbeans extends Editor {
       }
       case 'darwin':
         return pathsToCheck.map(
-          check => `${os.homedir()}/Library/Application\ Support/NetBeans/${check}/modules`,
+          check => `${os.homedir()}/Library/Application Support/NetBeans/${check}/modules`,
         );
       case 'linux':
         return [''];

@@ -88,7 +88,7 @@ export default class Eric extends Editor {
   }
 
   public async isPipInstalled(): Promise<boolean> {
-    return await this.commandExists.exists('pip');
+    return this.commandExists.exists('pip');
   }
 
   public async pipList(): Promise<string> {

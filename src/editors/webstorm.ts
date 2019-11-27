@@ -17,7 +17,7 @@ export default class WebStorm extends Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    return await this.isDirectory(this.appDirectory());
+    return this.isDirectory(this.appDirectory());
   }
 
   public async isPluginInstalled(): Promise<boolean> {
@@ -83,7 +83,7 @@ export default class WebStorm extends Editor {
       }
       case 'darwin':
         return pathsToCheck.map(
-          check => `${os.homedir()}/Library/Application\ Support/WebStorm${check}`,
+          check => `${os.homedir()}/Library/Application Support/WebStorm${check}`,
         );
       case 'linux':
         return [''];

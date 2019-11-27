@@ -83,7 +83,7 @@ export default class PhpStorm extends Editor {
       }
       case 'darwin':
         return pathsToCheck.map(
-          check => `${os.homedir()}/Library/Application\ Support/PhpStorm${check}`,
+          check => `${os.homedir()}/Library/Application Support/PhpStorm${check}`,
         );
       case 'linux':
         return [''];

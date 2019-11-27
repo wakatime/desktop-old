@@ -83,7 +83,7 @@ export default class Rider extends Editor {
       }
       case 'darwin':
         return pathsToCheck.map(
-          check => `${os.homedir()}/Library/Application\ Support/Rider${check}`,
+          check => `${os.homedir()}/Library/Application Support/Rider${check}`,
         );
       case 'linux':
         return [''];

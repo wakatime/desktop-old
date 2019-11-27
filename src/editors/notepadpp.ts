@@ -16,11 +16,11 @@ export default class Notepadpp extends Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    return await this.isDirectory(this.appDirectory());
+    return this.isDirectory(this.appDirectory());
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.isFile(this.pluginsDirectory());
+    return this.isFile(this.pluginsDirectory());
   }
 
   public async installPlugin(): Promise<void> {

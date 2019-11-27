@@ -33,7 +33,7 @@ export default class Processing extends Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.isDirectorySync(path.join(this.pluginsDirectory(), 'WakatimeTool'));
+    return this.isDirectorySync(path.join(this.pluginsDirectory(), 'WakatimeTool'));
   }
 
   public async installPlugin(): Promise<void> {

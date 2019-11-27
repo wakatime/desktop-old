@@ -17,11 +17,11 @@ export default class AppCode extends Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    return await this.isDirectory(this.appDirectory());
+    return this.isDirectory(this.appDirectory());
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.isFileSync(`${this.pluginsDirectory()}/WakaTime.jar`);
+    return this.isFileSync(`${this.pluginsDirectory()}/WakaTime.jar`);
   }
 
   public async installPlugin(): Promise<void> {
@@ -75,7 +75,7 @@ export default class AppCode extends Editor {
       }
       case 'darwin':
         return pathsToCheck.map(
-          check => `${os.homedir()}/Library/Application\ Support/AppCode${check}`,
+          check => `${os.homedir()}/Library/Application Support/AppCode${check}`,
         );
       case 'linux':
         return [''];

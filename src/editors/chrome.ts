@@ -23,11 +23,11 @@ export default class Chrome extends Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    return await this.isDirectory(this.appDirectory());
+    return this.isDirectory(this.appDirectory());
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.isDirectorySync(this.pluginsDirectory());
+    return this.isDirectorySync(this.pluginsDirectory());
   }
 
   public async installPlugin(): Promise<void> {

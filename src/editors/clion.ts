@@ -17,11 +17,11 @@ export default class CLion extends Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    return await this.isDirectorySync(this.appDirectory());
+    return this.isDirectorySync(this.appDirectory());
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.isFileSync(`${this.pluginsDirectory()}/WakaTime.jar`);
+    return this.isFileSync(`${this.pluginsDirectory()}/WakaTime.jar`);
   }
 
   public async installPlugin(): Promise<void> {
@@ -83,7 +83,7 @@ export default class CLion extends Editor {
       }
       case 'darwin':
         return pathsToCheck.map(
-          check => `${os.homedir()}/Library/Application\ Support/CLion${check}`,
+          check => `${os.homedir()}/Library/Application Support/CLion${check}`,
         );
       case 'linux':
         return [''];

@@ -72,7 +72,7 @@ export default class Kakoune extends Editor {
   }
 
   public async isHomebrewInstalled(): Promise<boolean> {
-    return await this.commandExists.exists('brew');
+    return this.commandExists.exists('brew');
   }
 
   public async brewList(): Promise<string> {

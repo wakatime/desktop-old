@@ -35,6 +35,7 @@ import Vim from '../editors/vim';
 import VisualStudio from '../editors/visual-studio';
 import VSCode from '../editors/vscode';
 import WebStorm from '../editors/webstorm';
+import Xamarin from '../editors/xamarin';
 import XCode from '../editors/xcode';
 
 export default {
@@ -75,5 +76,6 @@ export default {
   VisualStudio,
   VSCode,
   WebStorm,
+  Xamarin,
   XCode,
 };

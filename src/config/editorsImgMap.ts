@@ -19,6 +19,7 @@ import {
   kakoune128Path,
   kate128Path,
   komodo128Path,
+  monodevelop128Path,
   notepad128Path,
   phpstorm128Path,
   processing128Path,
@@ -35,6 +36,7 @@ import {
   visualStudio128Path,
   vsCode128Path,
   webstorm128Path,
+  xamarin128Path,
   xcode128Path,
   netbeans128Path,
 } from '../constants/imgPaths';
@@ -63,6 +65,7 @@ const imgMap: EditorImageMap = {
   [editors.Kakoune.getName()]: kakoune128Path,
   [editors.Kate.getName()]: kate128Path,
   [editors.Komodo.getName()]: komodo128Path,
+  [editors.MonoDevelop.getName()]: monodevelop128Path,
   [editors.Notepadpp.getName()]: notepad128Path,
   [editors.Netbeans.getName()]: netbeans128Path,
   [editors.PhpStorm.getName()]: phpstorm128Path,
@@ -81,6 +84,7 @@ const imgMap: EditorImageMap = {
   [editors.VisualStudio.getName()]: visualStudio128Path,
   [editors.VSCode.getName()]: vsCode128Path,
   [editors.WebStorm.getName()]: webstorm128Path,
+  [editors.Xamarin.getName()]: xamarin128Path,
   [editors.XCode.getName()]: xcode128Path,
 };
 

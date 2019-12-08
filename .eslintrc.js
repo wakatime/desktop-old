@@ -56,6 +56,7 @@ module.exports = {
     "jsx-a11y/click-events-have-key-events": "off",
     "jsx-a11y/no-static-element-interactions": "off",
     "react/jsx-one-expression-per-line": "off",
-    "no-return-await": 2
+    "no-return-await": 2,
+    "no-unused-expressions": 0
   },
 };

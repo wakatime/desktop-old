@@ -36,6 +36,7 @@ import {
   visualStudio128Path,
   vsCode128Path,
   webstorm128Path,
+  xamarin128Path,
   xcode128Path,
   netbeans128Path,
 } from '../constants/imgPaths';
@@ -83,6 +84,7 @@ const imgMap: EditorImageMap = {
   [editors.VisualStudio.getName()]: visualStudio128Path,
   [editors.VSCode.getName()]: vsCode128Path,
   [editors.WebStorm.getName()]: webstorm128Path,
+  [editors.Xamarin.getName()]: xamarin128Path,
   [editors.XCode.getName()]: xcode128Path,
 };
 

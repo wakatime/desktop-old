@@ -17,6 +17,7 @@ import IntelliJ from '../editors/intellij';
 import Kakoune from '../editors/Kakoune';
 import Kate from '../editors/Kate';
 import Komodo from '../editors/komodo';
+import MonoDevelop from '../editors/monodevelop';
 import Notepadpp from '../editors/notepadpp';
 import Netbeans from '../editors/netbeans';
 import PhpStorm from '../editors/phpstorm';
@@ -57,6 +58,7 @@ export default {
   Kakoune,
   Kate,
   Komodo,
+  MonoDevelop,
   Notepadpp,
   Netbeans,
   PhpStorm,

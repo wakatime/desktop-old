@@ -43,7 +43,7 @@ export default class Xcode extends Editor {
 
   public async isPluginInstalled(): Promise<boolean> {
     const pluginPath = path.join(this.pluginsDirectory(), 'WakaTime.xcplugin/Contents');
-    return await this.isDirectory(pluginPath);
+    return this.isDirectory(pluginPath);
   }
 
   public async installPlugin(): Promise<void> {
@@ -55,7 +55,7 @@ export default class Xcode extends Editor {
   }
 
   public async isBinary(binary: string): Promise<boolean> {
-    return await this.commandExists.exists(binary);
+    return this.commandExists.exists(binary);
   }
 
   public pluginsDirectory(): string {

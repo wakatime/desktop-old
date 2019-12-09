@@ -46,7 +46,7 @@ export default class AndroidStudio extends Editor {
   }
 
   public async isBinary(binary: string): Promise<boolean> {
-    return await this.commandExists.exists(binary);
+    return this.commandExists.exists(binary);
   }
 
   public async isPluginInstalled(): Promise<boolean> {

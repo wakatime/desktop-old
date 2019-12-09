@@ -83,7 +83,7 @@ export default class RubyMine extends Editor {
       }
       case 'darwin':
         return pathsToCheck.map(
-          check => `${os.homedir()}/Library/Application\ Support/RubyMine${check}`,
+          check => `${os.homedir()}/Library/Application Support/RubyMine${check}`,
         );
       case 'linux':
         return [''];

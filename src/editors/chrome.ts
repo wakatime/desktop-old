@@ -1,4 +1,7 @@
 import os from 'os';
+import { shell } from 'electron';
+import path from 'path';
+import fs from 'fs';
 
 import Editor from './editor';
 
@@ -11,24 +14,34 @@ export default class Chrome extends Editor {
     return 'Google Chrome';
   }
 
+  public get extVersionId(): string {
+    return 'jnbbnacmeggbgdjgaoojpmhdlkkpblgi';
+  }
+
   public get icon(): string {
     return '';
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    return await this.isDirectory(this.appDirectory());
+    return this.isDirectory(this.appDirectory());
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    throw new Error('Method not implemented.');
+    return this.isDirectorySync(this.pluginsDirectory());
   }
 
   public async installPlugin(): Promise<void> {
-    throw new Error('Method not implemented.');
+    shell.openExternal(`https://chrome.google.com/webstore/detail/wakatime/${this.extVersionId}`);
   }
 
   public async uninstallPlugin(): Promise<void> {
-    throw new Error('Method not implemented.');
+    try {
+      fs.unlinkSync(this.pluginsDirectory());
+      return Promise.resolve();
+    } catch (err) {
+      console.error(err);
+      return Promise.reject();
+    }
   }
 
   private appDirectory(): string {
@@ -37,6 +50,29 @@ export default class Chrome extends Editor {
         return '';
       case 'darwin':
         return '/Applications/Google Chrome.app/Contents';
+      default:
+        return null;
+    }
+  }
+
+  private pluginsDirectory(): string {
+    switch (os.platform()) {
+      case 'win32': {
+        return '';
+      }
+      case 'darwin':
+        return path.join(
+          os.homedir(),
+          'Library',
+          'Application Support',
+          'Google',
+          'Chrome',
+          'Default',
+          'Extensions',
+          this.extVersionId,
+        );
+      case 'linux':
+        return '';
       default:
         return null;
     }

@@ -30,7 +30,7 @@ export default class Gedit extends Editor {
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.isDirectory(this.pluginsDirectory());
+    return this.isDirectory(this.pluginsDirectory());
   }
 
   public async installPlugin(): Promise<void> {
@@ -42,7 +42,7 @@ export default class Gedit extends Editor {
   }
 
   public async isHomebrewInstalled(): Promise<boolean> {
-    return await this.commandExists.exists('brew');
+    return this.commandExists.exists('brew');
   }
 
   public async brewList(): Promise<string> {

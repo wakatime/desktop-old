@@ -39,7 +39,7 @@ export default class Blender extends Editor {
 
   public async installPlugin(): Promise<void> {
     const temp = path.join(os.tmpdir(), 'WakaTime', 'blender', 'WakaTime.py');
-    const file = fsSync.createWriteStream(temp);
+    fsSync.createWriteStream(temp);
     /*
      * Might use bpy from pip
      * This module allows to install WakaTime from command line
@@ -53,6 +53,6 @@ export default class Blender extends Editor {
   }
 
   public async isBinary(binary: string): Promise<boolean> {
-    return await this.commandExists.exists(binary);
+    return this.commandExists.exists(binary);
   }
 }

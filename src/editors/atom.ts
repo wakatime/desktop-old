@@ -100,7 +100,7 @@ export default class Atom extends Editor {
   }
 
   public async isBinary(binary: string): Promise<boolean> {
-    return await this.commandExists.exists(binary);
+    return this.commandExists.exists(binary);
   }
 
   private appDirectory(): string {

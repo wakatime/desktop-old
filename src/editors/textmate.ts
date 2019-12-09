@@ -18,11 +18,11 @@ export default class TextMate extends Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    return await this.isDirectory(this.appDirectory());
+    return this.isDirectory(this.appDirectory());
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.isDirectory(`${this.pluginsDirectory()}/WakaTime.tmplugin`);
+    return this.isDirectory(`${this.pluginsDirectory()}/WakaTime.tmplugin`);
   }
 
   public async installPlugin(): Promise<void> {
@@ -50,7 +50,7 @@ export default class TextMate extends Editor {
         return '';
       }
       case 'darwin':
-        return `${os.homedir()}/Library/Application\ Support/TextMate/PlugIns`;
+        return `${os.homedir()}/Library/Application Support/TextMate/PlugIns`;
       case 'linux':
         return '';
       default:

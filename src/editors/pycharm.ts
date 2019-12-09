@@ -83,7 +83,7 @@ export default class PyCharm extends Editor {
       }
       case 'darwin':
         return pathsToCheck.map(
-          check => `${os.homedir()}/Library/Application\ Support/PyCharm${check}`,
+          check => `${os.homedir()}/Library/Application Support/PyCharm${check}`,
         );
       case 'linux':
         return [''];

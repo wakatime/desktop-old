@@ -17,11 +17,11 @@ export default class GoLand extends Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    return await this.isDirectory(this.appDirectory());
+    return this.isDirectory(this.appDirectory());
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.isFileSync(`${this.pluginsDirectory()}/WakaTime.jar`);
+    return this.isFileSync(`${this.pluginsDirectory()}/WakaTime.jar`);
   }
 
   public async installPlugin(): Promise<void> {
@@ -83,7 +83,7 @@ export default class GoLand extends Editor {
       }
       case 'darwin':
         return pathsToCheck.map(
-          path => `${os.homedir()}/Library/Application\ Support/GoLand${path}/WakaTime.jar`,
+          path => `${os.homedir()}/Library/Application Support/GoLand${path}/WakaTime.jar`,
         );
       case 'linux':
         return [''];

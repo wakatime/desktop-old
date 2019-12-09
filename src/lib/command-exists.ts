@@ -45,9 +45,9 @@ export class CommandExists {
   private commandExistsUnix(commandName: string, cleanedCommandName: string, callback): void {
     this.fileNotExists(commandName, isFile => {
       if (!isFile) {
-        const child = exec(
+        exec(
           `command -v ${cleanedCommandName} 2>/dev/null && { echo >&1 ${cleanedCommandName}; exit 0; }`,
-          (_error, stdout, _stderr) => {
+          (_error, stdout) => {
             callback(!!stdout);
           },
         );
@@ -63,7 +63,7 @@ export class CommandExists {
       callback(false);
       return;
     }
-    const child = exec(`where ${cleanedCommandName}`, error => {
+    exec(`where ${cleanedCommandName}`, error => {
       if (error !== null) {
         callback(false);
       } else {

@@ -1,6 +1,7 @@
 import editors from '../constants/editors';
 import imgPathMap from '../config/editorsImgMap';
 import createReducer from '../utils/createReducer';
+import { orderByInstalledPlugin } from '../utils/editors';
 import { FSA } from '../actions/fsaAction';
 import {
   ENABLE_EDITORS,
@@ -37,13 +38,14 @@ const handlers = {
     });
   },
   [SET_EDITOR_ENABLED]: (state = [], action: FSA<any>) => {
-    return state.map(editor => {
+    const editorsList = state.map(editor => {
       const newEditor = { ...editor };
       if (newEditor.name === action.payload.name) {
-        newEditor.enabled = true;
+        newEditor.enabled = action.payload.enabled;
       }
       return newEditor;
     });
+    return orderByInstalledPlugin(editorsList);
   },
   [CLEAR_SELECT_EDITORS]: (state = [], action: FSA<any>) => {
     return state.map(editor => {

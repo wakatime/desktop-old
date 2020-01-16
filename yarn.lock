@@ -168,6 +168,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.6.8.tgz#e469b4bf9d1c9832aee4907ba8a051494357c12c"
   integrity sha512-aX+gFgA5GHcDi89KG5keey2zf0WfZk/HAQotEamsK2kbey+8yGKcson0hbK8E+v0NArlCJQCqMP161YhV6ZXLg==
 
+"@types/node@^10.1.4":
+  version "10.17.13"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.17.13.tgz#ccebcdb990bd6139cd16e84c39dc2fb1023ca90c"
+  integrity sha512-pMCcqU2zT4TjqYFrWtYHKal7Sl30Ims6ulZ4UFXxI4xbtQqK/qqKwkDoBFCfooRqqmRu9vY3xaJRwxSh673aYg==
+
 "@types/node@^10.12.18":
   version "10.14.13"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.14.13.tgz#ac786d623860adf39a3f51d629480aacd6a6eec7"
@@ -2258,12 +2263,28 @@ electron-download@^4.1.0:
     semver "^5.4.1"
     sumchecker "^2.0.2"
 
+electron-tray-window@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/electron-tray-window/-/electron-tray-window-1.2.5.tgz#ec64bed2a55dc5acbe2c1a79a4d6df9f27be54b3"
+  integrity sha512-tLfoMLjafSFdQAJ/gB47zKdMv5lgtfuFNydCnbgmKuFwhpXV4kRRlMCm12DcDjKqbgqa2YftYpUBQjnjywZEGA==
+  dependencies:
+    electron "^3.0.10"
+
 electron@*:
   version "6.0.4"
   resolved "https://registry.yarnpkg.com/electron/-/electron-6.0.4.tgz#28372c458f615c6cd989d75e602b1fdad48b6180"
   integrity sha512-zrPi36etADOAjxnVX6TxRNKSWaBscMLd9S7AB+qISzI0dnYIDKycHpc2mB+5QWBd/8cR4m/1NLNTqNhX5KKGFg==
   dependencies:
     "@types/node" "^10.12.18"
+    electron-download "^4.1.0"
+    extract-zip "^1.0.3"
+
+electron@^3.0.10:
+  version "3.1.13"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-3.1.13.tgz#aeb276f4cf5e3785078b6495e982ee46d553a5d2"
+  integrity sha512-aRNywoUSO1Va/lpU4nz3K6GDyFqYtlOnHGLcERAAHfhB+IJrJ34cUJW4FVBpm43AwvUdAeuCkVKRLtOmrgx5CA==
+  dependencies:
+    "@types/node" "^10.1.4"
     electron-download "^4.1.0"
     extract-zip "^1.0.3"
 

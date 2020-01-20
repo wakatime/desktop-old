@@ -56,9 +56,10 @@ export default class Processing extends Editor {
         .on('finish', async () => {
           const pluginsDirectory = this.pluginsDirectory();
           const stream2 = await fs.createReadStream(temp);
-          await stream2.pipe(Extract({ path: pluginsDirectory }));
-          fs.unlinkSync(temp);
-          resolve();
+          await stream2.pipe(Extract({ path: pluginsDirectory })).on('close', () => {
+            fs.unlinkSync(temp);
+            resolve();
+          });
         })
         .on('error', (err: any) => {
           console.error(err);

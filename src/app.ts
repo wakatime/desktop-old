@@ -26,8 +26,12 @@ let appIcon = null;
 const createWindow = async () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 1300,
-    height: 600,
+    // width: 300,
+    // height: 400,
+    width: 1000,
+    height: 700,
+    // movable: false,
+    frame: false,
     webPreferences: {
       nodeIntegration: true,
     },
@@ -114,7 +118,10 @@ if (!gotTheLock) {
 
     createWindow();
 
-    trayWindow.setOptions({ tray: appIcon, window: mainWindow });
+    trayWindow.setOptions({
+      tray: appIcon,
+      window: mainWindow,
+    });
   });
 
   // Quit when all windows are closed.

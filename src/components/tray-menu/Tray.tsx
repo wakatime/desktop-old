@@ -31,8 +31,21 @@ const stylesFn = () => {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
+      userSelect: 'none',
       ':hover': {
         backgroundColor: '#ebebeb',
+        cursor: 'default',
+      },
+    },
+    clickableEditor: {
+      padding: '0.5rem',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      userSelect: 'none',
+      ':hover': {
+        backgroundColor: '#ebebeb',
+        cursor: 'pointer',
       },
     },
     editorDesc: {
@@ -54,7 +67,6 @@ const Tray = ({
   clearSelectEditors: cse,
 }) => {
   const { css, styles } = useStyles({ stylesFn });
-  const [showInstall, setShowInstall] = useState({});
   const [installing, setInstalling] = useState(false);
 
   let enabled = [];
@@ -74,8 +86,10 @@ const Tray = ({
     fetchData();
   }, []); // eslint-disable-line
 
-  const onCheckboxChange = (name, selected) => {
-    seti({ name, selected });
+  const onCheckboxChange = editor => {
+    if (!editor.enabled) {
+      seti({ name: editor.name, selected: !editor.isSelected });
+    }
   };
 
   const installPlugin = async editor => {
@@ -91,9 +105,9 @@ const Tray = ({
   /**
    * Install Wakatime plugin on all available editors in the system
    */
-  const installAllEditors = async () => {
-    // TODO: @alanhamlett do we want this confirm here? i think is good but you have the last word on this
-    const confirmation = window.confirm('Do you want to install Wakatime on all the editors?');
+  const installAllEditors = async selectedEditors => {
+    const message = `Install the plugin for (${selectedEditors}) editor${selectedEditors > 1 ? 's' : ''}?`;
+    const confirmation = window.confirm(message);
     if (confirmation) {
       setInstalling(true);
       const editorsToInstall = [];
@@ -104,18 +118,6 @@ const Tray = ({
         return editor;
       });
       await Promise.all(editorsToInstall);
-      cse();
-      setInstalling(false);
-    }
-  };
-
-  const installSinglePlugin = async (e, editor) => {
-    e.stopPropagation();
-    // TODO: @alanhamlett do we want this confirm here? i think is good but you have the last word on this
-    const confirmation = window.confirm(`Do you want to install Wakatime on ${editor.name}?`);
-    if (confirmation) {
-      setInstalling(true);
-      await installPlugin(editor);
       cse();
       setInstalling(false);
     }
@@ -136,7 +138,7 @@ const Tray = ({
         <div {...css(styles.installSelected)}>
           <Button
             text="Install"
-            onClick={installAllEditors}
+            onClick={() => installAllEditors(selected.length)}
             enabled={!installing}
             loading={installing}
           />
@@ -145,36 +147,24 @@ const Tray = ({
       {editorsList.map(editor => {
         return (
           <div
-            {...css(styles.editor)}
-            onMouseEnter={() => setShowInstall({ [editor.name]: !editor.enabled && true })}
-            onMouseLeave={() => setShowInstall({ [editor.name]: !editor.enabled && false })}
-            onClick={() => onCheckboxChange(editor.name, !editor.isSelected)}
+            {...css(editor.enabled ? styles.editor : styles.clickableEditor)}
+            onClick={() => onCheckboxChange(editor)}
           >
             <div {...css(styles.editorDesc)}>
               {editor.enabled ? (
                 <img {...css(styles.installed)} src={checkImage} alt={editor.name} />
               ) : (
-                <input
-                  alt="Wakatime already installed"
-                  type="checkbox"
-                  checked={editor.isSelected}
-                  name={editor.name}
-                  disabled={editor.enabled}
-                  // onChange={e => onCheckboxChange(e.target.name, !editor.isSelected)}
-                />
-              )}
+                  <input
+                    alt="Wakatime already installed"
+                    type="checkbox"
+                    checked={editor.isSelected}
+                    name={editor.name}
+                    disabled={editor.enabled}
+                  />
+                )}
               <EditorIcon {...editor} imageStyles={imageStyles} />
               <div>{editor.name}</div>
             </div>
-            {showInstall[editor.name] && (
-              <button
-                {...css(styles.install)}
-                type="button"
-                onClick={e => installSinglePlugin(e, editor)}
-              >
-                Install
-              </button>
-            )}
           </div>
         );
       })}

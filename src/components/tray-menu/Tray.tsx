@@ -108,6 +108,7 @@ const Tray = ({
   const installAllEditors = async selectedEditors => {
     const message = `Install the plugin for (${selectedEditors}) editor${selectedEditors > 1 ? 's' : ''}?`;
     const confirmation = window.confirm(message);
+
     if (confirmation) {
       setInstalling(true);
       const editorsToInstall = [];
@@ -154,14 +155,14 @@ const Tray = ({
               {editor.enabled ? (
                 <img {...css(styles.installed)} src={checkImage} alt={editor.name} />
               ) : (
-                  <input
-                    alt="Wakatime already installed"
-                    type="checkbox"
-                    checked={editor.isSelected}
-                    name={editor.name}
-                    disabled={editor.enabled}
-                  />
-                )}
+                <input
+                  alt="Wakatime already installed"
+                  type="checkbox"
+                  checked={editor.isSelected}
+                  name={editor.name}
+                  disabled={editor.enabled}
+                />
+              )}
               <EditorIcon {...editor} imageStyles={imageStyles} />
               <div>{editor.name}</div>
             </div>

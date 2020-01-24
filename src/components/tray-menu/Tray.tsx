@@ -66,6 +66,13 @@ const Tray = ({
   setEditorEnabled: see,
   clearSelectEditors: cse,
 }) => {
+  const imageStyles = {
+    width: 'auto',
+    height: '20px',
+    minHeight: 15,
+    margin: '0 10px',
+  };
+
   const { css, styles } = useStyles({ stylesFn });
   const [installing, setInstalling] = useState(false);
 
@@ -77,6 +84,8 @@ const Tray = ({
   enabled = enabled.sort((a, b) => a.name.localeCompare(b.name));
   notEnabled = notEnabled.sort((a, b) => a.name.localeCompare(b.name));
   const editorsList = enabled.concat(notEnabled);
+
+  const selected = editorsList.filter(e => e.isSelected);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -123,15 +132,6 @@ const Tray = ({
       setInstalling(false);
     }
   };
-
-  const imageStyles = {
-    width: 'auto',
-    height: '20px',
-    minHeight: 15,
-    margin: '0 10px',
-  };
-
-  const selected = editorsList.filter(e => e.isSelected);
 
   return (
     <div {...css(styles.div)}>

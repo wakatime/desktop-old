@@ -16,11 +16,11 @@ export default class Xamarin extends Editor {
   }
 
   public async isEditorInstalled(): Promise<boolean> {
-    return await this.isDirectory(this.appDirectory());
+    return this.isDirectory(this.appDirectory());
   }
 
   public async isPluginInstalled(): Promise<boolean> {
-    return await this.isDirectory(this.pluginsDirectory());
+    return this.isDirectory(this.pluginsDirectory());
   }
 
   public async installPlugin(): Promise<void> {

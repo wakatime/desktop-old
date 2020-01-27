@@ -107,14 +107,6 @@ if (!gotTheLock) {
   // Some APIs can only be used after this event occurs.
   app.on('ready', () => {
     appIcon = new Tray(wakatimeIcon);
-    // const contextMenu = Menu.buildFromTemplate([
-    //   { label: 'Item1', type: 'radio' },
-    //   { label: 'Item2', type: 'radio' },
-    //   { label: 'Item3', type: 'radio', checked: true },
-    //   { label: 'Item4', type: 'radio' }
-    // ]);
-    // appIcon.setToolTip('This is my application.');
-    // appIcon.setContextMenu(contextMenu);
 
     createWindow();
 

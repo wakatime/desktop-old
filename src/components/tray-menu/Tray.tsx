@@ -115,7 +115,7 @@ const Tray = ({
    * Install Wakatime plugin on all available editors in the system
    */
   const installAllEditors = async selectedEditors => {
-    const message = `Install the plugin for (${selectedEditors}) editor${selectedEditors > 1 ? 's' : ''}?`;
+    const message = `Install the plugin for ${selectedEditors} editor${selectedEditors > 1 ? 's' : ''}?`;
     const confirmation = window.confirm(message);
 
     if (confirmation) {

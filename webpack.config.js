@@ -30,10 +30,7 @@ const fileLoader = {
       loader: 'file-loader',
       options: {
         name() {
-          if (isDev) {
-            return '[path][name].[ext]';
-          }
-          return 'assets/[hash].[ext]';
+          return '[path][name].[ext]';
         },
       },
     },

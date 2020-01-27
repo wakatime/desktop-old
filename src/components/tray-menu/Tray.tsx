@@ -149,7 +149,7 @@ const Tray = ({
         return (
           <div
             {...css(editor.enabled ? styles.editor : styles.clickableEditor)}
-            onClick={() => onCheckboxChange(editor)}
+            onClick={() => !installing && onCheckboxChange(editor)}
           >
             <div {...css(styles.editorDesc)}>
               {editor.enabled ? (

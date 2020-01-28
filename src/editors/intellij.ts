@@ -105,10 +105,10 @@ export default class AppCode extends Editor {
       }
       case 'darwin':
         intelliJIdea = pathsToCheck.map(
-          path => `${os.homedir()}/Library/Application Support/IntelliJIdea${path}/WakaTime.jar`,
+          path => `${os.homedir()}/Library/Application Support/IntelliJIdea${path}`,
         );
         IdeaIC = pathsToCheck.map(
-          path => `${os.homedir()}/Library/Application Support/IdeaIC${path}/WakaTime.jar`,
+          path => `${os.homedir()}/Library/Application Support/IdeaIC${path}`,
         );
         return intelliJIdea.concat(IdeaIC);
       case 'linux':

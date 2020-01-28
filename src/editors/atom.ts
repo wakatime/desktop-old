@@ -72,17 +72,18 @@ export default class Atom extends Editor {
 
           const pluginsDirectory = this.pluginsDirectory();
           const stream2 = await fs.createReadStream(temp);
-          await stream2.pipe(Extract({ path: extracted }));
-          fs.renameSync(
-            path.join(extracted, 'atom-wakatime-7.1.1'),
-            path.join(pluginsDirectory, 'wakatime'),
-          );
+          await stream2.pipe(Extract({ path: extracted })).on('close', async () => {
+            fs.renameSync(
+              path.join(extracted, 'atom-wakatime-7.1.1'),
+              path.join(pluginsDirectory, 'wakatime'),
+            );
 
-          // Run the packages installation
-          await exec(`npm i --prefix ${path.join(pluginsDirectory, 'wakatime')}`);
+            // Run the packages installation
+            await exec(`npm i --prefix ${path.join(pluginsDirectory, 'wakatime')}`);
 
-          fs.unlinkSync(temp);
-          resolve();
+            fs.unlinkSync(temp);
+            resolve();
+          });
         })
         .on('error', (err: any) => {
           console.error(err);

@@ -78,14 +78,14 @@ const Tray = ({
 
   let enabled = [];
   let notEnabled = [];
-  editors.forEach(e => {
+  editors.forEach((e) => {
     e.enabled ? enabled.push(e) : notEnabled.push(e);
   });
   enabled = enabled.sort((a, b) => a.name.localeCompare(b.name));
   notEnabled = notEnabled.sort((a, b) => a.name.localeCompare(b.name));
   const editorsList = enabled.concat(notEnabled);
 
-  const selected = editorsList.filter(e => e.isSelected);
+  const selected = editorsList.filter((e) => e.isSelected);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -95,13 +95,13 @@ const Tray = ({
     fetchData();
   }, []); // eslint-disable-line
 
-  const onCheckboxChange = editor => {
+  const onCheckboxChange = (editor) => {
     if (!editor.enabled) {
       seti({ name: editor.name, selected: !editor.isSelected });
     }
   };
 
-  const installPlugin = async editor => {
+  const installPlugin = async (editor) => {
     // try to install the plugin and check if it was installed or not
     await editor.instance.installPlugin();
     const editorInstalled = await editor.instance.isPluginInstalled();
@@ -114,14 +114,14 @@ const Tray = ({
   /**
    * Install Wakatime plugin on all available editors in the system
    */
-  const installAllEditors = async selectedEditors => {
+  const installAllEditors = async (selectedEditors) => {
     const message = `Install the plugin for ${selectedEditors} editor${selectedEditors > 1 ? 's' : ''}?`;
     const confirmation = window.confirm(message);
 
     if (confirmation) {
       setInstalling(true);
       const editorsToInstall = [];
-      editorsList.map(editor => {
+      editorsList.map((editor) => {
         if (editor.isSelected && !editor.enabled) {
           editorsToInstall.push(installPlugin(editor));
         }
@@ -145,7 +145,7 @@ const Tray = ({
           />
         </div>
       )}
-      {editorsList.map(editor => {
+      {editorsList.map((editor) => {
         return (
           <div
             {...css(editor.enabled ? styles.editor : styles.clickableEditor)}
@@ -190,10 +190,10 @@ Tray.defaultProps = {
 };
 
 const mapStateToProps = ({ editors = [] }) => ({
-  editors: editors.filter(e => e.installed), // .sort((a, b) => a.name.localeCompare(b.name)),
+  editors: editors.filter((e) => e.installed), // .sort((a, b) => a.name.localeCompare(b.name)),
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       selectEditorToInstall,
@@ -205,7 +205,4 @@ const mapDispatchToProps = dispatch => {
   );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Tray);
+export default connect(mapStateToProps, mapDispatchToProps)(Tray);

@@ -91,7 +91,7 @@ export class Options {
         try {
           apiKey = await this.getSettingAsync<string>('settings', 'key');
         } catch (err) {
-          console.log('api_key is not set in the system');
+          console.log('api key not found on config file');
         }
       }
     }

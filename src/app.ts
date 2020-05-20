@@ -3,8 +3,6 @@ import installExtension, {
   REACT_DEVELOPER_TOOLS,
   REDUX_DEVTOOLS,
 } from 'electron-devtools-installer';
-import url from 'url';
-import path from 'path';
 
 import { registerWindow, unRegisterWindow } from './middlewares/forwardToRenderer';
 import isMainProcess from './utils/isMainProcess';

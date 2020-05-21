@@ -78,7 +78,8 @@
   },
   "dependencies": {
     "aphrodite": "2.x",
-    "electron": "8.x",
+    "axios": "^0.19.2",
+    "electron": "9.x",
     "electron-devtools-installer": "3.x",
     "electron-tray-window": "1.x",
     "find-in-files": "0.x",

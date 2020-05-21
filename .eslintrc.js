@@ -54,6 +54,6 @@ module.exports = {
     'react/jsx-one-expression-per-line': 'off',
     'no-return-await': 2,
     'no-unused-expressions': 0,
-    'prettier/prettier': ['error', { endOfLine: 'auto' }],
+    'prettier/prettier': ['error', { endOfLine: 'auto' }]
   },
 };

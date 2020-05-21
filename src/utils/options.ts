@@ -82,8 +82,23 @@ export class Options {
       return cachedApiKey;
     }
 
-    const apiKey = await this.getSettingAsync<string>('settings', 'api_key');
-    this.cache.setItem('api_key', apiKey, { ttl: 300 });
+    let apiKey = '';
+    try {
+      apiKey = await this.getSettingAsync<string>('settings', 'api_key');
+    } catch (_) {
+      try {
+        apiKey = await this.getSettingAsync<string>('settings', 'apikey');
+      } catch (__) {
+        try {
+          apiKey = await this.getSettingAsync<string>('settings', 'key');
+        } catch (err) {
+          console.log('api key not found on config file');
+        }
+      }
+    }
+    if (apiKey !== '') {
+      this.cache.setItem('api_key', apiKey, { ttl: 300 });
+    }
     return apiKey;
   }
 

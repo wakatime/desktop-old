@@ -13,7 +13,7 @@ import './stores/mainProcStore';
 console.log('isMainProcess', isMainProcess);
 const isDev = process.env.NODE_ENV === 'development';
 // Module to control application life.
-const { app, Tray, Menu } = electron;
+const { app, Tray, Menu, ipcMain } = electron;
 // Module to create native browser window.
 const { BrowserWindow } = electron;
 
@@ -27,6 +27,9 @@ const createWindow = async () => {
   if (mainWindow) {
     mainWindow.showInactive();
     return;
+  }
+  if (apiWindow) {
+    apiWindow.close();
   }
   // Create the browser window.
   mainWindow = new BrowserWindow({
@@ -86,6 +89,14 @@ const createWindow = async () => {
 };
 
 const apiKeyWindow = () => {
+  if (apiWindow) {
+    apiWindow.showInactive();
+    return;
+  }
+  if (mainWindow) {
+    mainWindow.close();
+  }
+
   apiWindow = new BrowserWindow({
     width: 1000,
     height: 400,
@@ -137,6 +148,12 @@ const apiKeyWindow = () => {
     unRegisterWindow(apiWindow);
   });
 };
+
+ipcMain.on('close-apikey', () => {
+  if (apiWindow) {
+    apiWindow.close();
+  }
+});
 
 const quitApp = () => {
   app.quit();

@@ -68,6 +68,7 @@ const rendererWebpackCfg = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'html', 'index.html'),
+      filename: 'index.html',
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'html', 'apikey.html'),

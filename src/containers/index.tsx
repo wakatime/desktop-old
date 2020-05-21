@@ -10,12 +10,14 @@ import isMainProcess from '../utils/isMainProcess';
 
 console.log('isMainProcess', isMainProcess);
 const div = document.getElementById('container');
-render(
-  <Provider store={store}>
-    {/* <InstallEditors />
+if (div) {
+  render(
+    <Provider store={store}>
+      {/* <InstallEditors />
     <ActiveEditors /> */}
 
-    <Tray />
-  </Provider>,
-  div,
-);
+      <Tray />
+    </Provider>,
+    div,
+  );
+}

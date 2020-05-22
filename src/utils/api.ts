@@ -1,11 +1,15 @@
 import axios from 'axios';
 
-export class API {
+import Options from './options';
+
+const options = new Options();
+export default class API {
   public async summaries() {
     try {
+      const apikey = await options.getApiKeyAsync();
+      const token = Buffer.from(apikey).toString('base64');
       axios.defaults.baseURL = 'https://wakatime.com';
-      axios.defaults.headers.common.Authorization =
-        'Basic Mzc2NmQ2OTMtYmZmMy00YzYzLThiZjUtYjQzOWYzZTEyMzAxCg==';
+      axios.defaults.headers.common.Authorization = `Basic ${token}`;
       const response = await axios.get('/api/v1/users/current/summaries?start=today&end=today');
       if (response.status !== 200) {
         return null;
@@ -19,7 +23,7 @@ export class API {
   public async todayMins() {
     const summaries = await this.summaries();
     if (summaries == null) {
-      return null;
+      return '0 min';
     }
     return summaries.data[0].grand_total.text;
   }

@@ -3,7 +3,7 @@ import { ipcRenderer } from 'electron';
 
 import { useStyles } from '../../themes';
 import Button from '../Button';
-import { Options } from '../../utils/options';
+import Options from '../../utils/options';
 
 const stylesFn = () => {
   return {

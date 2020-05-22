@@ -7,7 +7,7 @@ import installExtension, {
 import { registerWindow, unRegisterWindow } from './middlewares/forwardToRenderer';
 import isMainProcess from './utils/isMainProcess';
 import wakatimeIcon from './imgs/wakatime-16x16.png';
-import { API } from './utils/api';
+import API from './utils/api';
 
 import './stores/mainProcStore';
 
@@ -192,8 +192,8 @@ if (!gotTheLock) {
       const contextMenu = Menu.buildFromTemplate([
         { label: 'Wakatime\t\t\t', type: 'normal', click: createWindow },
         { label: 'API Key', type: 'normal', click: apiKeyWindow },
-        { label: 'Check for updates', type: 'normal', click: () => console.log('check') },
-        { label: `${todayMins} today`, type: 'normal', click: () => console.log('x minutes') },
+        { label: 'Check for updates', type: 'normal' },
+        { label: `${todayMins} today`, type: 'normal' },
         { type: 'separator' },
         { label: 'Quit', type: 'normal', click: quitApp },
       ]);

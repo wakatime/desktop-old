@@ -5,7 +5,7 @@ import * as os from 'os';
 import { ExpirationStrategy } from './cache/expiration-strategy';
 import { MemoryStorage } from './cache/memory-storage';
 
-export class Options {
+export default class Options {
   private configFile: string;
 
   private logFile: string;

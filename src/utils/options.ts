@@ -81,6 +81,7 @@ export class Options {
     if (cachedApiKey) {
       return cachedApiKey;
     }
+
     let apiKey = '';
     try {
       apiKey = await this.getSettingAsync<string>('settings', 'api_key');

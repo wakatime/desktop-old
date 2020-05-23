@@ -63,10 +63,16 @@ const rendererWebpackCfg = {
   target: 'electron-renderer',
   entry: {
     mainUI: path.resolve(__dirname, './src/containers/index.tsx'),
+    apikeyUI: path.resolve(__dirname, './src/containers/apikey.tsx'),
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'html', 'index.html'),
+      filename: 'index.html',
+    }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'src', 'html', 'apikey.html'),
+      filename: 'apikey.html',
     }),
   ],
 };

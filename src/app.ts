@@ -3,7 +3,6 @@ import installExtension, {
   REACT_DEVELOPER_TOOLS,
   REDUX_DEVTOOLS,
 } from 'electron-devtools-installer';
-import trayWindow from 'electron-tray-window';
 
 import { registerWindow, unRegisterWindow } from './middlewares/forwardToRenderer';
 import isMainProcess from './utils/isMainProcess';
@@ -14,24 +13,28 @@ import './stores/mainProcStore';
 console.log('isMainProcess', isMainProcess);
 const isDev = process.env.NODE_ENV === 'development';
 // Module to control application life.
-const { app, Tray } = electron;
+const { app, Tray, Menu, ipcMain } = electron;
 // Module to create native browser window.
 const { BrowserWindow } = electron;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
-let appIcon = null;
+let apiWindow;
+let tray = null;
 
 const createWindow = async () => {
+  if (mainWindow) {
+    mainWindow.showInactive();
+    return;
+  }
+  if (apiWindow) {
+    apiWindow.close();
+  }
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    // width: 300,
-    // height: 400,
     width: 1000,
     height: 700,
-    // movable: false,
-    frame: false,
     webPreferences: {
       nodeIntegration: true,
     },
@@ -85,6 +88,77 @@ const createWindow = async () => {
   });
 };
 
+const apiKeyWindow = () => {
+  if (apiWindow) {
+    apiWindow.showInactive();
+    return;
+  }
+  if (mainWindow) {
+    mainWindow.close();
+  }
+
+  apiWindow = new BrowserWindow({
+    width: 1000,
+    height: 400,
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
+
+  // and load the apiKey.html of the app.
+  // eslint-disable-next-line no-console
+  console.log(`Starting in dev mode? ${isDev}`);
+  if (isDev) {
+    // Attempt to load window until successful
+    // This is cause webpack is launching during this in dev mode
+    const loadExt = async (extObject: any) => {
+      const name = await installExtension(extObject);
+      // eslint-disable-next-line no-console
+      console.log(`Added Extension:  ${name}`);
+      return true;
+    };
+    const loadWin = async () => {
+      try {
+        apiWindow.loadURL('http://localhost:8080/apikey.html');
+        await loadExt(REACT_DEVELOPER_TOOLS);
+        await loadExt(REDUX_DEVTOOLS);
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error('Unable to load page, waiting 5s to retry...', e);
+        setTimeout(loadWin, 5000);
+      }
+    };
+    setTimeout(loadWin, 500);
+  } else {
+    const apiKeyHtmlPath = `file://${__dirname}/apikey.html`;
+    apiWindow.loadURL(apiKeyHtmlPath);
+  }
+
+  // Open the DevTools.
+  if (isDev) {
+    apiWindow.webContents.openDevTools();
+  }
+
+  // Emitted when the window is closed.
+  apiWindow.on('closed', () => {
+    // Dereference the window object, usually you would store windows
+    // in an array if your app supports multi windows, this is the time
+    // when you should delete the corresponding element.
+    apiWindow = null;
+    unRegisterWindow(apiWindow);
+  });
+};
+
+ipcMain.on('close-apikey', () => {
+  if (apiWindow) {
+    apiWindow.close();
+  }
+});
+
+const quitApp = () => {
+  app.quit();
+};
+
 // The return value of this method indicates whether or not this instance of
 // your application successfully obtained the lock. If it failed to obtain the lock,
 // you can assume that another instance of your application is already
@@ -106,14 +180,17 @@ if (!gotTheLock) {
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
   app.on('ready', () => {
-    appIcon = new Tray(wakatimeIcon);
-
-    createWindow();
-
-    trayWindow.setOptions({
-      tray: appIcon,
-      window: mainWindow,
-    });
+    tray = new Tray(wakatimeIcon);
+    const contextMenu = Menu.buildFromTemplate([
+      { label: 'Wakatime\t\t\t', type: 'normal', click: createWindow },
+      { label: 'API Key', type: 'normal', click: apiKeyWindow },
+      { label: 'Check for updates', type: 'normal', click: () => console.log('check') },
+      { label: 'x minutes today', type: 'normal', click: () => console.log('x minutes') },
+      { type: 'separator' },
+      { label: 'Quit', type: 'normal', click: quitApp },
+    ]);
+    tray.setToolTip('This is my application.');
+    tray.setContextMenu(contextMenu);
   });
 
   // Quit when all windows are closed.

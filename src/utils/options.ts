@@ -68,6 +68,62 @@ export default class Options {
     );
   }
 
+  public setSetting(section: string, key: string, val: string): void {
+    fs.readFile(
+      this.getConfigFile(),
+      'utf-8',
+      (err: NodeJS.ErrnoException | null, content: string) => {
+        // ignore errors because config file might not exist yet
+        // eslint-disable-next-line no-param-reassign
+        if (err) content = '';
+
+        const contents: string[] = [];
+        let currentSection = '';
+
+        let found = false;
+        const lines = content.split('\n');
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i];
+          if (this.startsWith(line.trim(), '[') && this.endsWith(line.trim(), ']')) {
+            if (currentSection === section && !found) {
+              contents.push(`${key} = ${val}`);
+              found = true;
+            }
+            currentSection = line
+              .trim()
+              .substring(1, line.trim().length - 1)
+              .toLowerCase();
+            contents.push(line);
+          } else if (currentSection === section) {
+            const parts = line.split('=');
+            const currentKey = parts[0].trim();
+            if (currentKey === key) {
+              if (!found) {
+                contents.push(`${key} = ${val}`);
+                found = true;
+              }
+            } else {
+              contents.push(line);
+            }
+          } else {
+            contents.push(line);
+          }
+        }
+
+        if (!found) {
+          if (currentSection !== section) {
+            contents.push(`[${section}]`);
+          }
+          contents.push(`${key} = ${val}`);
+        }
+
+        fs.writeFile(this.getConfigFile(), contents.join('\n'), (wfErr) => {
+          if (wfErr) throw wfErr;
+        });
+      },
+    );
+  }
+
   public getConfigFile(): string {
     return this.configFile;
   }

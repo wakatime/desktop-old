@@ -3,7 +3,7 @@ import { ipcRenderer } from 'electron';
 
 import { useStyles } from '../../themes';
 import Button from '../Button';
-import { Options } from '../../utils/options';
+import Options from '../../utils/options';
 
 const stylesFn = () => {
   return {
@@ -16,7 +16,6 @@ const stylesFn = () => {
       flexDirection: 'column',
     },
     input: {
-      // height: '70px',
       lineHeight: '1.5',
       padding: '.375rem .75rem',
       minWidth: '285px',

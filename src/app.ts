@@ -7,6 +7,7 @@ import installExtension, {
 import { registerWindow, unRegisterWindow } from './middlewares/forwardToRenderer';
 import isMainProcess from './utils/isMainProcess';
 import wakatimeIcon from './imgs/wakatime-16x16.png';
+import API from './utils/api';
 
 import './stores/mainProcStore';
 
@@ -16,6 +17,8 @@ const isDev = process.env.NODE_ENV === 'development';
 const { app, Tray, Menu, ipcMain } = electron;
 // Module to create native browser window.
 const { BrowserWindow } = electron;
+
+const api = new API();
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -179,18 +182,30 @@ if (!gotTheLock) {
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
-  app.on('ready', () => {
-    tray = new Tray(wakatimeIcon);
-    const contextMenu = Menu.buildFromTemplate([
-      { label: 'Wakatime\t\t\t', type: 'normal', click: createWindow },
-      { label: 'API Key', type: 'normal', click: apiKeyWindow },
-      { label: 'Check for updates', type: 'normal', click: () => console.log('check') },
-      { label: 'x minutes today', type: 'normal', click: () => console.log('x minutes') },
-      { type: 'separator' },
-      { label: 'Quit', type: 'normal', click: quitApp },
-    ]);
-    tray.setToolTip('This is my application.');
-    tray.setContextMenu(contextMenu);
+  app.on('ready', async () => {
+    const setTray = async () => {
+      const todayMins = await api.todayMins();
+      if (tray) {
+        tray.destroy();
+      }
+      tray = new Tray(wakatimeIcon);
+      const contextMenu = Menu.buildFromTemplate([
+        { label: 'Wakatime\t\t\t', type: 'normal', click: createWindow },
+        { label: 'API Key', type: 'normal', click: apiKeyWindow },
+        { label: 'Check for updates', type: 'normal' },
+        { label: `${todayMins} today`, type: 'normal' },
+        { type: 'separator' },
+        { label: 'Quit', type: 'normal', click: quitApp },
+      ]);
+      tray.setToolTip('This is my application.');
+      tray.setContextMenu(contextMenu);
+    };
+
+    await setTray();
+
+    setInterval(async () => {
+      await setTray();
+    }, 60000);
   });
 
   // Quit when all windows are closed.

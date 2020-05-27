@@ -3,6 +3,7 @@ import path from 'path';
 
 import { CommandExists } from '../lib/command-exists';
 import Editor from './editor';
+import logger from '../utils/logger';
 
 export default class Xcode extends Editor {
   private commandExists = new CommandExists();
@@ -27,7 +28,7 @@ export default class Xcode extends Editor {
     try {
       let exists = false;
       await Promise.all(
-        Object.keys(this.binaries).map(async binary => {
+        Object.keys(this.binaries).map(async (binary) => {
           if (await this.isBinary(binary)) {
             exists = true;
           }
@@ -36,7 +37,7 @@ export default class Xcode extends Editor {
       if (exists) return true;
       return await this.isDirectory(this.appDirectory());
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       return false;
     }
   }

@@ -17,7 +17,6 @@ export default abstract class Editor implements EditorInterface {
       const stats = await stat(directory);
       return stats.isDirectory();
     } catch (err) {
-      // console.error(err);
       return false;
     }
   }
@@ -27,7 +26,6 @@ export default abstract class Editor implements EditorInterface {
       const stats = fs.statSync(directory);
       return stats.isDirectory();
     } catch (err) {
-      // console.error(err);
       return false;
     }
   }
@@ -42,7 +40,6 @@ export default abstract class Editor implements EditorInterface {
       const stats = fs.statSync(filePath);
       return stats.isFile();
     } catch (err) {
-      // console.error(err);
       return false;
     }
   }
@@ -51,7 +48,6 @@ export default abstract class Editor implements EditorInterface {
     try {
       return fs.existsSync(file);
     } catch (err) {
-      // console.error(err);
       return false;
     }
   }

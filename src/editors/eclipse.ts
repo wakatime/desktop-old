@@ -4,6 +4,7 @@ import fs from 'fs';
 import request from 'request';
 
 import Editor from './editor';
+import logger from '../utils/logger';
 
 export default class Eclipse extends Editor {
   public static getName(): string {
@@ -53,11 +54,11 @@ export default class Eclipse extends Editor {
           resolve();
         })
         .on('error', (err: any) => {
-          console.error(err);
+          logger.error(err);
           reject(err);
         });
-    }).catch(err => {
-      console.error(err);
+    }).catch((err) => {
+      logger.error(err);
     });
   }
 
@@ -66,7 +67,7 @@ export default class Eclipse extends Editor {
       fs.unlinkSync(`${os.homedir()}/.p2/pool/plugins/${this.pluginVersion}`);
       return Promise.resolve();
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       return Promise.reject();
     }
   }
@@ -85,7 +86,7 @@ export default class Eclipse extends Editor {
 
   private directory(directories: Array<string>): string {
     let directory = '';
-    directories.some(pluginPath => {
+    directories.some((pluginPath) => {
       if (this.isDirectorySync(pluginPath)) {
         directory = pluginPath;
         return true;
@@ -101,7 +102,7 @@ export default class Eclipse extends Editor {
         return [''];
       }
       case 'darwin':
-        return this.versions.map(check => `${os.homedir()}/eclipse/java-${check}`);
+        return this.versions.map((check) => `${os.homedir()}/eclipse/java-${check}`);
       case 'linux':
         return [''];
       default:

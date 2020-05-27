@@ -1,14 +1,16 @@
 /* eslint-disable no-undef */
 import { Store, Dispatch, Action } from 'redux';
+
 import isMainProcess from '../utils/isMainProcess';
 import isForwardToRendererAction from '../utils/isForwardToRendererAction';
+import logger from '../utils/logger';
 
 let wins = [];
-export const registerWindow = win => {
+export const registerWindow = (win) => {
   wins.push(win);
 };
-export const unRegisterWindow = win => {
-  wins = wins.filter(w => w !== win);
+export const unRegisterWindow = (win) => {
+  wins = wins.filter((w) => w !== win);
 };
 
 const forwardToMain = (store: Store) => (next: Dispatch) => (action: Action) => {
@@ -16,8 +18,8 @@ const forwardToMain = (store: Store) => (next: Dispatch) => (action: Action) => 
 
   if (isMainProcess && isForwardToRendererAction(action)) {
     const msgArgs = ['message', store.getState()];
-    wins.forEach(w => {
-      console.log('forwarding message', w);
+    wins.forEach((w) => {
+      logger.debug(`forwarding message ${w}`);
       w.webContents.send(...msgArgs);
     });
   }

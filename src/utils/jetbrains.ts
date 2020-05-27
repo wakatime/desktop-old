@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import request from 'request';
 
+import logger from './logger';
+
 /**
  * Installs WakaTime plugin for Jetbrains editors
  * Directories used by the IDE to store settings go here
@@ -27,11 +29,11 @@ export const installJetbrainsPlugin = async (pluginsDirectory: string): Promise<
         resolve();
       })
       .on('error', (err: any) => {
-        console.error(err);
+        logger.error(err);
         reject(err);
       });
-  }).catch(err => {
-    console.error(err);
+  }).catch((err) => {
+    logger.error(err);
   });
 };
 
@@ -44,7 +46,7 @@ export const unInstallJetbrainsPlugin = async (pluginsDirectory: string): Promis
     fs.unlinkSync(`${pluginsDirectory}/WakaTime.jar`);
     return Promise.resolve();
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     return Promise.reject();
   }
 };

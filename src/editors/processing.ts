@@ -5,6 +5,7 @@ import path from 'path';
 import request from 'request';
 
 import Editor from './editor';
+import logger from '../utils/logger';
 
 export default class Processing extends Editor {
   private preferences: { [key: string]: string } = {};
@@ -62,11 +63,11 @@ export default class Processing extends Editor {
           });
         })
         .on('error', (err: any) => {
-          console.error(err);
+          logger.error(err);
           reject(err);
         });
-    }).catch(err => {
-      console.error(err);
+    }).catch((err) => {
+      logger.error(err);
     });
   }
 
@@ -96,7 +97,7 @@ export default class Processing extends Editor {
         if (this.fileExistsSync(file)) {
           const data = fs.readFileSync(file, { encoding: 'utf8' });
           if (data) {
-            data.split(/\r?\n/).forEach(line => {
+            data.split(/\r?\n/).forEach((line) => {
               const split = line.split('=');
               this.preferences[split[0]] = split[1];
             });

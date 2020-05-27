@@ -5,6 +5,7 @@ import request from 'request';
 
 import Editor from './editor';
 import { CommandExists } from '../lib/command-exists';
+import logger from '../utils/logger';
 
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
@@ -57,11 +58,11 @@ export default class Kakoune extends Editor {
           resolve();
         })
         .on('error', (err: any) => {
-          console.error(err);
+          logger.error(err);
           reject(err);
         });
-    }).catch(err => {
-      console.error(err);
+    }).catch((err) => {
+      logger.error(err);
     });
   }
 

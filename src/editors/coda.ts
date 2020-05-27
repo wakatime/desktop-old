@@ -1,6 +1,7 @@
 import os from 'os';
 
 import Editor from './editor';
+import logger from '../utils/logger';
 
 export default class Coda extends Editor {
   public static getName(): string {
@@ -17,22 +18,22 @@ export default class Coda extends Editor {
 
   public async isEditorInstalled(): Promise<boolean> {
     try {
-      return this.appDirectory().some(directory => {
+      return this.appDirectory().some((directory) => {
         return this.isDirectorySync(directory);
       });
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       return false;
     }
   }
 
   public async isPluginInstalled(): Promise<boolean> {
     try {
-      return this.pluginsDirectory().some(directory => {
+      return this.pluginsDirectory().some((directory) => {
         return this.fileExistsSync(directory);
       });
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       return false;
     }
   }

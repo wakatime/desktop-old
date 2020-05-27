@@ -1,12 +1,14 @@
 import { Store, Dispatch, Action } from 'redux';
 
+import logger from '../utils/logger';
+
 const crashReporter = (store: Store) => (next: Dispatch) => (action: Action) => {
   let result;
   try {
     result = next(action);
   } catch (err) {
     // This will not trigger when the chrome redux extension takes control
-    console.error(
+    logger.error(
       'Uncaught exception:',
       err,
       '/naction:',

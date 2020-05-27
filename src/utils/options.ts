@@ -4,6 +4,7 @@ import * as os from 'os';
 
 import { ExpirationStrategy } from './cache/expiration-strategy';
 import { MemoryStorage } from './cache/memory-storage';
+import logger from './logger';
 
 export default class Options {
   private configFile: string;
@@ -92,7 +93,7 @@ export default class Options {
         try {
           apiKey = await this.getSettingAsync<string>('settings', 'key');
         } catch (err) {
-          console.log('api key not found on config file');
+          logger.error('api key not found on config file');
         }
       }
     }

@@ -68,14 +68,30 @@ export default class Options {
     );
   }
 
-  public setSetting(section: string, key: string, val: string): void {
+  public async setSettingAsync<T = any>(section: string, key: string, val: string): Promise<T> {
+    return new Promise<T>((resolve, reject) => {
+      this.setSetting(section, key, val, (err, result) => {
+        err ? reject(err) : resolve(result);
+      });
+    });
+  }
+
+  public setSetting(
+    section: string,
+    key: string,
+    val: string,
+    callback: (string, any) => void = null,
+  ): void {
     fs.readFile(
       this.getConfigFile(),
       'utf-8',
       (err: NodeJS.ErrnoException | null, content: string) => {
         // ignore errors because config file might not exist yet
-        // eslint-disable-next-line no-param-reassign
-        if (err) content = '';
+        if (err) {
+          // eslint-disable-next-line no-param-reassign
+          content = '';
+          if (callback) callback(new Error(`could not write ${this.getConfigFile()}`), null);
+        }
 
         const contents: string[] = [];
         let currentSection = '';
@@ -119,6 +135,7 @@ export default class Options {
 
         fs.writeFile(this.getConfigFile(), contents.join('\n'), (wfErr) => {
           if (wfErr) throw wfErr;
+          if (callback) callback(null, null);
         });
       },
     );
@@ -128,8 +145,16 @@ export default class Options {
     return this.configFile;
   }
 
+  public setConfigFile(configFile: string): void {
+    this.configFile = configFile;
+  }
+
   public getLogFile(): string {
     return this.logFile;
+  }
+
+  public setLogFile(logFile: string): void {
+    this.logFile = logFile;
   }
 
   public async getApiKeyAsync(): Promise<string> {
@@ -159,13 +184,13 @@ export default class Options {
   }
 
   public getUserHomeDir(): string {
-    if (this.isPortable()) return process.env.VSCODE_PORTABLE as string;
+    if (this.isPortable()) return process.env.WAKATIME_DESKTOP_PORTABLE as string;
 
     return process.env[os.platform() === 'win32' ? 'USERPROFILE' : 'HOME'] || '';
   }
 
   public isPortable(): boolean {
-    return !!process.env.VSCODE_PORTABLE;
+    return !!process.env.WAKATIME_DESKTOP_PORTABLE;
   }
 
   public startsWith(outer: string, inner: string): boolean {

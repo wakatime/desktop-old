@@ -68,12 +68,93 @@ export default class Options {
     );
   }
 
+  public async setSettingAsync<T = any>(section: string, key: string, val: string): Promise<T> {
+    return new Promise<T>((resolve, reject) => {
+      this.setSetting(section, key, val, (err, result) => {
+        err ? reject(err) : resolve(result);
+      });
+    });
+  }
+
+  public setSetting(
+    section: string,
+    key: string,
+    val: string,
+    callback: (string, any) => void = null,
+  ): void {
+    fs.readFile(
+      this.getConfigFile(),
+      'utf-8',
+      (err: NodeJS.ErrnoException | null, content: string) => {
+        // ignore errors because config file might not exist yet
+        if (err) {
+          // eslint-disable-next-line no-param-reassign
+          content = '';
+          if (callback) callback(new Error(`could not write ${this.getConfigFile()}`), null);
+        }
+
+        const contents: string[] = [];
+        let currentSection = '';
+
+        let found = false;
+        const lines = content.split('\n');
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i];
+          if (this.startsWith(line.trim(), '[') && this.endsWith(line.trim(), ']')) {
+            if (currentSection === section && !found) {
+              contents.push(`${key} = ${val}`);
+              found = true;
+            }
+            currentSection = line
+              .trim()
+              .substring(1, line.trim().length - 1)
+              .toLowerCase();
+            contents.push(line);
+          } else if (currentSection === section) {
+            const parts = line.split('=');
+            const currentKey = parts[0].trim();
+            if (currentKey === key) {
+              if (!found) {
+                contents.push(`${key} = ${val}`);
+                found = true;
+              }
+            } else {
+              contents.push(line);
+            }
+          } else {
+            contents.push(line);
+          }
+        }
+
+        if (!found) {
+          if (currentSection !== section) {
+            contents.push(`[${section}]`);
+          }
+          contents.push(`${key} = ${val}`);
+        }
+
+        fs.writeFile(this.getConfigFile(), contents.join('\n'), (wfErr) => {
+          if (wfErr) throw wfErr;
+          if (callback) callback(null, null);
+        });
+      },
+    );
+  }
+
   public getConfigFile(): string {
     return this.configFile;
   }
 
+  public setConfigFile(configFile: string): void {
+    this.configFile = configFile;
+  }
+
   public getLogFile(): string {
     return this.logFile;
+  }
+
+  public setLogFile(logFile: string): void {
+    this.logFile = logFile;
   }
 
   public async getApiKeyAsync(): Promise<string> {
@@ -103,13 +184,13 @@ export default class Options {
   }
 
   public getUserHomeDir(): string {
-    if (this.isPortable()) return process.env.VSCODE_PORTABLE as string;
+    if (this.isPortable()) return process.env.WAKATIME_DESKTOP_PORTABLE as string;
 
     return process.env[os.platform() === 'win32' ? 'USERPROFILE' : 'HOME'] || '';
   }
 
   public isPortable(): boolean {
-    return !!process.env.VSCODE_PORTABLE;
+    return !!process.env.WAKATIME_DESKTOP_PORTABLE;
   }
 
   public startsWith(outer: string, inner: string): boolean {

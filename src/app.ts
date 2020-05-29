@@ -8,10 +8,11 @@ import { registerWindow, unRegisterWindow } from './middlewares/forwardToRendere
 import isMainProcess from './utils/isMainProcess';
 import wakatimeIcon from './imgs/wakatime-16x16.png';
 import API from './utils/api';
+import logger, { LogLevel } from './utils/logger';
+import Options from './utils/options';
 
 import './stores/mainProcStore';
 
-console.log('isMainProcess', isMainProcess);
 const isDev = process.env.NODE_ENV === 'development';
 // Module to control application life.
 const { app, Tray, Menu, ipcMain } = electron;
@@ -19,6 +20,9 @@ const { app, Tray, Menu, ipcMain } = electron;
 const { BrowserWindow } = electron;
 
 const api = new API();
+const options = new Options();
+
+logger.debug(`isMainProcess ${isMainProcess ? 'true' : 'false'}`);
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -43,20 +47,20 @@ const createWindow = async () => {
     },
   });
   mainWindow.webContents.on('did-finish-load', () => {
-    console.log('mainWindow registered');
+    logger.debug('mainWindow registered');
     registerWindow(mainWindow);
   });
 
   // and load the index.html of the app.
   // eslint-disable-next-line no-console
-  console.log(`Starting in dev mode? ${isDev}`);
+  logger.debug(`Starting in dev mode? ${isDev}`);
   if (isDev) {
     // Attempt to load window until successful
     // This is cause webpack is launching during this in dev mode
     const loadExt = async (extObject: any) => {
       const name = await installExtension(extObject);
       // eslint-disable-next-line no-console
-      console.log(`Added Extension:  ${name}`);
+      logger.debug(`Added Extension:  ${name}`);
       return true;
     };
     const loadWin = async () => {
@@ -66,7 +70,7 @@ const createWindow = async () => {
         await loadExt(REDUX_DEVTOOLS);
       } catch (e) {
         // eslint-disable-next-line no-console
-        console.error('Unable to load page, waiting 5s to retry...', e);
+        logger.error('Unable to load page, waiting 5s to retry...', e);
         setTimeout(loadWin, 5000);
       }
     };
@@ -110,14 +114,14 @@ const apiKeyWindow = () => {
 
   // and load the apiKey.html of the app.
   // eslint-disable-next-line no-console
-  console.log(`Starting in dev mode? ${isDev}`);
+  logger.debug(`Starting in dev mode? ${isDev}`);
   if (isDev) {
     // Attempt to load window until successful
     // This is cause webpack is launching during this in dev mode
     const loadExt = async (extObject: any) => {
       const name = await installExtension(extObject);
       // eslint-disable-next-line no-console
-      console.log(`Added Extension:  ${name}`);
+      logger.debug(`Added Extension:  ${name}`);
       return true;
     };
     const loadWin = async () => {
@@ -127,7 +131,7 @@ const apiKeyWindow = () => {
         await loadExt(REDUX_DEVTOOLS);
       } catch (e) {
         // eslint-disable-next-line no-console
-        console.error('Unable to load page, waiting 5s to retry...', e);
+        logger.error('Unable to load page, waiting 5s to retry...', e);
         setTimeout(loadWin, 5000);
       }
     };
@@ -228,3 +232,9 @@ if (!gotTheLock) {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+options.getSetting('settings', 'debug', (_error, debug) => {
+  if (debug === 'true') {
+    logger.setLevel(LogLevel.DEBUG);
+    logger.debug('::WakaTime debug mode::');
+  }
+});

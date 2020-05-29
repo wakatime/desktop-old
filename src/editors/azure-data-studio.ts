@@ -1,5 +1,7 @@
 import os from 'os';
+
 import Editor from './editor';
+import logger from '../utils/logger';
 
 export default class AzureDataStudio extends Editor {
   public static getName(): string {
@@ -18,7 +20,7 @@ export default class AzureDataStudio extends Editor {
     try {
       return this.isDirectorySync(this.appDirectory());
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       return false;
     }
   }

@@ -6,6 +6,7 @@ import request from 'request';
 
 import { CommandExists } from '../lib/command-exists';
 import Editor from './editor';
+import logger from '../utils/logger';
 
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
@@ -33,7 +34,7 @@ export default class Atom extends Editor {
     try {
       return (await this.isBinary(this.binary)) || this.isDirectorySync(this.appDirectory());
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       return false;
     }
   }
@@ -44,7 +45,7 @@ export default class Atom extends Editor {
     try {
       return await this.apm();
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       return false;
     }
   }
@@ -86,11 +87,11 @@ export default class Atom extends Editor {
           });
         })
         .on('error', (err: any) => {
-          console.error(err);
+          logger.error(err);
           reject(err);
         });
-    }).catch(err => {
-      console.error(err);
+    }).catch((err) => {
+      logger.error(err);
     });
   }
 
@@ -141,7 +142,7 @@ export default class Atom extends Editor {
     if (stderr) return Promise.reject(new Error(stderr));
 
     const json = JSON.parse(stdout);
-    const obj = json.user.find(n => n.name === 'wakatime');
+    const obj = json.user.find((n) => n.name === 'wakatime');
     return Promise.resolve(obj !== undefined);
   }
 }

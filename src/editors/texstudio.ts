@@ -4,6 +4,7 @@ import path from 'path';
 import request from 'request';
 
 import Editor from './editor';
+import logger from '../utils/logger';
 
 const python = require('child_process');
 
@@ -46,24 +47,24 @@ export default class TeXstudio extends Editor {
         .on('finish', async () => {
           python.spawn('python', [temp]);
           let output = '';
-          python.stdout.on('data', data => {
+          python.stdout.on('data', (data) => {
             output += data;
           });
-          python.on('close', code => {
+          python.on('close', (code) => {
             if (code !== 0) {
-              console.error(code);
+              logger.error(code);
             }
           });
-          console.log(output);
+          logger.debug(output);
           fs.unlinkSync(temp);
           resolve();
         })
         .on('error', (err: any) => {
-          console.error(err);
+          logger.error(err);
           reject(err);
         });
-    }).catch(err => {
-      console.error(err);
+    }).catch((err) => {
+      logger.error(err);
     });
   }
 
@@ -75,7 +76,7 @@ export default class TeXstudio extends Editor {
       }
       return Promise.resolve();
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       return Promise.reject();
     }
   }
@@ -105,9 +106,9 @@ export default class TeXstudio extends Editor {
   private findMacroFile(): string {
     let macrofile = '';
     fs.readdirSync(this.pluginsDirectory(), { withFileTypes: true })
-      .filter(dirent => !dirent.isDirectory())
-      .map(dirent => dirent.name)
-      .some(file => {
+      .filter((dirent) => !dirent.isDirectory())
+      .map((dirent) => dirent.name)
+      .some((file) => {
         const fileContent = fs.readFileSync(path.join(this.pluginsDirectory(), file), 'utf8');
         const json = this.readJsonContent(fileContent);
         if (json !== '' && json.name === 'WakaTime') {

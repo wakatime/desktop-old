@@ -2,6 +2,7 @@ import os from 'os';
 
 import Editor from './editor';
 import { installJetbrainsPlugin, unInstallJetbrainsPlugin } from '../utils/jetbrains';
+import logger from '../utils/logger';
 
 export default class AppCode extends Editor {
   public static getName(): string {
@@ -22,11 +23,11 @@ export default class AppCode extends Editor {
 
   public async isEditorInstalled(): Promise<boolean> {
     try {
-      return this.appDirectory().some(directory => {
+      return this.appDirectory().some((directory) => {
         return this.isDirectorySync(directory);
       });
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       return false;
     }
   }
@@ -50,8 +51,8 @@ export default class AppCode extends Editor {
     let IdeaIC = [];
     switch (os.platform()) {
       case 'win32':
-        intelliJIdea = pathsToCheck.map(check => `${os.homedir()}\\.IntelliJIdea${check}`);
-        IdeaIC = pathsToCheck.map(check => `${os.homedir()}\\.IdeaIC${check}`);
+        intelliJIdea = pathsToCheck.map((check) => `${os.homedir()}\\.IntelliJIdea${check}`);
+        IdeaIC = pathsToCheck.map((check) => `${os.homedir()}\\.IdeaIC${check}`);
         directories.push(this.directory(intelliJIdea));
         directories.push(this.directory(IdeaIC));
         return directories;
@@ -81,7 +82,7 @@ export default class AppCode extends Editor {
 
   private directory(directories: Array<string>): string {
     let directory = '';
-    directories.some(pluginPath => {
+    directories.some((pluginPath) => {
       if (this.isDirectorySync(pluginPath)) {
         directory = pluginPath;
         return true;
@@ -98,17 +99,17 @@ export default class AppCode extends Editor {
     switch (os.platform()) {
       case 'win32': {
         intelliJIdea = pathsToCheck.map(
-          path => `${os.homedir()}\\.IntelliJIdea${path}\\config\\plugins`,
+          (path) => `${os.homedir()}\\.IntelliJIdea${path}\\config\\plugins`,
         );
-        IdeaIC = pathsToCheck.map(path => `${os.homedir()}\\.IdeaIC${path}\\config\\plugins`);
+        IdeaIC = pathsToCheck.map((path) => `${os.homedir()}\\.IdeaIC${path}\\config\\plugins`);
         return intelliJIdea.concat(IdeaIC);
       }
       case 'darwin':
         intelliJIdea = pathsToCheck.map(
-          path => `${os.homedir()}/Library/Application Support/IntelliJIdea${path}`,
+          (path) => `${os.homedir()}/Library/Application Support/IntelliJIdea${path}`,
         );
         IdeaIC = pathsToCheck.map(
-          path => `${os.homedir()}/Library/Application Support/IdeaIC${path}`,
+          (path) => `${os.homedir()}/Library/Application Support/IdeaIC${path}`,
         );
         return intelliJIdea.concat(IdeaIC);
       case 'linux':

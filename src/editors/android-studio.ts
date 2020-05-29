@@ -5,6 +5,7 @@ import path from 'path';
 import { CommandExists } from '../lib/command-exists';
 import Editor from './editor';
 import { installJetbrainsPlugin, unInstallJetbrainsPlugin } from '../utils/jetbrains';
+import logger from '../utils/logger';
 
 const plist = require('plist');
 
@@ -40,7 +41,7 @@ export default class AndroidStudio extends Editor {
       if (ret) return true;
       return this.isDirectorySync(this.appDirectory());
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       return false;
     }
   }

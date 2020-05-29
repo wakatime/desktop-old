@@ -5,6 +5,7 @@ import fs from 'fs';
 import request from 'request';
 
 import Editor from './editor';
+import logger from '../utils/logger';
 
 export default class SublimeText3 extends Editor {
   public static getName(): string {
@@ -60,11 +61,11 @@ export default class SublimeText3 extends Editor {
           });
         })
         .on('error', (err: any) => {
-          console.error(err);
+          logger.error(err);
           reject(err);
         });
-    }).catch(err => {
-      console.error(err);
+    }).catch((err) => {
+      logger.error(err);
     });
   }
 

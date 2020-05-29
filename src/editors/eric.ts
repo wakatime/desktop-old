@@ -5,6 +5,7 @@ import request from 'request';
 
 import Editor from './editor';
 import { CommandExists } from '../lib/command-exists';
+import logger from '../utils/logger';
 
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
@@ -35,12 +36,12 @@ export default class Eric extends Editor {
 
   public async isPluginInstalled(): Promise<boolean> {
     try {
-      return this.pluginsDirectory().some(directory => {
+      return this.pluginsDirectory().some((directory) => {
         const pluginPath = path.join(directory, 'PluginWakaTime.py');
         return this.fileExistsSync(pluginPath);
       });
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       return false;
     }
   }
@@ -62,7 +63,7 @@ export default class Eric extends Editor {
         .pipe(file)
         .on('finish', async () => {
           const pluginsDirectories = this.pluginsDirectory();
-          pluginsDirectories.forEach(async directory => {
+          pluginsDirectories.forEach(async (directory) => {
             const fileStream = fs.createWriteStream(path.join(directory, 'PluginWakaTime.py'));
             const stream2 = await fs.createReadStream(temp);
             await stream2.pipe(fileStream);
@@ -71,16 +72,16 @@ export default class Eric extends Editor {
           resolve();
         })
         .on('error', (err: any) => {
-          console.error(err);
+          logger.error(err);
           reject(err);
         });
-    }).catch(err => {
-      console.error(err);
+    }).catch((err) => {
+      logger.error(err);
     });
   }
 
   public async uninstallPlugin(): Promise<void> {
-    this.pluginsDirectory().forEach(async directory => {
+    this.pluginsDirectory().forEach(async (directory) => {
       const pluginPath = path.join(directory, 'PluginWakaTime.py');
       await fs.unlinkSync(pluginPath);
     });

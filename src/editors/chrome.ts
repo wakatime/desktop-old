@@ -4,6 +4,7 @@ import path from 'path';
 import fs from 'fs';
 
 import Editor from './editor';
+import logger from '../utils/logger';
 
 export default class Chrome extends Editor {
   public static getName(): string {
@@ -39,7 +40,7 @@ export default class Chrome extends Editor {
       fs.unlinkSync(this.pluginsDirectory());
       return Promise.resolve();
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       return Promise.reject();
     }
   }

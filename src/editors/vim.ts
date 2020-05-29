@@ -1,5 +1,6 @@
 import Editor from './editor';
 import { CommandExists } from '../lib/command-exists';
+import logger from '../utils/logger';
 
 export default class Vim extends Editor {
   private commandExists = new CommandExists();
@@ -24,7 +25,7 @@ export default class Vim extends Editor {
     try {
       let exists = false;
       await Promise.all(
-        Object.keys(this.binaries).map(async binary => {
+        Object.keys(this.binaries).map(async (binary) => {
           if (await this.isBinary(binary)) {
             exists = true;
           }
@@ -32,7 +33,7 @@ export default class Vim extends Editor {
       );
       return exists;
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       return false;
     }
   }

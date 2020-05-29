@@ -4,6 +4,7 @@ import fsSync from 'fs';
 
 import Editor from './editor';
 import CommandExists from '../lib/command-exists';
+import logger from '../utils/logger';
 
 export default class Blender extends Editor {
   private commandExists = new CommandExists();
@@ -28,7 +29,7 @@ export default class Blender extends Editor {
     try {
       return await this.isBinary(this.binary);
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       return false;
     }
   }

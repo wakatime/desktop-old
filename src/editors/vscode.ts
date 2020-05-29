@@ -2,6 +2,7 @@ import os from 'os';
 
 import { CommandExists } from '../lib/command-exists';
 import Editor from './editor';
+import logger from '../utils/logger';
 
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
@@ -29,18 +30,18 @@ export default class VsCode extends Editor {
     try {
       let exists = false;
       await Promise.all(
-        Object.keys(this.binaries).map(async binary => {
+        Object.keys(this.binaries).map(async (binary) => {
           if (await this.isBinary(binary)) {
             exists = true;
           }
         }),
       );
       if (exists) return true;
-      return this.appDirectory().some(directory => {
+      return this.appDirectory().some((directory) => {
         return this.isDirectorySync(directory);
       });
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       return false;
     }
   }

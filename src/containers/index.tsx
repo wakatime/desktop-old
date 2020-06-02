@@ -16,8 +16,10 @@ logger.debug(`isMainProcess ${isMainProcess ? 'true' : 'false'}`);
 if (div) {
   render(
     <Provider store={store}>
-      {/* <InstallEditors />
-    <ActiveEditors /> */}
+      {/*
+        <InstallEditors />
+        <ActiveEditors />
+      */}
 
       <Tray />
     </Provider>,

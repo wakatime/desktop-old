@@ -238,3 +238,9 @@ options.getSetting('settings', 'debug', (_error, debug) => {
     logger.debug('::WakaTime debug mode::');
   }
 });
+
+ipcMain.on('get-user-agents', async (event) => {
+  const userAgents = await api.userAgents();
+  const e = event;
+  e.returnValue = userAgents;
+});

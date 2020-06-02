@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import { ipcRenderer } from 'electron';
 
 import EditorIcon from '../EditorIcon';
 import { useStyles } from '../../themes';
@@ -91,6 +92,8 @@ const Tray = ({
     const fetchData = async () => {
       const enabledEditors = await getEditorsState(editorsList);
       ee(enabledEditors);
+
+      const userAgents = ipcRenderer.sendSync('get-user-agents');
     };
     fetchData();
   }, []); // eslint-disable-line

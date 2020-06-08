@@ -8,7 +8,7 @@
   "main": "dist/app.js",
   "scripts": {
     "dev": "npm run build && npm run watch",
-    "start": "electron dist/app.js",
+    "start": "npm run build && electron dist/app.js",
     "cache:clean": "rimraf node_modules/.cache",
     "eslint": "eslint --ext ts --ext tsx .",
     "eslint:fix": "eslint --ext ts --ext tsx --fix .",

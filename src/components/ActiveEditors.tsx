@@ -49,7 +49,7 @@ const ActiveEditors = ({ editors, enableEditors: ee, selectEditorToInstall: seti
 
   return (
     <div {...css(styles.div)}>
-      {editors.map(editor => (
+      {editors.map((editor) => (
         <div
           {...css(styles.editor)}
           onClick={() => seti({ name: editor.name, selected: !editor.isSelected })}
@@ -82,10 +82,10 @@ ActiveEditors.defaultProps = {
 };
 
 const mapStateToProps = ({ editors = [] }) => ({
-  editors: editors.filter(e => e.installed),
+  editors: editors.filter((e) => e.installed),
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       enableEditors,
@@ -95,7 +95,4 @@ const mapDispatchToProps = dispatch => {
   );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ActiveEditors);
+export default connect(mapStateToProps, mapDispatchToProps)(ActiveEditors);

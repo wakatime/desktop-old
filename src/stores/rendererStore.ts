@@ -23,9 +23,9 @@ const store = createStore(
 const onFetchMainStoreState = () => {
   store.dispatch(onRenderStoreCreated());
 };
-onFetchMainStoreState();
+// onFetchMainStoreState();
 ipcRenderer.on('message', (event: IpcRendererEvent, message) => {
   logger.debug(`[on message] ${event} ${message}`);
-  onFetchMainStoreState();
+  // onFetchMainStoreState();
 });
 export default store;

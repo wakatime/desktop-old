@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -7,9 +7,16 @@ import EditorIcon from './EditorIcon';
 import { enableEditors, selectEditorToInstall } from '../actions/rendererActions';
 import { useStyles } from '../themes';
 import { getEditorsState } from '../utils/editors';
+import Loader from './Loader';
 
 const stylesFn = () => {
   return {
+    loader: {
+      height: '100vh',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
     div: {
       display: 'flex',
       flexWrap: 'wrap',
@@ -32,11 +39,13 @@ const stylesFn = () => {
 
 const ActiveEditors = ({ editors, enableEditors: ee, selectEditorToInstall: seti }) => {
   const { css, styles } = useStyles({ stylesFn });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const enabledEditors = await getEditorsState(editors);
       ee(enabledEditors);
+      setLoading(false);
     };
     fetchData();
   }, []); // eslint-disable-line
@@ -47,6 +56,13 @@ const ActiveEditors = ({ editors, enableEditors: ee, selectEditorToInstall: seti
     seti({ name, selected });
   };
 
+  if (loading) {
+    return (
+      <div {...css(styles.loader)}>
+        <Loader />
+      </div>
+    );
+  }
   return (
     <div {...css(styles.div)}>
       {editors.map((editor) => (

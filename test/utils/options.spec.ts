@@ -13,7 +13,7 @@ chai.use(chaiAsPromised);
 const internals = {
   apiKey: '3766d456-bab3-4c63-8bf5-b439f3e43569',
 };
-describe.only('utils options', () => {
+describe('utils options', () => {
   beforeEach(async () => {
     const configFile = path.join(os.tmpdir(), '.wakatime.cfg');
     fs.writeFileSync(configFile, '');

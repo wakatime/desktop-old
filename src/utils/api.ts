@@ -19,7 +19,7 @@ export default class API {
       await this.setup();
       const response = await axios.get(`/v1/users/current/summaries?start=${start}&end=${end}`);
       if (response.status !== 200) {
-        throw new Error('Get current summaries call failed');
+        throw new Error('Failed fetching summaries from api');
       }
       return response.data;
     } catch (err) {
@@ -41,7 +41,7 @@ export default class API {
       await this.setup();
       const response = await axios.get('/v1/users/current/user_agents');
       if (response.status !== 200) {
-        throw new Error('Get current user agents call failed');
+        throw new Error('Failed fetching user agents from api');
       }
       const unique = {};
       const result = [];

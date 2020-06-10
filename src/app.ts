@@ -205,6 +205,7 @@ if (!gotTheLock) {
       tray.setContextMenu(contextMenu);
     };
 
+    await api.init();
     await setTray();
 
     setInterval(async () => {

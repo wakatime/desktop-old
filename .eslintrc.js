@@ -55,6 +55,7 @@ module.exports = {
     'no-return-await': 2,
     'no-unused-expressions': 0,
     'jsx-a11y/no-autofocus': 0,
+    'no-param-reassign': 0,
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
   },
 };

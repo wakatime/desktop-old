@@ -9,7 +9,7 @@ const makeActionCreator = (type, ...argNames) => {
     return action;
   };
 };
-export const makeActionWithMeta = meta => (type, ...argNames) => {
+export const makeActionWithMeta = (meta) => (type, ...argNames) => {
   return (...args): Action => {
     const action = { type, meta };
     argNames.forEach((_arg, index) => {

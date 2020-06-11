@@ -20,12 +20,9 @@ const store = createStore(
   initialState,
   composeEnhancers(applyMiddleware(forwardToMain, reduxLogger, crashReporter)),
 );
-const onFetchMainStoreState = () => {
-  store.dispatch(onRenderStoreCreated());
-};
-// onFetchMainStoreState();
+
 ipcRenderer.on('message', (event: IpcRendererEvent, message) => {
   logger.debug(`[on message] ${event} ${message}`);
-  // onFetchMainStoreState();
 });
+
 export default store;

@@ -1,23 +1,34 @@
-import axios from 'axios';
+import ax from 'axios';
 
 import Options from './options';
 import logger from './logger';
 
-const options = new Options();
+const op = new Options();
 const baseURL = 'https://wakatime.com/api';
 
 export default class API {
-  public async setup() {
-    const apikey = await options.getApiKeyAsync();
+  private axios;
+
+  private options;
+
+  constructor(axios = ax, options = op) {
+    this.axios = axios;
+    this.options = options;
+  }
+
+  public async init() {
+    const apikey = await this.options.getApiKeyAsync();
     const token = Buffer.from(apikey).toString('base64');
-    axios.defaults.baseURL = baseURL;
-    axios.defaults.headers.common.Authorization = `Basic ${token}`;
+    this.axios.defaults.baseURL = baseURL;
+    this.axios.defaults.headers.common.Authorization = `Basic ${token}`;
   }
 
   public async summaries(start: string, end: string) {
     try {
-      await this.setup();
-      const response = await axios.get(`/v1/users/current/summaries?start=${start}&end=${end}`);
+      await this.init();
+      const response = await this.axios.get(
+        `/v1/users/current/summaries?start=${start}&end=${end}`,
+      );
       if (response.status !== 200) {
         throw new Error('Failed fetching summaries from api');
       }
@@ -38,8 +49,8 @@ export default class API {
 
   public async userAgents() {
     try {
-      await this.setup();
-      const response = await axios.get('/v1/users/current/user_agents');
+      await this.init();
+      const response = await this.axios.get('/v1/users/current/user_agents');
       if (response.status !== 200) {
         throw new Error('Failed fetching user agents from api');
       }

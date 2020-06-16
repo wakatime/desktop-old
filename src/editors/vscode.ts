@@ -11,11 +11,11 @@ export default class VsCode extends Editor {
   private commandExists = new CommandExists();
 
   public static getName(): string {
-    return 'Visual Studio Code';
+    return 'VS Code';
   }
 
   public get name(): string {
-    return 'Visual Studio Code';
+    return 'VS Code';
   }
 
   public get icon(): string {

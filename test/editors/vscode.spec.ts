@@ -8,7 +8,7 @@ const chaiAsPromised = require('chai-as-promised');
 const { expect } = chai;
 chai.use(chaiAsPromised);
 
-describe('Visual Studio Code', () => {
+describe('VS Code', () => {
   let vscode: VsCode;
   let listExtensionsStub: any;
   let isDirectorySyncStub: any;
@@ -25,11 +25,11 @@ describe('Visual Studio Code', () => {
   });
   it('should return the correct key name', () => {
     const result = vscode.key;
-    expect(result).to.equal('visualstudiocode');
+    expect(result).to.equal('vscode');
   });
   it('should return the correct editor name', () => {
     const result = vscode.name;
-    expect(result).to.equal('Visual Studio Code');
+    expect(result).to.equal('VS Code');
   });
   it('should return the correct binary names', () => {
     const result = vscode.binaries;

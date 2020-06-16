@@ -14,14 +14,21 @@ const stylesFn = () => {
       marginBottom: '1rem',
       textAlign: 'center',
     },
+    installSelected: {
+      marginBottom: '1rem',
+      textAlign: 'center',
+      position: 'fixed',
+      width: '100%',
+    },
   };
 };
 
 const InstallEditors = ({ editors, setEditorEnabled: see, clearSelectEditors: cse }) => {
   const [installing, setInstalling] = useState(false);
   const { css, styles } = useStyles({ stylesFn });
+  const selected = editors.filter((e) => e.isSelected);
 
-  const installPlugin = async editor => {
+  const installPlugin = async (editor) => {
     // try to install the plugin and check if it was installed or not
     await editor.instance.installPlugin();
     const editorInstalled = await editor.instance.isPluginInstalled();
@@ -40,7 +47,7 @@ const InstallEditors = ({ editors, setEditorEnabled: see, clearSelectEditors: cs
     if (confirmation) {
       setInstalling(true);
       const editorsToInstall = [];
-      editors.map(editor => {
+      editors.map((editor) => {
         if (editor.isSelected && !editor.enabled) {
           editorsToInstall.push(installPlugin(editor));
         }
@@ -54,12 +61,16 @@ const InstallEditors = ({ editors, setEditorEnabled: see, clearSelectEditors: cs
 
   return (
     <div {...css(styles.div)}>
-      <Button
-        text="Install"
-        onClick={installAllEditors}
-        enabled={!installing}
-        loading={installing}
-      />
+      {selected.length > 0 && (
+        <div {...css(styles.installSelected)}>
+          <Button
+            text="Install"
+            onClick={installAllEditors}
+            enabled={!installing}
+            loading={installing}
+          />
+        </div>
+      )}
     </div>
   );
 };
@@ -77,10 +88,10 @@ InstallEditors.defaultProps = {
 };
 
 const mapStateToProps = ({ editors = [] }) => ({
-  editors: editors.filter(e => e.installed),
+  editors: editors.filter((e) => e.installed),
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       setEditorEnabled,
@@ -90,7 +101,4 @@ const mapDispatchToProps = dispatch => {
   );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(InstallEditors);
+export default connect(mapStateToProps, mapDispatchToProps)(InstallEditors);

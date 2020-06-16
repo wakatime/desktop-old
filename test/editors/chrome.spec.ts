@@ -8,7 +8,7 @@ const chaiAsPromised = require('chai-as-promised');
 const { expect } = chai;
 chai.use(chaiAsPromised);
 
-describe('Google Chrome', () => {
+describe('Chrome', () => {
   let chrome: Chrome;
   let isDirectoryStub: any;
 
@@ -21,11 +21,11 @@ describe('Google Chrome', () => {
   });
   it('should return the correct key name', () => {
     const result = chrome.key;
-    expect(result).to.equal('googlechrome');
+    expect(result).to.equal('chrome');
   });
   it('should return the correct editor name', () => {
     const result = chrome.name;
-    expect(result).to.equal('Google Chrome');
+    expect(result).to.equal('Chrome');
   });
   it('should return TRUE if editor is installed', async () => {
     isDirectoryStub.resolves(true);

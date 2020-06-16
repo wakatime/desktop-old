@@ -8,11 +8,11 @@ import logger from '../utils/logger';
 
 export default class Chrome extends Editor {
   public static getName(): string {
-    return 'Google Chrome';
+    return 'Chrome';
   }
 
   public get name(): string {
-    return 'Google Chrome';
+    return 'Chrome';
   }
 
   public get extVersionId(): string {

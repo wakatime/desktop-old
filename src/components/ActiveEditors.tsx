@@ -90,7 +90,7 @@ const ActiveEditors = ({ editors, enableEditors: ee, selectEditorToInstall: seti
   if (loading) {
     return (
       <div {...css(styles.loader)}>
-        <Loader />
+        <Loader size="medium" />
       </div>
     );
   }

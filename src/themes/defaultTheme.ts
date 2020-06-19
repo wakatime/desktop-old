@@ -12,5 +12,13 @@ export default {
       height: '15px',
       animation: 'spin 2s linear infinite',
     },
+    medium: {
+      border: '2px solid #f3f3f3',
+      borderTop: '2px solid #3498db',
+      borderRadius: '50%',
+      width: '25px',
+      height: '25px',
+      animation: 'spin 2s linear infinite',
+    },
   },
 };

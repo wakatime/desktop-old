@@ -85,6 +85,7 @@
     "foreman": "3.x",
     "html-webpack-plugin": "4.x",
     "lodash": "4.x",
+    "moment-timezone": "^0.5.31",
     "plist": "3.x",
     "prop-types": "15.x",
     "react": "16.x",

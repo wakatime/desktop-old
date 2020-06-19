@@ -20,6 +20,10 @@ const initialState = Object.values(editors).reduce((accum, Val) => {
     img: imgPathMap[instance.name],
     instance,
     isSelected: false,
+    lastSeen: null,
+    os: null,
+    version: null,
+    value: null,
   });
   return accum;
 }, []);
@@ -29,7 +33,7 @@ const handlers = {
     return action.payload || state;
   },
   [SELECT_EDITOR_TO_INSTALL]: (state = [], action: FSA<any>) => {
-    return state.map(editor => {
+    return state.map((editor) => {
       const newEditor = { ...editor };
       if (newEditor.name === action.payload.name) {
         newEditor.isSelected = action.payload.selected;
@@ -38,7 +42,7 @@ const handlers = {
     });
   },
   [SET_EDITOR_ENABLED]: (state = [], action: FSA<any>) => {
-    const editorsList = state.map(editor => {
+    const editorsList = state.map((editor) => {
       const newEditor = { ...editor };
       if (newEditor.name === action.payload.name) {
         newEditor.enabled = action.payload.enabled;
@@ -48,7 +52,7 @@ const handlers = {
     return orderByInstalledPlugin(editorsList);
   },
   [CLEAR_SELECT_EDITORS]: (state = [], action: FSA<any>) => {
-    return state.map(editor => {
+    return state.map((editor) => {
       const newEditor = { ...editor };
       newEditor.isSelected = false;
       return newEditor;

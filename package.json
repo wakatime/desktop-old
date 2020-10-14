@@ -84,7 +84,7 @@
     "find-in-files": "0.x",
     "foreman": "3.x",
     "html-webpack-plugin": "4.x",
-    "lodash": "4.x",
+    "lodash": "^4.17.20",
     "moment-timezone": "^0.5.31",
     "plist": "3.x",
     "prop-types": "15.x",

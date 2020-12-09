@@ -45,13 +45,13 @@ export default class Eclipse extends Editor {
 
     const file = fs.createWriteStream(temp);
 
-    await new Promise((resolve, reject) => {
+    await new Promise((_, reject) => {
       request({
         uri: `https://github.com/wakatime/eclipse-wakatime/raw/master/update-site/plugins/${this.pluginVersion}`,
       })
         .pipe(file)
         .on('finish', async () => {
-          resolve();
+          Promise.resolve();
         })
         .on('error', (err: any) => {
           logger.error(err);

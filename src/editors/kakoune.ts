@@ -43,7 +43,7 @@ export default class Kakoune extends Editor {
     temp = path.join(temp, 'wakatime.kak');
     const file = fs.createWriteStream(temp);
 
-    await new Promise((resolve, reject) => {
+    await new Promise((_, reject) => {
       request({
         uri: 'https://raw.githubusercontent.com/WhatNodyn/kakoune-wakatime/master/wakatime.kak',
         gzip: true,
@@ -55,7 +55,7 @@ export default class Kakoune extends Editor {
           const stream2 = await fs.createReadStream(temp);
           await stream2.pipe(fileStream);
           fs.unlinkSync(temp);
-          resolve();
+          Promise.resolve();
         })
         .on('error', (err: any) => {
           logger.error(err);

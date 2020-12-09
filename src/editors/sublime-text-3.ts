@@ -38,7 +38,7 @@ export default class SublimeText3 extends Editor {
 
     const file = fs.createWriteStream(temp);
 
-    await new Promise((resolve, reject) => {
+    await new Promise((_, reject) => {
       request({
         uri: 'https://codeload.github.com/wakatime/sublime-wakatime/zip/master',
         gzip: true,
@@ -57,7 +57,7 @@ export default class SublimeText3 extends Editor {
               path.join(pluginsDirectory, 'WakaTime'),
             );
             fs.unlinkSync(temp);
-            resolve();
+            Promise.resolve();
           });
         })
         .on('error', (err: any) => {

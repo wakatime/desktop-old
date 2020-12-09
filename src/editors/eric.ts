@@ -55,7 +55,7 @@ export default class Eric extends Editor {
     temp = path.join(temp, 'PluginWakaTime.py');
     const file = fs.createWriteStream(temp);
 
-    await new Promise((resolve, reject) => {
+    await new Promise((_, reject) => {
       request({
         uri: 'https://raw.githubusercontent.com/wakatime/eric6-wakatime/master/PluginWakaTime.py',
         gzip: true,
@@ -69,7 +69,7 @@ export default class Eric extends Editor {
             await stream2.pipe(fileStream);
           });
           fs.unlinkSync(temp);
-          resolve();
+          Promise.resolve();
         })
         .on('error', (err: any) => {
           logger.error(err);

@@ -20,13 +20,13 @@ export const installJetbrainsPlugin = async (pluginsDirectory: string): Promise<
 
   const file = fs.createWriteStream(temp);
 
-  await new Promise((resolve, reject) => {
+  await new Promise((_, reject) => {
     request({
       uri: 'https://plugins.jetbrains.com/files/7425/51419/WakaTime.jar',
     })
       .pipe(file)
       .on('finish', async () => {
-        resolve();
+        Promise.resolve();
       })
       .on('error', (err: any) => {
         logger.error(err);

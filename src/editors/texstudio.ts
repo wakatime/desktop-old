@@ -38,7 +38,7 @@ export default class TeXstudio extends Editor {
     temp = path.join(temp, 'install.py');
     const file = fs.createWriteStream(temp);
 
-    await new Promise((resolve, reject) => {
+    await new Promise((_, reject) => {
       request({
         uri: 'https://raw.githubusercontent.com/wakatime/texstudio-wakatime/master/install.py',
         gzip: true,
@@ -57,7 +57,7 @@ export default class TeXstudio extends Editor {
           });
           logger.debug(output);
           fs.unlinkSync(temp);
-          resolve();
+          Promise.resolve();
         })
         .on('error', (err: any) => {
           logger.error(err);

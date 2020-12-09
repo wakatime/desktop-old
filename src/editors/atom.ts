@@ -60,7 +60,7 @@ export default class Atom extends Editor {
 
     const file = fs.createWriteStream(temp);
 
-    await new Promise((resolve, reject) => {
+    await new Promise((_, reject) => {
       request({
         uri: 'https://github.com/wakatime/atom-wakatime/archive/v7.1.1.zip',
         gzip: true,
@@ -83,7 +83,7 @@ export default class Atom extends Editor {
             await exec(`npm i --prefix ${path.join(pluginsDirectory, 'wakatime')}`);
 
             fs.unlinkSync(temp);
-            resolve();
+            Promise.resolve();
           });
         })
         .on('error', (err: any) => {

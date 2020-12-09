@@ -47,7 +47,7 @@ export default class Processing extends Editor {
 
     const file = fs.createWriteStream(temp);
 
-    await new Promise((resolve, reject) => {
+    await new Promise((_, reject) => {
       request({
         uri:
           'https://github.com/devgianlu/processing-wakatime/releases/latest/download/processing-wakatime-deploy.zip',
@@ -59,7 +59,7 @@ export default class Processing extends Editor {
           const stream2 = await fs.createReadStream(temp);
           await stream2.pipe(Extract({ path: pluginsDirectory })).on('close', () => {
             fs.unlinkSync(temp);
-            resolve();
+            Promise.resolve();
           });
         })
         .on('error', (err: any) => {

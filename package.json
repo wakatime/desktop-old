@@ -101,7 +101,7 @@
     "rimraf": "3.x",
     "ts-loader": "8.0.11",
     "unzipper": "0.x",
-    "webpack": "5.10.0",
+    "webpack": "5.76.0",
     "winreg": "1.x",
     "yarn": "1.x"
   },

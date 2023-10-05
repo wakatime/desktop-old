@@ -79,7 +79,7 @@
   "dependencies": {
     "aphrodite": "2.x",
     "axios": "^0.21.0",
-    "electron": "11.0.4",
+    "electron": "22.3.25",
     "electron-devtools-installer": "3.x",
     "find-in-files": "0.x",
     "foreman": "3.x",

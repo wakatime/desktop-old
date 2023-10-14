@@ -1,5 +1,9 @@
 # WakaTime Desktop Application
 
+
+Note: this project is nit finished and not uet working.
+
+
 A universal installer for all WakaTime [plugins][plugins].
 
 ## Installation

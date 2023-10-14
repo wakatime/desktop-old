@@ -1,7 +1,7 @@
 # WakaTime Desktop Application
 
 
-Note: this project is nit finished and not uet working.
+Note: this project is not finished and not yet working.
 
 
 A universal installer for all WakaTime [plugins][plugins].
